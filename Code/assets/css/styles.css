@@ -1,0 +1,193 @@
+/* General Styling */
+body {
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header Section */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #008080; /* Teal */
+    color: white;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Required for absolute centering */
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+.header-center h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Language and Action Buttons (Login/Register) */
+.language-btn,
+.btn-secondary,
+#loginBtn, /* Login Button */
+#registerBtn { /* Register Button */
+    background-color: white;
+    color: #008080; /* Teal */
+    border: 2px solid white;
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 5px 15px;
+    margin: 0 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.language-btn:hover,
+.btn-secondary:hover,
+#loginBtn:hover,
+#registerBtn:hover {
+    background-color: #FFA500; /* Secondary (Orange) */
+    color: white;
+    border: 2px solid #FFA500;
+}
+
+/* Main Content Section */
+.main-container {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.mode-selector h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.mode-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Mode Buttons (Vocal and Ear Training) */
+.mode-btn {
+    background-color: #008080; /* Teal */
+    color: white;
+    border-radius: 20px;
+    padding: 15px 0; /* Vertically centers text */
+    width: 200px;
+    height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent; /* Transparent border to prevent resizing */
+}
+
+.mode-btn:hover {
+    background-color: #006666; /* Darker teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFA500; /* Orange border on hover */
+}
+
+/* Modal (Registration & Login) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    max-height: 45%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+/* Modal Content */
+.modal-content {
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: #008080; /* Teal */
+    margin-bottom: 20px;
+}
+
+/* Close Button */
+.close {
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Input Fields */
+.form-control,
+#registerModal input,
+#loginModal input {
+    margin-bottom: 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Registration & Login Modal Buttons */
+#registerModal button,
+#loginModal button {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #008080; /* Teal */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #008080;
+    transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px 0;
+    box-sizing: border-box;
+    max-width: 300px;
+}
+
+#registerModal button:hover,
+#loginModal button:hover {
+    background-color: #006666; /* Darker teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Text and Links for Modal */
+#registerModal p {
+    font-size: 14px;
+}
+
+.modal-content h3 {
+    font-size: 1.5rem;
+}
+
+/* Form Elements
