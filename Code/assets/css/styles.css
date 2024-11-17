@@ -190,4 +190,14 @@ body {
     font-size: 1.5rem;
 }
 
+.frame
+{
+    text-align: center;
+}
+.mascotte
+{
+    width: 500px;
+    height: 500px;
+}
+
 /* Form Elements
