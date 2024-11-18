@@ -69,36 +69,29 @@ function checkRegister(user,password){
 
 
 document.getElementById('Login').addEventListener('click', function() {
-  const user = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
+  const user = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
   const informationElem = document.getElementById('information');
-  if (user ===""||password===""){
-    informationElem.innerText =  'Fill both';
-  }
-  else{
-    informationElem.innerText =  'Creando usuario';
-    console.log("user:", user);
-    console.log("Password:", password);
-
-    checkLogin(user,password);
+  if (user === "" || password === "") {
+      informationElem.style.display = 'block';
+      informationElem.innerText = 'Fill both fields';
+  } else {
+      checkLogin(user, password);
   }
 });
 
 document.getElementById('Register').addEventListener('click', function() {
-  const user = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
+  const user = document.getElementById('registerUsername').value.trim();
+  const password = document.getElementById('registerPassword').value.trim();
   const informationElem = document.getElementById('information');
-  if (user ===""||password===""){
-    informationElem.innerText =  'Fill both';
-  }
-  else{
-    informationElem.innerText =  'Good';
-    console.log("user:", user);
-    console.log("Password:", password);
-
-    checkRegister(user,password);
+  if (user === "" || password === "") {
+      informationElem.style.display = 'block';
+      informationElem.innerText = 'Fill both fields';
+  } else {
+      checkRegister(user, password);
   }
 });
+
 
 // CONTROL
 
