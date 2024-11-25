@@ -9,6 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Firebase and Script -->
+    <script type="module" src="assets/js/server.js"></script> 
+    <script src="assets/js/script.js" defer></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -19,22 +22,26 @@
         </div>
         
         <div class="header-center">
-            <h1>Actam Project</h1>
+            <h1 data-translate="title">Actam Project</h1>
         </div>
         
         <div class="header-right">
-            <button id="loginBtn" class="btn btn-secondary" onclick="openLoginModal()">Login</button>
-            <button id="registerBtn" class="btn btn-primary" onclick="openRegisterModal()">Register</button>
+            <button id="loginBtn" class="btn btn-secondary" onclick="openLoginModal()" data-translate="loginBtn">Login</button>
+            <button id="registerBtn" class="btn btn-primary" onclick="openRegisterModal()" data-translate="registerBtn">Register</button>
         </div>
     </header>
+
+    <div class="frame">
+        <img class="mascotte" src="/Code/assets/img/unnamed.png">
+    </div>
 
     <!-- Main Content Section -->
     <main class="main-container">
         <div class="mode-selector">
-            <h2>What would you like to train today?</h2>
+            <h2 data-translate="trainPrompt">What would you like to train today?</h2>
             <div class="mode-buttons">
-                <a href="vocal-training/index.html" class="btn btn-primary mode-btn">Vocal Training</a>
-                <a href="ear-training/index.html" class="btn btn-secondary mode-btn">Ear Training</a>
+                <a href="vocal-training/index.html" class="btn btn-primary mode-btn" data-translate="vocalTraining">Vocal Training</a>
+                <a href="ear-training/index.html" class="btn btn-secondary mode-btn" data-translate="earTraining">Ear Training</a>
             </div>
         </div>
     </main>
@@ -43,38 +50,36 @@
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('registerModal')">&times;</span>
-            <h3>Create an Account</h3>
-            <form id="registerForm" onsubmit="handleRegister(event)">
-                <input type="text" id="username" name="username" placeholder="Username" required><br>
-                <input type="email" id="email" name="email" placeholder="Email" required><br>
-                <!-- Do we want to really register the mail? -->
-                <input type="password" id="password" name="password" placeholder="Password" required><br>
-                <button type="submit" class="btn-secondary">Register</button>
+            <h3 data-translate="createAccount">Create an Account</h3>
+            <form id="registerForm">
+                <input type="text" id="registerUsername" name="username" placeholder="Username" required><br>
+                <input type="password" id="registerPassword" name="password" placeholder="Password" required><br>
+                <button type="button" id="Register" class="btn btn-secondary" data-translate="registerBtn">Register</button>
             </form>
-            <p>Already have an account? <a href="#" onclick="openLoginModal()">Login</a></p>
+            <p data-translate="alreadyHaveAccount">Already have an account? <a href="#" onclick="openLoginModal()" data-translate="login">Login</a></p>
         </div>
     </div>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
-            <h3>Login</h3>
-            <form>
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h3 data-translate="loginHeader">Login</h3>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" class="form-control" placeholder="Enter your username">
+                    <label for="loginUsername" data-translate="usernameLabel">Username:</label>
+                    <input type="text" id="loginUsername" class="form-control" placeholder="Enter your username" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                    <label for="loginPassword" data-translate="passwordLabel">Password:</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="button" id="Login" class="btn btn-primary" data-translate="loginBtn">Login</button>
             </form>
         </div>
     </div>
 
-    <!-- Custom JavaScript -->
-    <script src="assets/js/script.js"></script>
+    <!-- Information Section -->
+    <div id="information" class="alert alert-info" style="display: none;"></div>
 </body>
 </html>
