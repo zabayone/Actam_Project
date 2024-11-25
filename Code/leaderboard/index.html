@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    
+    <p id="information">Cenutrio</p>
+
+    <h1>Leaderboard</h1>
+    <table id="leaderboard-table" border="1">
+        <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Usuario</th>
+            <th>Puntuación</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Las filas de la tabla se añadirán dinámicamente -->
+        </tbody>
+    </table>
+
+    <div id="score-update">
+        <input type="number" id="new-score" placeholder="Enter your score" />
+        <button id="update-score-btn">Update Score</button>
+      </div>
+
+
+    <script type="module" src="leaderboard.js"></script> 
+</body>
+</html>
