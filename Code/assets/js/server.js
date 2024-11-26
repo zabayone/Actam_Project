@@ -25,7 +25,15 @@ function checkLogin(user, password) {
             if (doc.data().password === password) {
                 informationElem.style.display = 'block';
                 informationElem.innerText = `Welcome back, ${user}!`;
-                document.getElementById('information').innerText=("Welcome back "+user + "!");
+
+                // Store the username in localStorage (or sessionStorage)
+                localStorage.setItem('username', user); // Store in localStorage
+
+                // Optionally, update the header immediately
+                document.getElementById('information').innerText = `Welcome back, ${user}!`;
+                
+                // You could also redirect to another page after successful login if desired
+                // window.location.href = "/Code/ear-training/level.html?level=1"; // Example redirect
             } else {
                 informationElem.style.display = 'block';
                 informationElem.innerText = "Wrong password.";

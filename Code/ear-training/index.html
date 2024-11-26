@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/Code/assets/css/styles.css">
     <!-- Firebase and Script -->
     <script type="module" src="/Code/assets/js/script.js" defer></script>
+    <script type="module" src="/Code/assets/js/server.js" defer></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -25,6 +26,7 @@
         </div>
 
         <div class="header-right">
+            <!-- Display the username here -->
             <p id="information">Guest</p>
         </div>
     </header>
@@ -34,10 +36,10 @@
         <div class="mode-selector">
             <h2 data-translate="trainPrompt">What would you like to train today?</h2>
             <div class="stack">
-                <a class="btn btn-primary ex-btn" data-translate="Intervals" href="/Code/ear-training/intervals.html">Intervals</a>
-                <a class="btn btn-primary ex-btn" data-translate="Chords" href="/Code/ear-training/chords.html">Chords</a>
-                <a class="btn btn-primary ex-btn" data-translate="Scales" href="/Code/ear-training/scales.html">Scales</a>
-                <a class="btn btn-primary ex-btn" data-translate="Sandbox" href="/Code/ear-training/sandbox.html">Sandbox</a>
+                <a data-translate="intervals" class="btn btn-primary ex-btn" data-translate="Intervals" href="/Code/ear-training/intervals.html">Intervals</a>
+                <a data-translate="chords" class="btn btn-primary ex-btn" data-translate="Chords" href="/Code/ear-training/chords.html">Chords</a>
+                <a data-translate="scales" class="btn btn-primary ex-btn" data-translate="Scales" href="/Code/ear-training/scales.html">Scales</a>
+                <a data-translate="sandbox" class="btn btn-primary ex-btn" data-translate="Sandbox" href="/Code/ear-training/sandbox.html">Sandbox</a>
             </div>
         </div>
     </main>
