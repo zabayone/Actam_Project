@@ -1,7 +1,8 @@
 import 'https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js';
 import 'https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js';
 
-// DB SETUP
+
+// Firebase DB Setup
 const firebaseConfig = {
     apiKey: "AIzaSyCnIRvU2nGB4OnQhKOBLfz6feoM2qup21Y",
     authDomain: "usarnames-313c5.firebaseapp.com",
@@ -16,7 +17,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Login Function
+// Check Login Function
 function checkLogin(user, password) {
     const informationElem = document.getElementById('information');
     db.collection("Usernames").doc(user).get().then(doc => {
@@ -24,6 +25,7 @@ function checkLogin(user, password) {
             if (doc.data().password === password) {
                 informationElem.style.display = 'block';
                 informationElem.innerText = `Welcome back, ${user}!`;
+                document.getElementById('information').innerText=("Welcome back "+user + "!");
             } else {
                 informationElem.style.display = 'block';
                 informationElem.innerText = "Wrong password.";
@@ -39,7 +41,7 @@ function checkLogin(user, password) {
     });
 }
 
-// Register Function
+// Check Register Function
 function checkRegister(user, password) {
     const informationElem = document.getElementById('information');
     db.collection("Usernames").doc(user).get().then(doc => {
@@ -68,8 +70,8 @@ function checkRegister(user, password) {
 
 // Event Listeners
 document.getElementById('Login').addEventListener('click', function() {
-    const user = document.getElementById('loginUsername').value.trim();
-    const password = document.getElementById('loginPassword').value.trim();
+    const user = document.getElementById('authUsername').value.trim();
+    const password = document.getElementById('authPassword').value.trim();
     const informationElem = document.getElementById('information');
     if (user === "" || password === "") {
         informationElem.style.display = 'block';
@@ -80,8 +82,8 @@ document.getElementById('Login').addEventListener('click', function() {
 });
 
 document.getElementById('Register').addEventListener('click', function() {
-    const user = document.getElementById('registerUsername').value.trim();
-    const password = document.getElementById('registerPassword').value.trim();
+    const user = document.getElementById('authUsername').value.trim();
+    const password = document.getElementById('authPassword').value.trim();
     const informationElem = document.getElementById('information');
     if (user === "" || password === "") {
         informationElem.style.display = 'block';
@@ -90,3 +92,4 @@ document.getElementById('Register').addEventListener('click', function() {
         checkRegister(user, password);
     }
 });
+

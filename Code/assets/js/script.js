@@ -1,4 +1,3 @@
-
 const translations = {
     en: {
         title: "Actam Project",
@@ -7,13 +6,15 @@ const translations = {
         trainPrompt: "What would you like to train today?",
         vocalTraining: "Vocal Training",
         earTraining: "Ear Training",
+        arcade: "Arcade", // Fixed this key to match the button for "Arcade"
         createAccount: "Create an Account",
-        registerBtn: "Register",
         alreadyHaveAccount: "Already have an account?",
         login: "Login",
         loginHeader: "Login",
         usernameLabel: "Username:",
-        passwordLabel: "Password:"
+        passwordLabel: "Password:",
+        authentication: "Autentication",
+        guest: "Guest",
     },
     it: {
         title: "Progetto Actam",
@@ -22,44 +23,40 @@ const translations = {
         trainPrompt: "Cosa vuoi allenare oggi?",
         vocalTraining: "Allenamento Vocale",
         earTraining: "Allenamento Uditivo",
+        arcade: "Arcade", // Fixed this key to match the button for "Arcade"
         createAccount: "Crea un Account",
-        registerBtn: "Registrati",
         alreadyHaveAccount: "Hai già un account?",
         login: "Accedi",
         loginHeader: "Accedi",
         usernameLabel: "Nome utente:",
-        passwordLabel: "Password:"
+        passwordLabel: "Password:",
+        authentication: "Autenticazione",
+        guest: "Ospite",
     }
 };
 
-// JavaScript for Login Modal and Language Selector
+// JavaScript for handling language changes and updating text content
 document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.getElementById('loginBtn');
-    const loginModal = document.getElementById('loginModal');
-    const closeModal = document.getElementById('closeModal');
-
-    // Open modal
-    loginBtn.addEventListener('click', () => {
-        loginModal.style.display = 'block';
+    // Add event listeners for the language buttons
+    const languageButtons = document.querySelectorAll('.language-btn');
+    languageButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Get the language code from the button's data-language attribute
+            const language = button.getAttribute('onclick').match(/'([^']+)'/)[1]; // Extract language from the onclick handler
+            setLanguage(language); // Call the setLanguage function
+        });
     });
 
-    // Close modal
-    closeModal.addEventListener('click', () => {
-        loginModal.style.display = 'none';
-    });
-
-    // Close modal when clicking outside
-    window.addEventListener('click', (event) => {
-        if (event.target === loginModal) {
-            loginModal.style.display = 'none';
-        }
-    });
+    // Set default language
+    setLanguage('en');
 });
 
-// Function to handle language change (optional functionality)
+// Function to set the language
 function setLanguage(language) {
     // Get all elements with the "data-translate" attribute
     const elements = document.querySelectorAll('[data-translate]');
+    
+    // Loop through each element and set the text based on the selected language
     elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[language] && translations[language][key]) {
@@ -68,21 +65,16 @@ function setLanguage(language) {
     });
 }
 
-// Default language is English
-setLanguage('en');
-// Open Login Modal
-function openLoginModal() {
-    document.getElementById("loginModal").style.display = "block";
-    document.getElementById("registerModal").style.display = "none"; // Close registration modal
-}
-
-// Open Register Modal
-function openRegisterModal() {
-    document.getElementById("registerModal").style.display = "block";
-    document.getElementById("loginModal").style.display = "none"; // Close login modal
-}
-
-// Close Modal
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none";
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners to level buttons
+    const levelButtons = document.querySelectorAll('.level-btn');
+    levelButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Get the level data from the button's data-level attribute
+            const level = button.getAttribute('data-level');
+            
+            // Redirect to the level page with the level number in the query string
+            window.location.href = '/Code/ear-training/level.html?level=' + level;
+        });
+    });
+});

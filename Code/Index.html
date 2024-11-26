@@ -10,8 +10,8 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Firebase and Script -->
-    <script type="module" src="assets/js/server.js"></script> 
-    <script src="assets/js/script.js" defer></script>
+    <script type="module" src="assets/js/server.js" defer></script>
+    <script type="module" src="assets/js/script.js" defer></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -24,62 +24,44 @@
         <div class="header-center">
             <h1 data-translate="title">Actam Project</h1>
         </div>
-        
+
         <div class="header-right">
-            <button id="loginBtn" class="btn btn-secondary" onclick="openLoginModal()" data-translate="loginBtn">Login</button>
-            <button id="registerBtn" class="btn btn-primary" onclick="openRegisterModal()" data-translate="registerBtn">Register</button>
+            <p id="information" data-translate="guest"> Guest </p>
         </div>
     </header>
 
-    <div class="frame">
-        <img class="mascotte" src="/Code/assets/img/unnamed.png">
-    </div>
+    <!-- Mascotte Section (Centered) -->
+    <main class="mascotte">
+        <div class="frame">
+            <img class="mascotte" src="/Code/assets/img/unnamed.png" alt="Mascotte">
+        </div>
+    </main>
 
     <!-- Main Content Section -->
     <main class="main-container">
         <div class="mode-selector">
-            <h2 data-translate="trainPrompt">What would you like to train today?</h2>
+            <h2 data-translate="trainPrompt">Ear Training</h2>
             <div class="mode-buttons">
                 <a href="vocal-training/index.html" class="btn btn-primary mode-btn" data-translate="vocalTraining">Vocal Training</a>
-                <a href="ear-training/index.html" class="btn btn-secondary mode-btn" data-translate="earTraining">Ear Training</a>
+                <a href="ear-training/index.html" class="btn btn-primary mode-btn" data-translate="earTraining">Ear Training</a>
+                <a href="arcade/index.html" class="btn btn-primary mode-btn" data-translate="arcade">Arcade</a> <!-- Added Arcade button -->
             </div>
         </div>
     </main>
 
-    <!-- Registration Modal -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('registerModal')">&times;</span>
-            <h3 data-translate="createAccount">Create an Account</h3>
-            <form id="registerForm">
-                <input type="text" id="registerUsername" name="username" placeholder="Username" required><br>
-                <input type="password" id="registerPassword" name="password" placeholder="Password" required><br>
+    <!-- Authentication Section -->
+    <aside class="auth-section">
+        <h3 data-translate="authentication"> Authentication </h3>
+        <form id="authForm">
+            <input type="text" id="authUsername" class="form-control" placeholder="Username" required>
+            <input type="password" id="authPassword" class="form-control" placeholder="Password" required>
+            <div class="auth-buttons">
+                <button type="button" id="Login" class="btn btn-primary">Login</button>
                 <button type="button" id="Register" class="btn btn-secondary" data-translate="registerBtn">Register</button>
-            </form>
-            <p data-translate="alreadyHaveAccount">Already have an account? <a href="#" onclick="openLoginModal()" data-translate="login">Login</a></p>
-        </div>
-    </div>
+            </div>
+        </form>
+        <div id="information" class="alert alert-info" style="display: none;"></div>
+    </aside>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            <h3 data-translate="loginHeader">Login</h3>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginUsername" data-translate="usernameLabel">Username:</label>
-                    <input type="text" id="loginUsername" class="form-control" placeholder="Enter your username" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword" data-translate="passwordLabel">Password:</label>
-                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
-                </div>
-                <button type="button" id="Login" class="btn btn-primary" data-translate="loginBtn">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Information Section -->
-    <div id="information" class="alert alert-info" style="display: none;"></div>
 </body>
 </html>
