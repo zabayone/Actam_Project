@@ -17,7 +17,7 @@ async function checkLogin(user, password) {
     if (docSnap.exists()) {
       if (docSnap.data().password === password) {
         localStorage.setItem('currentUser', user); 
-        window.location.href =  '../leaderboard/index.html';
+       // window.location.href =  '../leaderboard/index.html';
       } else {
         informationElem.innerText = "Wrong Password";  // Contraseña incorrecta
       }
@@ -47,7 +47,7 @@ async function checkRegister(user, password) {
       console.log("Colección y documento creados!");
       informationElem.innerText = "User registered successfully!";
       localStorage.setItem('currentUser', user); 
-      window.location.href = '../leaderboard/index.html';
+      //window.location.href = '../leaderboard/index.html';
     }
   } catch (error) {
     console.error("Error al crear el documento:", error);
@@ -57,8 +57,8 @@ async function checkRegister(user, password) {
 
 // Evento de login
 document.getElementById('Login').addEventListener('click', function() {
-  const user = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
+  const user = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
   const informationElem = document.getElementById('information');
   
   if (user === "" || password === "") {
@@ -72,8 +72,8 @@ document.getElementById('Login').addEventListener('click', function() {
 
 // Evento de registro
 document.getElementById('Register').addEventListener('click', function() {
-  const user = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
+  const user = document.getElementById('registerUsername').value.trim();
+  const password = document.getElementById('registerPassword').value.trim();
   const informationElem = document.getElementById('information');
   
   if (user === "" || password === "") {
