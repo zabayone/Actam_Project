@@ -108,11 +108,29 @@ document.addEventListener('DOMContentLoaded', () => {
     levelButtons.forEach(button => {
         button.addEventListener('click', () => {
             const level = button.getAttribute('data-level');
-            // Redirect to the level page with the level number in the query string
-            window.location.href = '/Code/ear-training/level.html?level=' + level;
+            let targetUrl = '/Code/ear-training/level.html'; // Default target URL
+            
+            // Check for specific levels and modify the target URL accordingly
+            switch (level) {
+                case '1':
+                    targetUrl = '/Code/ear-training/intervals_level.html'; // Redirect to intervals_level.html
+                    break;
+                case '2':
+                    targetUrl = '/Code/ear-training/chords_level.html'; // Redirect to chords_level.html
+                    break;
+                case '3':
+                    targetUrl = '/Code/ear-training/scales_level.html'; // Redirect to scales_level.html
+                    break;
+                default:
+                    targetUrl = '/Code/ear-training/level.html'; // Default generic level page
+            }
+
+            // Redirect to the appropriate level page with the level number in the query string
+            window.location.href = targetUrl + '?level=' + level;
         });
     });
 });
+
 
 // Check if the user is logged in and update the header information accordingly
 document.addEventListener('DOMContentLoaded', () => {

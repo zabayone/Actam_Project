@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actam - Vocal & Ear Training</title>
+    <title>Level</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,6 +12,7 @@
     <!-- Firebase and Script -->
     <script type="module" src="/Code/assets/js/script.js" defer></script>
     <script type="module" src="/Code/assets/js/server.js" defer></script>
+    
 </head>
 <body>
     <!-- Header Section -->
@@ -25,7 +26,7 @@
         </div>
         
         <div class="header-center">
-            <h1 data-translate="earTraining">Ear Training</h1>
+            <h1 data-translate="scales">Scales</h1>
         </div>
 
         <div class="header-right">
@@ -36,16 +37,27 @@
 
     <!-- Main Content Section -->
     <main class="main-container">
-        <div class="mode-selector">
-            <h2 data-translate="trainPrompt">What would you like to train today?</h2>
-            <div class="stack">
-                <a data-translate="intervals" class="btn btn-primary ex-btn" data-translate="Intervals" href="/Code/ear-training/intervals.html">Intervals</a>
-                <a data-translate="chords" class="btn btn-primary ex-btn" data-translate="Chords" href="/Code/ear-training/chords.html">Chords</a>
-                <a data-translate="scales" class="btn btn-primary ex-btn" data-translate="Scales" href="/Code/ear-training/scales.html">Scales</a>
-                <a data-translate="sandbox" class="btn btn-primary ex-btn" data-translate="Sandbox" href="/Code/ear-training/sandbox.html">Sandbox</a>
-            </div>
+        <div class="level-info">
+            <h2>Level Information</h2>
+            <p id="levelDescription">Loading...</p>
         </div>
     </main>
+
+    <script>
+        // Get the URL parameters (level number)
+        const urlParams = new URLSearchParams(window.location.search);
+        const level = urlParams.get('level');
+
+        // Update the page based on the level parameter
+        const levelDescription = document.getElementById('levelDescription');
+        
+        // Example: You can display different information or load different content based on the level
+        if (level) {
+            levelDescription.textContent = `You have selected Level ${level}. Now proceed with the tasks for this level.`;
+        } else {
+            levelDescription.textContent = 'No level selected.';
+        }
+    </script>
 
 </body>
 </html>
