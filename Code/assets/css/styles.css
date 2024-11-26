@@ -264,4 +264,8 @@ body {
     .level-btn:active {
         background-color: #004d40; /* Even darker teal on active */
     }
-    
+
+    .home-img {
+        height: 40px;
+        width: 40px;
+    }
