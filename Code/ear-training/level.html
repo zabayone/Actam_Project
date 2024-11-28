@@ -43,21 +43,5 @@
         </div>
     </main>
 
-    <script>
-        // Get the URL parameters (level number)
-        const urlParams = new URLSearchParams(window.location.search);
-        const level = urlParams.get('level');
-
-        // Update the page based on the level parameter
-        const levelDescription = document.getElementById('levelDescription');
-        
-        // Example: You can display different information or load different content based on the level
-        if (level) {
-            levelDescription.textContent = `You have selected Level ${level}. Now proceed with the tasks for this level.`;
-        } else {
-            levelDescription.textContent = 'No level selected.';
-        }
-    </script>
-
 </body>
 </html>
