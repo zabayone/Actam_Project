@@ -102,31 +102,29 @@ function updateWelcomeMessage(language) {
     document.getElementById('information').innerText = welcomeMessage;
 }
 
-// Event listener for the level buttons
 document.addEventListener('DOMContentLoaded', () => {
+    // Retrieve the category from the URL of the current page
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category'); // Get the category from the query string
+
+    if (!category) {
+        console.error('Category is missing from the URL.');
+        return; // Exit if the category is not specified
+    }
+
+    // Add event listeners to all level buttons
     const levelButtons = document.querySelectorAll('.level-btn');
+
     levelButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const level = button.getAttribute('data-level');
-            let targetUrl = '/Code/ear-training/level.html'; // Default target URL
+            const level = button.getAttribute('data-level'); // Get level number
             
-            // Check for specific levels and modify the target URL accordingly
-            switch (level) {
-                case '1':
-                    targetUrl = '/Code/ear-training/intervals_level.html'; // Redirect to intervals_level.html
-                    break;
-                case '2':
-                    targetUrl = '/Code/ear-training/chords_level.html'; // Redirect to chords_level.html
-                    break;
-                case '3':
-                    targetUrl = '/Code/ear-training/scales_level.html'; // Redirect to scales_level.html
-                    break;
-                default:
-                    targetUrl = '/Code/ear-training/level.html'; // Default generic level page
-            }
+            // Debugging logs to verify correct behavior
+            console.log('Redirecting to level:', level);
+            console.log('Category:', category);
 
-            // Redirect to the appropriate level page with the level number in the query string
-            window.location.href = targetUrl + '?level=' + level;
+            // Redirect to the level.html with category and level in the query string
+            window.location.href = `/Code/ear-training/level.html?category=${category}&level=${level}`;
         });
     });
 });
@@ -140,4 +138,60 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set the welcome message dynamically based on whether the user is logged in
     const welcomeMessage = username ? translations[language].welcomeBack.replace("{username}", username) : translations[language].guest;
     document.getElementById('information').innerText = welcomeMessage;
+});
+
+
+// Wait for the DOM to fully load
+document.addEventListener('DOMContentLoaded', () => {
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    const level = urlParams.get('level');
+
+    // Elements to update
+    const categoryTitle = document.getElementById('categoryTitle');
+    const categoryHeading = document.getElementById('categoryHeading');
+    const categoryDescription = document.getElementById('categoryDescription');
+    const levelDescription = document.getElementById('levelDescription'); // For level-specific content
+
+    // Update the page content dynamically based on the category
+    if (category) {
+        switch (category.toLowerCase()) {
+            case 'intervals':
+                categoryTitle.textContent = 'Intervals';
+                categoryHeading.textContent = 'Train Your Intervals';
+                categoryDescription.textContent = 'Learn to recognize intervals by ear and enhance your musical skills.';
+                break;
+            case 'chords':
+                categoryTitle.textContent = 'Chords';
+                categoryHeading.textContent = 'Train Your Chords';
+                categoryDescription.textContent = 'Identify chords and improve your harmonic understanding.';
+                break;
+            case 'scales':
+                categoryTitle.textContent = 'Scales';
+                categoryHeading.textContent = 'Train Your Scales';
+                categoryDescription.textContent = 'Practice scale recognition to sharpen your ear for melodies.';
+                break;
+            case 'sandbox':
+                categoryTitle.textContent = 'Sandbox';
+                categoryHeading.textContent = 'Explore the Sandbox';
+                categoryDescription.textContent = 'Experiment freely with various musical elements.';
+                break;
+            default:
+                categoryTitle.textContent = 'Unknown Category';
+                categoryHeading.textContent = 'Category Not Found';
+                categoryDescription.textContent = 'The selected category does not exist.';
+        }
+    } else {
+        categoryTitle.textContent = 'No Category Selected';
+        categoryHeading.textContent = 'Please Select a Category';
+        categoryDescription.textContent = 'Use the main page to choose a training category.';
+    }
+
+    // Update the level information dynamically based on the level
+    if (level) {
+        levelDescription.textContent = `You have selected Level ${level}. Now proceed with the tasks for this level.`;
+    } else if (levelDescription) {
+        levelDescription.textContent = 'No level selected.';
+    }
 });
