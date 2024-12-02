@@ -12,6 +12,9 @@
     <!-- Header Section -->
     <header class="app-header">
         <div class="header-left">
+            <button class="btn home-btn" onclick="window.location.href='/Code/index.html'">
+                <img src="/Code/assets/img/home.png" alt="Home" class="home-img">
+            </button>
             <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>
             <button class="btn btn-primary language-btn" onclick="setLanguage('it')">Italiano</button>
         </div>
@@ -21,6 +24,8 @@
         </div>
             
         <div class="header-right">
+            <!-- Display the username here -->
+            <p id="information" data-translate="guest"> Guest </p>
         </div>
     </header>
     <main class="main-container">

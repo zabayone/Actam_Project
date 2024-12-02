@@ -42,6 +42,14 @@ body {
     font-weight: bold;
 }
 
+#information
+{
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+
 /* Language and Action Buttons (Login/Register) */
 .language-btn,
 .btn-secondary,
@@ -74,34 +82,66 @@ body {
     margin-top: 20px;
 }
 
+/* Mode Selector Styling */
 .mode-selector h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
+/* Mode Buttons (Stacked Vertically on the Left) */
 .mode-buttons {
+    position: absolute;
+    left: 10%; /* Position buttons on the left */
+    top: 180px; /* Adjust vertical position */
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 20px; /* Add space between buttons */
 }
 
-/* Mode Buttons (Vocal and Ear Training) */
+.mode-buttons {
+    position: absolute;
+    left: 10%; /* Position buttons on the left */
+    top: 180px; /* Adjust vertical position */
+    display: flex;
+    flex-direction:column; /* Stack buttons vertically */
+    gap: 20px; /* Add space between buttons */
+}
+
+
+/* Mode Button Styling */
 .mode-btn {
     background-color: #008080; /* Teal */
     color: white;
     border-radius: 20px;
-    padding: 15px 0; /* Vertically centers text */
-    width: 200px;
-    height: 60px;
-    font-size: 16px;
+    padding: 20px 0; /* Increase padding to make buttons larger */
+    width: 250px; /* Make buttons wider */
+    font-size: 18px; /* Make text larger */
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent; /* Transparent border to prevent resizing */
+    height: 100px;
+    line-height: 50px
 }
 
+.ex-btn {
+    background-color: #008080;
+    color: white;
+    border-radius: 20px;
+    width: 400px;
+    font-size: 35px;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    height: 300px;
+    line-height: 289px;
+    }
+    
 .mode-btn:hover {
     background-color: #006666; /* Darker teal on hover */
     transform: scale(1.05);
@@ -109,95 +149,123 @@ body {
     border: 2px solid #FFA500; /* Orange border on hover */
 }
 
-/* Modal (Registration & Login) */
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    max-height: 45%;
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    padding: 20px;
-    overflow: auto;
-    box-sizing: border-box;
+/* Mascotte Styling */
+.frame {
+    text-align: center;
+}
+.mascotte {
+    width: 500px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;
 }
 
-/* Modal Content */
-.modal-content {
+/* Authentication Section */
+.auth-section {
+    position: absolute;
+    top: 180px; 
+    right: 100px;
+    width: 300px;
+    background-color: white;
+    border: 2px solid #008080;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-section h3 {
+    color: #008080;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.modal-content h3 {
-    color: #008080; /* Teal */
-    margin-bottom: 20px;
-}
-
-/* Close Button */
-.close {
-    float: right;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Input Fields */
-.form-control,
-#registerModal input,
-#loginModal input {
+.auth-section .form-control {
     margin-bottom: 15px;
     border-radius: 20px;
     border: 1px solid #ccc;
     padding: 10px;
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* Registration & Login Modal Buttons */
-#registerModal button,
-#loginModal button {
-    width: 100%;
-    padding: 10px 20px;
-    border-radius: 20px;
-    background-color: #008080; /* Teal */
+.auth-buttons {
+    display: flex;
+    justify-content: space-between; /* Space buttons evenly */
+    gap: 10px;
+}
+
+.auth-buttons button {
+    background-color: #008080;
     color: white;
-    font-size: 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 8px 15px; /* Adjust padding for size */
+    width: 48%; /* Ensure buttons fit side by side */
     font-weight: bold;
-    border: 2px solid #008080;
-    transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 10px 0;
-    box-sizing: border-box;
-    max-width: 300px;
+    transition: transform 0.3s, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#registerModal button:hover,
-#loginModal button:hover {
-    background-color: #006666; /* Darker teal on hover */
+.auth-buttons button:hover {
+    background-color: #006666;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Text and Links for Modal */
-#registerModal p {
-    font-size: 14px;
-}
-
-.modal-content h3 {
-    font-size: 1.5rem;
-}
-
-.frame
-{
+.stack {
+    display: inline-grid;
     text-align: center;
-}
-.mascotte
-{
-    width: 500px;
-    height: 500px;
-}
+    grid-template-columns: repeat(2,300px);
+    gap: 30px 130px;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    }
 
-/* Form Elements
+
+    .level-map {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .levels {
+        display: grid;
+        grid-template-columns: repeat(3, 200px); /* 3 buttons per row */
+        gap: 20px; /* 20px gap between buttons */
+        justify-items: center;
+        margin-top: 30px;
+    }
+    
+    .level-btn {
+        background-color: #008080; /* Teal */
+        color: white;
+        border-radius: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 20px 0;
+        width: 150px; /* Button width */
+        height: 80px; /* Button height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .level-btn:hover {
+        background-color: #006666; /* Darker teal on hover */
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 2px solid #FFA500; /* Orange border on hover */
+    }
+    
+    .level-btn:active {
+        background-color: #004d40; /* Even darker teal on active */
+    }
+
+    .home-img {
+        height: 40px;
+        width: 40px;
+    }
