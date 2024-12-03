@@ -1,28 +1,27 @@
+.pentagramma{
+    stroke: black;
+    stroke-width: 1;
+    left: 20%;
+    grid-area: 1/2/2/2;
+}
 
+.container{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 205px 1fr 1fr 1fr;
+    position: absolute;
+    right: 10%;
+}
 
-/* Lines for the notes */
+.pentagrammaContainer{
+    position: absolute;
+    top: 0px;
+    right: 5%;
+    height: 200px;
+}
 
-.mark {
-        border-bottom: 2px solid #000;
-        top: -0.18em; /* Tweak this and the other top in equal, but opposite values */
-        position: relative;
-    }
-
-.offsetMark {
-        position: relative;
-        top: 0.2em; /* Tweak this and the other top in equal, but opposite values */
-    }
-
-/* Whole notes are still problematic */
-
-.markWhole {
-        border-bottom: 2px solid #000;
-        top: -0.12em; /* Tweak this and the other top in equal, but opposite values */
-        position: relative;
-    }
-
-.offsetMarkWhole {
-        position: relative;
-        top: 0.11em; /* Tweak this and the other top in equal, but opposite values */
-    }
-
+.item-pentagramma{
+position: absolute;
+left: 0%;
+bottom: 55%;
+}

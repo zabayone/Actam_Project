@@ -44,12 +44,16 @@
             <h2>Level Information</h2>
             <p id="levelDescription">Loading...</p>
         </div>
-        <div class = 'item pentagramma'>
-            <!--<h1 style="color: #FFFFFF; text-align: center; background-color: #c8553d;"> SELECT A NOTE</h1>-->s
-            <svg width="400" height="290" id="pentagramma" style="margin-left: 10%;"></svg>
-            <br>
-            <button id="diesisButton" style="margin-left: 33%; margin-top: 5%;">♯</button>                   
-            <button id="bemolleButton">♭</button>   
+        <div class="item-pentagramma">
+            <svg width="400" height="290" id="pentagramma" style="margin-left: 10%;">
+                <image xlink:href="/Code/assets/img/chiave_di_violino.png" x="10" y="38" width="40" height="80" style="transform: scale(2.6);"></image>
+                <line x1="50" y1="148" x2="350" y2="148" class="pentagramma"></line>
+                <line x1="50" y1="173" x2="350" y2="173" class="pentagramma"></line>
+                <line x1="50" y1="198" x2="350" y2="198" class="pentagramma"></line>
+                <line x1="50" y1="223" x2="350" y2="223" class="pentagramma"></line>
+                <line x1="50" y1="248" x2="350" y2="248" class="pentagramma"></line>
+                <circle cx="200" cy="185.5" r="10" class="note"></circle>
+            </svg>
         </div>
         <ul class="set">
             <!-- Key control buttons -->
@@ -75,3 +79,5 @@
 
 </body>
 </html>
+
+
