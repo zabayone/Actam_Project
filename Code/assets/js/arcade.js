@@ -1,220 +1,267 @@
-const bird = document.getElementById('bird');
-const gameContainer = document.getElementById('game-container');
-const obstacle = document.getElementById('obstacle');
-const scoreElement = document.getElementById('score');
-const livesElement = document.getElementById('lives');
-const gameOverElement = document.getElementById('game-over');
-const restartButton = document.getElementById('restart-button');
+// Game variables
+const gameScreen = document.getElementById('gameScreen');
+const player = document.getElementById('player');
+const startButton = document.getElementById('startButton');
+const startOverlay = document.getElementById('startOverlay');
+const startModal = document.getElementById('startModal');
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+const gameOverModal = document.getElementById('gameOverModal');
+const finalScore = document.getElementById('finalScore');
+const restartButton = document.getElementById('restartButton');
 
-// Variables
-let birdTop = window.innerHeight * 0.4; // Start at 40% of the viewport height
-let birdVelocity = 0; // Initial velocity
-let gravity = 0.25; // Gravitational acceleration
-let jumpStrength = -7; // Jump impulse
-let isGameOver = false;
+const pipesInterval = 10000;
+const pipeSpeed = 10;
+
+let audioContext, analyser, frequencyInterval, mediaStream;
+let playerY = gameScreen.clientHeight / 2; // Initial position
+let isPlaying = false;
+let pipes = [];
 let score = 0;
-let lives = 3; // Number of lives
-let invulnerable = false; // Invulnerability state
-let scrcount = 0;
-const invulnerabilityDuration = 2000; // Duration in milliseconds
-let gameInterval;
-const obstacles = []; // Store multiple obstacles
-const obstacleCount = 3; // Number of obstacles on screen
-const obstacleSpacing = window.innerWidth / obstacleCount; // Spacing between obstacles
 
+const frequencyToNote = [
+    ['C4', 261.63], ['Db4', 277.18], ['D4', 293.66], ['Eb4', 311.13], 
+    ['E4', 329.63], ['F4', 349.23], ['Gb4', 369.99], ['G4', 392.00], 
+    ['Ab4', 415.30], ['A4', 440.00], ['Bb4', 466.16], ['B4', 493.88]
+];
 
-
-// Initialize the game
-function startGame() {
-    document.addEventListener('keydown', jump);
-    document.addEventListener('touchstart', jump); // Support for touch
-    createObstacles(); // Generate initial obstacles
-    updateLives(); // Display initial lives
-    updateScore(); // Display initial score
-
-    // Center the bird horizontally
-    bird.style.left = `${window.innerWidth / 2 - bird.clientWidth / 2}px`;
-
-    // Start game loop
-    gameInterval = setInterval(gameLoop, 20);
+// Show Start Modal
+function showStartModal() {
+    startOverlay.classList.add("active");
+    startModal.classList.add("active");
 }
 
-// Main game loop
-function gameLoop() {
-    if (isGameOver) return;
+// Hide Start Modal
+function hideStartModal() {
+    startOverlay.classList.remove("active");
+    startModal.classList.remove("active");
+}
 
-    // Update bird position with gravity
-    birdVelocity += gravity;
-    birdTop += birdVelocity;
+// Show Game Over Modal
+function showGameOverModal() {
+    gameOverOverlay.classList.add("active");
+    gameOverModal.classList.add("active");
+}
 
-    // Keep the bird within screen bounds
-    birdTop = Math.max(0, Math.min(birdTop, window.innerHeight - bird.clientHeight));
-    bird.style.top = birdTop + 'px';
+// Hide Game Over Modal
+function hideGameOverModal() {
+    gameOverOverlay.classList.remove("active");
+    gameOverModal.classList.remove("active");
+}
 
-    // Rotate the bird based on velocity
-    bird.style.transform = birdVelocity < 0 ? 'rotate(-20deg)' : 'rotate(20deg)';
+// Add note labels to background
+function setupBackground() {
+    // Remove existing note sections if they already exist
+    const existingNotes = document.querySelectorAll('.noteSection');
+    existingNotes.forEach(note => note.remove()); // Remove all note sections
 
-    // Update obstacles
-    obstacles.forEach(obstacle => {
-        obstacle.left -= 5;
-        if (obstacle.left < -obstacle.offsetLeft) {
-            obstacle.left = window.innerWidth;
-            obstacle.gapPosition = Math.random() * (window.innerHeight - obstacle.gapHeight);
-            score++;
-            updateScore();
-            scrcount++;
-            if (scrcount == 10 && lives < 10) {
-                lives++;
-                updateLives();
-                scrcount = 0;
-            }
-        }
-
-        // Update obstacle positions
-        updateObstacle(obstacle);
-
-        // Check collisions if not invulnerable
-        if (
-            !invulnerable &&
-            checkCollision(bird, obstacle.elementBottom, obstacle.elementTop)
-        ) {
-            lives--;
-            updateLives();
-            if (lives > 0) {
-                resetBird();
-                startInvulnerability();
-            } else {
-                gameOver();
-            }
-        }
+    frequencyToNote.forEach(([note]) => {
+        const noteSection = document.createElement('div');
+        noteSection.classList.add('noteSection');
+        noteSection.textContent = note;
+        gameScreen.appendChild(noteSection);
     });
 }
 
-function jump(event) {
-    if (event.code === 'Space' || event.type === 'touchstart') {
-        birdVelocity = jumpStrength; // Jump impulse
-        bird.style.transform = 'rotate(-20deg)'; // Immediate upward rotation
-    }
+// Initialize audio context
+function initAudio() {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        mediaStream = stream;
+        const micInput = audioContext.createMediaStreamSource(stream);
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        micInput.connect(analyser);
+
+        const dataArray = new Float32Array(analyser.frequencyBinCount);
+
+        function detectFrequency() {
+            analyser.getFloatTimeDomainData(dataArray);
+
+            // Analyze the pitch using the FFT data and get the dominant frequency
+            const frequency = getPitchFromData(dataArray);
+
+            // Update player position based on detected pitch
+            updatePlayerPosition(frequency);
+        }
+
+        frequencyInterval = setInterval(detectFrequency, 100);
+    }).catch(error => {
+        console.error("Microphone access error:", error);
+    });
 }
 
-// Collision detection
-function checkCollision(bird, bottomObstacle, topObstacle) {
-    const birdRect = bird.getBoundingClientRect();
-    const bottomRect = bottomObstacle.getBoundingClientRect();
-    const topRect = topObstacle.getBoundingClientRect();
+// Function to get the dominant frequency from FFT data
+function getPitchFromData(dataArray) {
+    const autoCorrelate = (data) => {
+        const SIZE = data.length;
+        const threshold = 0.2;
+        let bestOffset = -1;
+        let bestCorrelation = 0;
+        let correlation;
 
-    return (
-        (birdRect.right > bottomRect.left &&
-            birdRect.left < bottomRect.right &&
-            birdRect.bottom > bottomRect.top) ||
-        (birdRect.right > topRect.left &&
-            birdRect.left < topRect.right &&
-            birdRect.top < topRect.bottom)
-    );
-}
+        for (let offset = 0; offset < SIZE; offset++) {
+            correlation = 0;
+            for (let i = 0; i < SIZE - offset; i++) {
+                correlation += Math.abs(data[i] - data[i + offset]);
+            }
+            correlation = 1 - (correlation / SIZE);
+            if (correlation > bestCorrelation && correlation > threshold) {
+                bestCorrelation = correlation;
+                bestOffset = offset;
+            }
+        }
 
-function resetBird() {
-    birdTop = window.innerHeight * 0.4; // Reset bird to safe position
-    bird.style.top = birdTop + 'px';
-}
-
-function startInvulnerability() {
-    invulnerable = true;
-    setTimeout(() => {
-        invulnerable = false;
-    }, invulnerabilityDuration);
-}
-
-function gameOver() {
-    isGameOver = true;
-    clearInterval(gameInterval);
-    gameOverElement.style.display = 'block'; // Show game over screen
-}
-
-function restartGame() {
-    // Reset variables and elements
-    isGameOver = false;
-    lives = 3;
-    score = 0;
-    birdTop = window.innerHeight * 0.4;
-    invulnerable = false;
-    gameOverElement.style.display = 'none';
-
-    // Remove listeners and restart game
-    document.removeEventListener('keydown', jump);
-    document.removeEventListener('touchstart', jump);
-    clearInterval(gameInterval);
-    resetObstacles();
-    startGame();
-}
-
-function updateLives() {
-    livesElement.innerHTML = `Lives: ${lives}`;
-}
-
-function updateScore() {
-    scoreElement.innerHTML = `Score: ${score}`;
-}
-
-// Obstacle management
-function createObstacles() {
-    for (let i = 0; i < obstacleCount; i++) {
-        let obstacle = createObstacle(i * obstacleSpacing);
-        obstacles.push(obstacle);
-    }
-}
-
-function createObstacle(initialLeft) {
-    const gapHeight = window.innerHeight * 0.25; // 25% of screen height
-    const gapPosition = Math.random() * (window.innerHeight - gapHeight); // Random gap position
-
-    const obstacleBottom = document.createElement('div');
-    obstacleBottom.className = 'obstacleBot';
-    gameContainer.appendChild(obstacleBottom);
-
-    const obstacleTop = document.createElement('div');
-    obstacleTop.className = 'obstacleTop';
-    gameContainer.appendChild(obstacleTop);
-
-    return {
-        elementBottom: obstacleBottom,
-        elementTop: obstacleTop,
-        gapHeight: gapHeight,
-        gapPosition: gapPosition,
-        left: initialLeft,
+        const sampleRate = audioContext.sampleRate;
+        return bestOffset > 0 ? sampleRate / bestOffset : -1;
     };
+
+    return autoCorrelate(dataArray);
 }
 
-function updateObstacle(obstacle) {
-    obstacle.elementBottom.style.left = obstacle.left + 'px';
-    obstacle.elementBottom.style.height =
-        window.innerHeight - (obstacle.gapPosition + obstacle.gapHeight) + 'px';
+// Update player position based on detected frequency
+function updatePlayerPosition(frequency) {
+    if (frequency === -1) return;
 
-    obstacle.elementTop.style.left = obstacle.left + 'px';
-    obstacle.elementTop.style.height = obstacle.gapPosition + 'px';
+    let closestNote = frequencyToNote[0];
+    for (let note of frequencyToNote) {
+        if (Math.abs(note[1] - frequency) < Math.abs(closestNote[1] - frequency)) {
+            closestNote = note;
+        }
+    }
+
+    const noteIndex = frequencyToNote.indexOf(closestNote);
+    const sectionHeight = gameScreen.clientHeight / frequencyToNote.length;
+    playerY = sectionHeight * noteIndex + sectionHeight / 2;
+    player.style.top = `${playerY}px`;
 }
 
-function resetObstacles() {
-    obstacles.forEach(obstacle => {
-        obstacle.left = window.innerWidth;
-        updateObstacle(obstacle);
+// Start game
+function startGame() {
+    isPlaying = true;
+    score = 0;
+    hideStartModal();
+    setupBackground();
+    player.style.top = `${playerY}px`; // Ensure the player starts at the correct position
+    initAudio();
+    spawnPipes();
+    gameLoop();
+}
+
+// Game loop
+function gameLoop() {
+    if (!isPlaying) return;
+
+    movePipes();
+    checkCollisions();
+
+    requestAnimationFrame(gameLoop);
+}
+
+// Pipes spawner
+function spawnPipes() {
+    const spawnPipe = () => {
+        const gapIndex = Math.floor(Math.random() * frequencyToNote.length);
+        const sectionHeight = gameScreen.clientHeight / frequencyToNote.length;
+        const gapPosition = sectionHeight * gapIndex;
+
+        const pipeTopHeight = gapPosition;
+        const pipeBottomHeight = gameScreen.clientHeight - gapPosition - sectionHeight;
+
+        const pipeTop = document.createElement('div');
+        pipeTop.classList.add('pipe', 'top');
+        pipeTop.style.height = `${pipeTopHeight}px`;
+        pipeTop.style.left = '100vw';
+        gameScreen.appendChild(pipeTop);
+
+        const pipeBottom = document.createElement('div');
+        pipeBottom.classList.add('pipe', 'bottom');
+        pipeBottom.style.height = `${pipeBottomHeight}px`;
+        pipeBottom.style.left = '100vw';
+        gameScreen.appendChild(pipeBottom);
+
+        pipes.push(pipeTop, pipeBottom);
+    };
+
+    // Spawn the first pipe immediately
+    spawnPipe();
+
+    // Spawn subsequent pipes at regular intervals
+    setInterval(spawnPipe, pipesInterval);
+}
+
+// Move pipes
+function movePipes() {
+    pipes.forEach(pipe => {
+        const left = parseInt(window.getComputedStyle(pipe).left, 10);
+        if (left < -80) {
+            pipe.remove();
+            pipes.shift();
+        } else {
+            pipe.style.left = `${left - pipeSpeed}px`;
+        }
     });
 }
 
-// Handle window resizing to adjust game layout
-window.addEventListener('resize', () => {
-    bird.style.left = `${window.innerWidth / 2 - bird.clientWidth / 2}px`;
-    birdTop = Math.min(birdTop, window.innerHeight - bird.clientHeight);
-    resetObstacles();
+// Check collisions
+function checkCollisions() {
+    const playerBounds = player.getBoundingClientRect();
+    for (let pipe of pipes) {
+        const pipeBounds = pipe.getBoundingClientRect();
+        if (
+            playerBounds.left < pipeBounds.right &&
+            playerBounds.right > pipeBounds.left &&
+            playerBounds.top < pipeBounds.bottom &&
+            playerBounds.bottom > pipeBounds.top
+        ) {
+            endGame();
+        }
+    }
+}
+
+// End game
+function endGame() {
+    isPlaying = false;
+    clearInterval(frequencyInterval);
+    mediaStream.getTracks().forEach(track => track.stop());
+    showGameOverModal();
+    finalScore.textContent = score;
+}
+
+// Restart game
+function restartGame() {
+    // Reset game state
+    isPlaying = false;
+    score = 0;
+
+    // Clear all pipes
+    pipes.forEach(pipe => pipe.remove());
+    pipes = []; // Empty the pipes array
+
+    // Reset the player position
+    playerY = gameScreen.clientHeight / 2; // Set to initial position
+    player.style.top = `${playerY}px`; // Update the player's position on screen
+
+    // Reset background notes
+    setupBackground(); // Re-add the notes to the background
+
+    // Restart audio context (and any other required states)
+    mediaStream.getTracks().forEach(track => track.stop()); // Stop microphone stream
+    clearInterval(frequencyInterval); // Clear frequency detection
+
+    // Show the start modal again
+    showStartModal();
+}
+
+// Restart the game when the restart button is clicked
+restartButton.addEventListener("click", () => {
+    hideGameOverModal(); // Hide game over modal
+    restartGame(); // Restart the game
 });
 
-// Prevent accidental scrolling on touch devices
-document.addEventListener('touchmove', function (event) {
-    event.preventDefault();
-}, { passive: false });
+// Show the start modal on load
+window.addEventListener("DOMContentLoaded", () => {
+    showStartModal();
+});
 
-// Center the bird vertically
-bird.style.top = `${window.innerHeight * 0.4}px`;
-
-// Start the game
-startGame();
+// Start the game on button click
+startButton.addEventListener('click', startGame);

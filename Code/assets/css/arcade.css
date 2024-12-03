@@ -1,168 +1,143 @@
-/* General Styling */
-body, html {
+:root {
+    --gap: 8.33%;
+}
+
+arcade-body {
     margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-}
-
-/* Fullscreen Game Area */
-#arcade-body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100%;
-    background: linear-gradient(to bottom, #87CEEB, #FFD700); /* Gradient Background */
-}
-
-/* Game Container */
-#game-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: #87CEEB; /* Sky color */
-    overflow: hidden;
-}
-
-/* Bird (Player) */
-#bird {
-    position: absolute;
-    width: 100px; /* Bird size */
-    height: 65px;
-    background-image: url('https://i.pinimg.com/originals/e9/54/cb/e954cb7e56f0b6bc5c4ef23d5eb2c140.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: transform 0.2s ease; /* Smooth rotation */
-    top: 50%; /* Vertically centered */
-    left: 50px;
-    transform: translateY(-50%);
-}
-
-#hitbox {
-    position: absolute;
-    width: 30px; /* Hitbox smaller than the bird */
-    height: 30px;
-    top: 10px;
-    left: 15px;
-    background-color: rgba(0, 0, 0, 0); /* Transparent for debugging */
-    border-radius: 50%; /* Circular hitbox */
-}
-
-/* Obstacles */
-#obstacleBot, #obstacleTop {
-    /*position: absolute;
-    width: 80px;
-    background-color: transparent;
-    background-size: cover;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);*/
+    justify-content: center;
     background-color: black;
 }
 
-#obstacleBot {
-    bottom: 0;
-    background-image: url('/Code/assets/img/bot.JPG'); /* Bottom obstacle texture */
+#gameContainer {
+    width: 100vw;
+    height: calc(100vh - 60px); /* Adjust for header height */
+    position: relative;
+    background-color: black;
 }
 
-#obstacleTop {
-    top: 0;
-    background-image: url('/Code/assets/img/top.JPG'); /* Top obstacle texture */
+#gameScreen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background: linear-gradient(
+        to bottom,
+        #e57373 0%, #e57373 calc(0% + var(--gap)),
+        #ffb74d 8.33%, #ffb74d calc(8.33% + var(--gap)),
+        #fff176 16.66%, #fff176 calc(16.66% + var(--gap)),
+        #81c784 25%, #81c784 calc(25% + var(--gap)),
+        #4caf50 33.33%, #4caf50 calc(33.33% + var(--gap)), 
+        #66bb6a 41.66%, #66bb6a calc(41.66% + var(--gap)), 
+        #26a69a 50%, #26a69a calc(50% + var(--gap)), 
+        #29b6f6 58.33%, #29b6f6 calc(58.33% + var(--gap)), 
+        #42a5f5 66.66%, #42a5f5 calc(66.66% + var(--gap)),  
+        #7e57c2 75%, #7e57c2 calc(75% + var(--gap)), 
+        #ab47bc 83.33%, #ab47bc calc(83.33% + var(--gap)), 
+        #8e24aa 91.66%, #8e24aa 100%);
 }
 
-/* Score and Lives */
-#score {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    z-index: 10;
-}
-
-#lives {
-    position: absolute;
-    top: 50px;
-    left: 20px;
-    font-size: 18px;
-    color: white;
-    z-index: 10;
-}
-
-#lives img {
-    width: 40px; /* Adjust missile size */
-    height: auto;
-    vertical-align: middle;
-}
-
-/* Game Over */
-#game-over {
-    position: absolute;
+.modal {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    font-size: 24px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
+    background-color: white;
     border-radius: 10px;
-    display: none;
-    z-index: 20;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    z-index: 2000;
+    width: 300px;
+    height: 250px;
+    display: none; /* Hidden by default */
 }
 
-/* Restart Button */
-#restart-button {
+
+#gameOverModal{
+    height: 180px;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal button {
     padding: 10px 20px;
-    font-size: 18px;
+    background-color: #008080; /* Teal */
     color: white;
-    background-color: #FF4500;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-#restart-button:hover {
-    background-color: #FF6347;
+.modal button:hover {
+    background-color: #005f5f;
 }
 
-/* Sun Element */
-#sun {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background-color: yellow;
-    border-radius: 50%;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    display: none; /* Hidden by default */
+}
+
+.overlay.active {
+    display: block;
+}
+
+#gameContainer {
+    width: 100vw;
+    height: calc(100vh - 60px); /* Adjust for header height */
+    position: relative;
+    background-color: black;
+}
+
+.noteSection {
+    height: calc(100% / 12);
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 0; /* Behind game elements */
+    justify-content: left;
+    padding-left: 10px;
+    font-size: 1.5rem;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#sun img {
+#player {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    left: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pipe {
+    position: absolute;
     width: 80px;
-    height: auto;
-    background-color: transparent; /* Transparent around image */
+    background: green;
+    transition: left 0.1s;
 }
 
-/* Responsive Scaling */
-@media (max-width: 768px) {
-    #bird {
-        width: 80px; /* Reduce bird size on smaller screens */
-        height: 50px;
-    }
+.pipe.top {
+    top: 0;
+}
 
-    #score, #lives {
-        font-size: 18px; /* Smaller text for score and lives */
-    }
-
-    #sun {
-        width: 100px;
-        height: 100px;
-    }
+.pipe.bottom {
+    bottom: 0;
 }

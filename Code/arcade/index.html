@@ -14,6 +14,8 @@
     <script type="module" src="/Code/assets/js/script.js" defer></script>
     <script type="module" src="/Code/assets/js/server.js" defer></script>
     <script type="module" src="/Code/assets/js/arcade.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.8.34/build/Tone.js"></script>
+
 </head>
 <body class="arcade-body">
     <!-- Header Section -->
@@ -35,29 +37,27 @@
             <p id="information" data-translate="guest"> Guest </p>
         </div>
     </header>
-
-    <!-- Game Container -->
-    <div id="game-container">
-        <div id="bird">
-            <div id="hitbox"></div>
-        </div>
-        <div id="obstacleBot"></div>
-        <div id="obstacleTop"></div>
-    </div>
-
-    <!-- HUD (Score and Lives) -->
-    <div id="hud">
-        <div id="score">Score: 0</div>
-        <div id="lives">
-            Lives: <span id="livesCount">3</span>
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/015/310/452/small/ballistic-missile-in-realistic-style-military-rocket-colorful-illustration-png.png" alt="Missile" id="missile" />
+    
+    <div id="gameContainer">
+        <div id="gameScreen">
+            <div id="player"></div>
         </div>
     </div>
+    
+    <!-- Start Modal -->
+    <div class="overlay" id="startOverlay"></div>
+    <div class="modal" id="startModal">
+        <h1>Welcome to the Game!</h1>
+        <p>Press "Start" to begin.</p>
+        <button id="startButton">Start Game</button>
+    </div>
 
-    <!-- Game Over Screen -->
-    <div id="game-over" style="display: none;">
-        <p>Game Over</p>
-        <button id="restart-button" onclick="restartGame()">Restart</button>
+    <!-- Game Over Modal -->
+    <div class="overlay_over" id="gameOverOverlay"></div>
+    <div class="modal" id="gameOverModal">
+        <h1>Game Over</h1>
+        <p>Your score: <span id="finalScore">0</span></p>
+        <button id="restartButton">Restart</button>
     </div>
 </body>
 </html>
