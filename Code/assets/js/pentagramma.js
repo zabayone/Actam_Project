@@ -3,13 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let noteElement = null;
     let ledgerLines = []; // Array to store ledger lines
 
-    const noteMap = {
-        10.5: 'C6', 23: 'B5', 35.5: 'A5', 48: 'G5', 60.5: 'F5', 73: 'E5', 85.5: 'D5',
-        98: 'C5', 110.5: 'B4', 123: 'A4', 135.5: 'G4', 148: 'F4', 160.5: 'E4', 173: 'D4',
-        185.5: 'C4', 198: 'B3', 210.5: 'A3', 223: 'G3', 235.5: 'F3', 248: 'E3', 260.5: 'D3',
-        273: 'C3',
-    };
-
     const startX = 50;
     const lineSpacing = 25;
     const startY = 148;
@@ -19,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = -3; i <= 7; i++) {
         positions.push(startY + i * (lineSpacing / 2));
     }
+
+    drawStaff();
 
     // Draw the main staff
     function drawStaff() {
@@ -42,9 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add a note to the SVG
     function addNoteAtPosition(x, y) {
         // Remove existing note if any
-        if (noteElement) {
-            svg.removeChild(noteElement);
-        }
+        clearPreviousNote();
 
         noteElement = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         noteElement.setAttribute('cx', x + 150);
@@ -105,5 +98,38 @@ document.addEventListener("DOMContentLoaded", function () {
         addNoteAtPosition(x, nearestY);
     });
 
-    drawStaff();
+    // Clear previous note and ledger lines
+    function clearPreviousNote() {
+        if (noteElement) {
+            svg.removeChild(noteElement);
+            noteElement = null;
+        }
+        ledgerLines.forEach(line => svg.removeChild(line));
+        ledgerLines = [];
+    }
+
+    // Draw a note dynamically from a MIDI value
+    function drawNoteFromMIDI(midiValue) {
+        const baseMidi = 60; // MIDI value for C4
+        const baseY = 185.5; // Y position for C4
+        const halfStepDistance = 12.5; // Distance per semitone (half-step)
+
+        // Calculate the Y position dynamically
+        const y = baseY - (midiValue - baseMidi) * halfStepDistance;
+
+        // Clear previous note and ledger lines
+        clearPreviousNote();
+
+        // Draw the note
+        const x = 200; // Fixed X position for the note
+        const note = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        note.setAttribute("cx", x);
+        note.setAttribute("cy", y);
+        note.setAttribute("r", 10);
+        note.classList.add("note");
+        svg.appendChild(note);
+
+        // Add ledger lines if necessary
+        addLedgerLines(y);
+    }
 });
