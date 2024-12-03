@@ -117,14 +117,17 @@ arcade-body {
 }
 
 #player {
-    width: 40px;
-    height: 40px;
-    background: white;
-    border-radius: 50%;
+    width: 40px; /* size for collision detection */
+    height: 40px; /* size for collision detection */
+    background: transparent;
     position: absolute;
-    left: 100px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 100px; 
+    top: 50%; 
+    transform: translateY(-50%) scale(2.5) rotate(21deg); /* Visually scale the guitar (2x size) */
+    background-image: url('/Code/assets/img/guitar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.2s ease; /* Smooth transformation when moving */
 }
 
 .pipe {
