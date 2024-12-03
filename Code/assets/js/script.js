@@ -157,22 +157,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the page content dynamically based on the category
     if (category) {
         switch (category.toLowerCase()) {
-            case 'intervals':
+            case '0':
                 categoryTitle.textContent = 'Intervals';
                 categoryHeading.textContent = 'Train Your Intervals';
                 categoryDescription.textContent = 'Learn to recognize intervals by ear and enhance your musical skills.';
                 break;
-            case 'chords':
+            case '1':
                 categoryTitle.textContent = 'Chords';
                 categoryHeading.textContent = 'Train Your Chords';
                 categoryDescription.textContent = 'Identify chords and improve your harmonic understanding.';
                 break;
-            case 'scales':
+            case '2':
                 categoryTitle.textContent = 'Scales';
                 categoryHeading.textContent = 'Train Your Scales';
                 categoryDescription.textContent = 'Practice scale recognition to sharpen your ear for melodies.';
                 break;
-            case 'sandbox':
+            case '3':
                 categoryTitle.textContent = 'Sandbox';
                 categoryHeading.textContent = 'Explore the Sandbox';
                 categoryDescription.textContent = 'Experiment freely with various musical elements.';
