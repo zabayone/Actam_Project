@@ -7,11 +7,14 @@
 }
 
 ul {
-    height: 20.875em;
+    height: 18em;
     width: 34em;
     margin: 5em auto;
     padding: 3em 0 0 3em;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    right: 0;
     border: 1px solid #011316;
     border-radius: 1em;
     background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
@@ -27,7 +30,7 @@ li {
 }
 
 ul .white {
-    height: 16em;
+    height: 13em;
     width: 4em;
     z-index: 1;
     border-left: 1px solid #bbb;
@@ -91,7 +94,7 @@ ul li:last-child {
 #oct {
     vertical-align: middle;
     top: -20px;
-    right: 50px;
+    right: 130px;
 }
 
 #inst{
