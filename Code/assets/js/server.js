@@ -33,7 +33,7 @@ function checkLogin(user, password) {
                 document.getElementById('information').innerText = `Welcome back, ${user}!`;
                 
                 // You could also redirect to another page after successful login if desired
-                // window.location.href = "/Code/ear-training/level.html?level=1"; // Example redirect
+                // window.location.href = "/ear-training/level.html?level=1"; // Example redirect
             } else {
                 informationElem.style.display = 'block';
                 informationElem.innerText = "Wrong password.";
