@@ -100,4 +100,3 @@ document.getElementById('Register').addEventListener('click', function() {
         checkRegister(user, password);
     }
 });
-

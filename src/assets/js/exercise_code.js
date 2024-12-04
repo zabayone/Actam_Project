@@ -1,8 +1,15 @@
-// Global variables
-var type;
-var reps;
-var key;
-var dir;
+import FFT from '../libs/fft.js'
+
+var fft = new FFT(512)
+var audio_buffs = []
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// global variables
+var type
+var reps
+var key
+var dir
 
 // Running state
 var values;
@@ -15,8 +22,9 @@ var checked = 1;
 
 var pressed_keys = []; // Array used to store the pressed keys in order to avoid multiple presses if held
 
-// Keyboards variables
-var octave = 0; // Start with C4 (MIDI 60)
+//keyboards variables
+var audio_oct = 60
+var octave = 60
 
 // Volume settings
 const volumes = {
@@ -27,19 +35,19 @@ const volumes = {
 
 // Map keys to relative MIDI values (MIDI values start from 60 for C4)
 const keyToMidi = {
-    'a': 60,  // C4
-    'w': 61,  // C#4
-    's': 62,  // D4
-    'e': 63,  // D#4
-    'd': 64,  // E4
-    'f': 65,  // F4
-    't': 66,  // F#4
-    'g': 67,  // G4
-    'y': 68,  // G#4
-    'h': 69,  // A4
-    'u': 70,  // A#4
-    'j': 71,  // B4
-    'k': 72   // C5
+    'a': 0,  // C4
+    'w': 1,  // C#4
+    's': 2,  // D4
+    'e': 3,  // D#4
+    'd': 4,  // E4
+    'f': 5,  // F4
+    't': 6,  // F#4
+    'g': 7,  // G4
+    'y': 8,  // G#4
+    'h': 9,  // A4
+    'u': 10,  // A#4
+    'j': 11,  // B4
+    'k': 12   // C5
 };
 
 // html oblects
@@ -47,8 +55,6 @@ var head_div = document.getElementById("head")
 var buttons_div = document.getElementById("buttons")
 var controls_div = document.getElementById("controls")
 var oct_num = document.getElementById("oct_num")
-
-const c = new AudioContext();
 
 /* function runned when the page is firstly loaded
  *  - loads the saved variables from the local storage
@@ -129,10 +135,8 @@ function check_fun(value) { // executed when chosing an option
 // Function to play a note based on MIDI note number
 function playNoteFromMIDI(midiNote) {
     // relate the value of the note to the same note in the octave specified by octave
-    //let true_note = ((midiNote > octave) ? (midiNote - octave)%12 : 12-(octave - midiNote)%12) + octave
     let true_note = (midiNote - octave)%12 + octave
     true_note = true_note < octave ? true_note+12 : true_note
-    //true_note = (true_note >= 0 ? true_note : true_note + (parseInt(true_note/12)^2)*12)%12;
     // Formula to convert MIDI note to frequency (Hz)
     const frequency = midiToFreq(true_note);
 
@@ -251,7 +255,6 @@ function play(val){
 }
 
 function seeResults() {
-        
         head_div.innerHTML = "done"
         location.href = '/results'
 }
@@ -259,8 +262,6 @@ function seeResults() {
 // NICOLA'S CODE
 
 // Web Audio API setup
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
 let playTone = function(frequency) {
     console.log("No instrument selected. Cannot play note.");
 };
@@ -444,6 +445,71 @@ function octave_up() {
 }
 
 function octave_down() {
-    octave -= 12; // Decrease octave
-    oct_num.innerHTML = (octave / 12 - 1).toString(); // Update displayed octave number
+    octave -= 12;
+    oct_num.innerHTML = octave/12 - 1
+}
+
+async function file2Buffer(fname) {
+    try {
+       // Fetch the MP3 file
+       const file = await fetch(fname);
+       if (!response.ok) throw new Error(`Failed to fetch ${fname}`);
+
+       // Read the file as an ArrayBuffer
+       const arrayBuffer = await file.arrayBuffer();
+
+       // Decode audio data
+       const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+       // Access audio data as Float32Array for each channel
+       for (let i = 0; i < audioBuffer.numberOfChannels; i++) {
+           audio_buffs.push(audioBuffer.getChannelData(i)); // Each channel is a Float32Array
+       }
+
+       console.log(`Processed file: ${filePath}`);
+   } catch (error) {
+       console.error('Error processing audio file:', error);
+   }
+}
+
+function playAudio(to_play) {
+    if (to_play.length === 0) {
+        console.error('No audio buffers loaded.');
+        return;
+    }
+    // Play each buffer simultaneously
+    to_play.forEach((buffer, index) => {
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+        // Connect the source to the audio context destination (speakers)
+        source.connect(audioCtx.destination);
+        // Start playback
+        source.start();
+        console.log(`Playing buffer ${index + 1}...`);
+    });
+    console.log('Playing audio...');
+}
+
+function playAudioInSuccession(to_play) {
+    if (to_play.length === 0) {
+        console.error('No audio buffers loaded.');
+        return;
+    }
+
+    let startTime = audioCtx.currentTime; // Start scheduling from the current time
+
+    to_play.forEach((buffer, index) => {
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+
+        // Connect the source to the audio context destination (speakers)
+        source.connect(audioCtx.destination);
+
+        // Schedule playback
+        source.start(startTime);
+        console.log(`Scheduled buffer ${index + 1} at ${startTime}s`);
+
+        // Update startTime for the next buffer
+        startTime += buffer.duration + 0.5;
+    });
 }
