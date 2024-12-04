@@ -1,63 +1,63 @@
 var notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
 
 // text for the interval buttons
-var interval_text = ['Minor Second',
-                     'Major Second',
-                     'Minor Third', 
-                     'Major Third', 
-                     'Perfect Forth', 
-                     'Tritone', 
-                     'Perfect Fifth', 
-                     'Minor Sixth', 
-                     'Major Sixth', 
-                     'Minor Seventh', 
-                     'Major Seventh', 
-                     'Octave']
+var interval_text = ['Minor Second',        //  0
+                     'Major Second',        //  1
+                     'Minor Third',         //  2
+                     'Major Third',         //  3
+                     'Perfect Forth',       //  4
+                     'Tritone',             //  5
+                     'Perfect Fifth',       //  6
+                     'Minor Sixth',         //  7
+                     'Major Sixth',         //  8
+                     'Minor Seventh',       //  9
+                     'Major Seventh',       // 10
+                     'Octave']              // 11
 // text for the chord buttons
-var chord_text = ['Minor Triad',            //  1
-                  'Major Triad',            //  2
-                  'Diminished Triad',       //  3
-                  'Augmented Triad',        //  4
-                  'Minor Seventh',          //  5
-                  'Major Seventh',          //  6
-                  'Dominant Seventh',       //  7 
-                  'Half Deminished',        //  8
-                  'Minor Major 7th',        //  9
-                  'Minor Major 7th (b5)',   // 10
-                  'Diminished Seventh',     // 11
-                  'Major Seventh (#5)',     // 12
-                  'Dominant Seventh (#5)',  // 13
-                  'Dominant Seventh (b5)',  // 14
-                  'Sus2 Triad',             // 15
-                  'Sus4 Triad',             // 16
-                  'Lydian Triad',           // 17
-                  'Phrygian Triad',         // 18
-                  'Locrian Triad',          // 19
-                  'Minor Sixth',            // 20
-                  'Major Sixth'             // 21
+var chord_text = ['Minor Triad',            //  0
+                  'Major Triad',            //  1
+                  'Diminished Triad',       //  2
+                  'Augmented Triad',        //  3
+                  'Minor Seventh',          //  4
+                  'Major Seventh',          //  5
+                  'Dominant Seventh',       //  6 
+                  'Half Deminished',        //  7
+                  'Minor Major 7th',        //  8
+                  'Minor Major 7th (b5)',   //  9
+                  'Diminished Seventh',     // 10
+                  'Major Seventh (#5)',     // 11
+                  'Dominant Seventh (#5)',  // 12
+                  'Dominant Seventh (b5)',  // 13
+                  'Sus2 Triad',             // 14
+                  'Sus4 Triad',             // 15
+                  'Lydian Triad',           // 16
+                  'Phrygian Triad',         // 17
+                  'Locrian Triad',          // 18
+                  'Minor Sixth',            // 19
+                  'Major Sixth'             // 20
                   ]           
 
-var chord_codes = ['3 7',                 //  1
-                   '4 7',                 //  2
-                   '3 6',                 //  3
-                   '4 8',                 //  4
-                   '3 7 10',              //  5
-                   '4 7 11',              //  6
-                   '4 7 10',              //  7
-                   '3 6 10',              //  8
-                   '3 7 11',              //  9
-                   '3 6 11',              // 10
-                   '6 3 9',               // 11
-                   '4 8 11',              // 12
-                   '4 8 10',              // 13
-                   '4 6 10',              // 14
-                   '2 7',                 // 15
-                   '5 7',                 // 16
-                   '6 7',                 // 17
-                   '1 7',                 // 18
-                   '1 6',                 // 19
-                   '3 7 9',               // 20
-                   '4 7 9'                // 21
+var chord_codes = ['3 7',                   //  0
+                   '4 7',                   //  1
+                   '3 6',                   //  2
+                   '4 8',                   //  3
+                   '3 7 10',                //  4
+                   '4 7 11',                //  5
+                   '4 7 10',                //  6
+                   '3 6 10',                //  7
+                   '3 7 11',                //  8
+                   '3 6 11',                //  9
+                   '6 3 9',                 // 10
+                   '4 8 11',                // 11
+                   '4 8 10',                // 12
+                   '4 6 10',                // 13
+                   '2 7',                   // 14
+                   '5 7',                   // 15
+                   '6 7',                   // 16
+                   '1 7',                   // 17
+                   '1 6',                   // 18
+                   '3 7 9',                 // 19
+                   '4 7 9'                  // 20
                     ]
 
 // controls for the chord exercises
@@ -67,3 +67,22 @@ var chord_controls = '<button id = "replay" onclick = "replay()" class = "contro
 // control for interval exercises
 var interval_controls = '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
                         '<button id = "next" onclick = "next()" class = "controls_button">Next</button>'
+
+var hide_btn = '<button class="Piano-btn" onclick="hideKeyboard()">hide</button>'
+
+var keyboard_html = '<div id="key_control">' +
+                    '<button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>'+
+                    '<button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>'+
+                    '</div>'+
+                    '<li class="white c" data-note="60" onclick="playNoteFromMIDI(60)"></li> <!-- C4 (MIDI 60) -->'+
+                    '<li class="black cs" data-note="61" onclick="playNoteFromMIDI(61)"></li> <!-- C#4 (MIDI 61) -->'+
+                    '<li class="white d" data-note="62" onclick="playNoteFromMIDI(62)"></li> <!-- D4 (MIDI 62) -->'+
+                    '<li class="black ds" data-note="63" onclick="playNoteFromMIDI(63)"></li> <!-- D#4 (MIDI 63) -->'+
+                    '<li class="white e" data-note="64" onclick="playNoteFromMIDI(64)"></li> <!-- E4 (MIDI 64) -->'+
+                    '<li class="white f" data-note="65" onclick="playNoteFromMIDI(65)"></li> <!-- F4 (MIDI 65) -->'+
+                    '<li class="black fs" data-note="66" onclick="playNoteFromMIDI(66)"></li> <!-- F#4 (MIDI 66) -->'+
+                    '<li class="white g" data-note="67" onclick="playNoteFromMIDI(67)"></li> <!-- G4 (MIDI 67) -->'+
+                    '<li class="black gs" data-note="68" onclick="playNoteFromMIDI(68)"></li> <!-- G#4 (MIDI 68) -->'+
+                    '<li class="white a" data-note="69" onclick="playNoteFromMIDI(69)"></li> <!-- A4 (MIDI 69) -->'+
+                    '<li class="black as" data-note="70" onclick="playNoteFromMIDI(70)"></li> <!-- A#4 (MIDI 70) -->'+
+                    '<li class="white b" data-note="71" onclick="playNoteFromMIDI(71)"></li> <!-- B4 (MIDI 71) -->'

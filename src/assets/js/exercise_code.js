@@ -1,8 +1,7 @@
-import FFT from '../libs/fft.js'
+/*import FFT from '../libs/fft.js'
 
 var fft = new FFT(512)
-var audio_buffs = []
-
+*/
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 // global variables
@@ -12,19 +11,22 @@ var key
 var dir
 
 // Running state
+var is_keyboard = 1
+var is_test = 0
+var root = []           // MIDI of the root note
+var audio_buffs = []    // Buffers for the 12 notes in the octave
+
+var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
+var octave = 0          // Octave shift for the keyboard
+/*
 var values;
 var rep_index = 0;
 var button_list = []; // Container of the HTML for the buttons
 var curr_val = 1;     // Exercise value
-var root = 0;         // MIDI of the root note
 var note_list = [];   // List of frequencies of the current exercise
 var checked = 1;
-
-var pressed_keys = []; // Array used to store the pressed keys in order to avoid multiple presses if held
-
+*/
 //keyboards variables
-var audio_oct = 60
-var octave = 60
 
 // Volume settings
 const volumes = {
@@ -35,26 +37,28 @@ const volumes = {
 
 // Map keys to relative MIDI values (MIDI values start from 60 for C4)
 const keyToMidi = {
-    'a': 0,  // C4
-    'w': 1,  // C#4
-    's': 2,  // D4
-    'e': 3,  // D#4
-    'd': 4,  // E4
-    'f': 5,  // F4
-    't': 6,  // F#4
-    'g': 7,  // G4
-    'y': 8,  // G#4
-    'h': 9,  // A4
-    'u': 10,  // A#4
-    'j': 11,  // B4
-    'k': 12   // C5
+    'a': 60,  // C4
+    'w': 61,  // C#4
+    's': 62,  // D4
+    'e': 63,  // D#4
+    'd': 64,  // E4
+    'f': 65,  // F4
+    't': 66,  // F#4
+    'g': 67,  // G4
+    'y': 68,  // G#4
+    'h': 69,  // A4
+    'u': 70,  // A#4
+    'j': 71,  // B4
+    'k': 72   // C5
 };
 
 // html oblects
-var head_div = document.getElementById("head")
-var buttons_div = document.getElementById("buttons")
+
+var buttons_div = document.getElementById("choices")
 var controls_div = document.getElementById("controls")
-var oct_num = document.getElementById("oct_num")
+var key_div = document.getElementById("keyboard");
+
+
 
 /* function runned when the page is firstly loaded
  *  - loads the saved variables from the local storage
@@ -62,6 +66,7 @@ var oct_num = document.getElementById("oct_num")
  *  - loads the correct html for the chosen exercise
  *  
  */
+/*
 function onLoad() {
     // retrieving from local storage
     type = localStorage.getItem("type") // which exercise
@@ -153,25 +158,6 @@ function midiToFreq(midi){ // from midi to frequency
 
 function replay(){ // replays the same solution
     play(curr_val)
-}
-
-function next(){ // function that creates the next
-    if (rep_index < reps){
-        if (checked) {
-            checked = 0
-            note_list = []
-            //head_div.innerHTML = "values =  " + values
-            let idx = Math.floor(Math.random() * values.length)
-            curr_val = values[idx]
-            root = Math.floor(Math.random() * 32) + 50
-            head_div.innerHTML = "post =  " + idx + " " + curr_val + " " + root
-            play(curr_val)
-            head_div.innerHTML = "rep_idx = " + rep_index
-            rep_index++;
-        }
-    } else {
-        seeResults()
-    }
 }
 
 function play_root(){
@@ -413,41 +399,7 @@ function resumeAudioContext() {
         console.log("Audio Context Already Running"); // Check if it’s running already
     }
 }
-
-// Event listener for keyboard keys
-document.addEventListener('keydown', (event) => {
-    resumeAudioContext(); // Resume audio context when a key is pressed
-    const key = event.key.toLowerCase();
-    
-    if (!pressed_keys.includes(key)) {  // Check if key is not already pressed
-        pressed_keys.push(key);
-        const midiNote = keyToMidi[key] || null;
-        if (midiNote) {
-            playNoteFromMIDI(midiNote);
-        } else {
-            console.log("No MIDI note found for key:", key);
-        }
-    }
-});
-
-document.addEventListener('keyup', (event) => {
-    const key = event.key.toLowerCase();
-    const note = keyToMidi[key];
-
-    if (note != undefined && pressed_keys.find(e => e == key)) {
-        pressed_keys.splice(pressed_keys.indexOf(key), 1);
-    }
-});
-
-function octave_up() {
-    octave += 12; // Increase octave
-    oct_num.innerHTML = (octave / 12 - 1).toString(); // Update displayed octave number
-}
-
-function octave_down() {
-    octave -= 12;
-    oct_num.innerHTML = octave/12 - 1
-}
+*/
 
 async function file2Buffer(fname) {
     try {
@@ -470,6 +422,17 @@ async function file2Buffer(fname) {
    } catch (error) {
        console.error('Error processing audio file:', error);
    }
+}
+
+function midiToBuff(midi){
+    var relative = (midi - 60)
+    var oct_shift = Math.floor(relative/12)
+    var idx = relative%12
+    return [idx, oct_shift]
+}
+
+function octaveShifter(buff, shift){
+    return
 }
 
 function playAudio(to_play) {
@@ -513,3 +476,81 @@ function playAudioInSuccession(to_play) {
         startTime += buffer.duration + 0.5;
     });
 }
+
+function playNoteFromMIDI(midi_arr){
+    let idx_oct = []
+    let shifted_buffs = []
+
+    midi_arr.forEach(midi => {
+        idx_oct.push(midiToBuff(midi))
+    })
+
+    idx_oct.forEach((idx, oct) => {
+        shifted_buffs.push(octaveShifter(audio_buffs[idx], oct))
+    })
+    if(true) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
+    else playAudio(shifted_buffs)
+}
+// BUTTON FUNCTIONS
+
+function octaveUp() {
+    octave += 1; // Increase octave
+}
+
+function octaveDown() {
+    octave -= 1;
+}
+
+function hideKeyboard(){ // function to hide the keyboard
+    is_keyboard = !is_keyboard;
+    if(is_keyboard){
+        if(!is_test)
+            key_div.innerHTML = hide_btn + keyboard_html
+        else key_div.innerHTML = hide_btn + 'keyboard cannot be used during a test'
+    } else key_div.innerHTML = hide_btn + ''
+}
+
+function next(){ // function that creates the next
+    if (rep_index < reps){
+        if (checked) {
+            checked = 0
+            note_list = []
+            //head_div.innerHTML = "values =  " + values
+            let idx = Math.floor(Math.random() * values.length)
+            curr_val = values[idx]
+            root = Math.floor(Math.random() * 32) + 50
+            head_div.innerHTML = "post =  " + idx + " " + curr_val + " " + root
+            play(curr_val)
+            head_div.innerHTML = "rep_idx = " + rep_index
+            rep_index++;
+        }
+    } else {
+        seeResults()
+    }
+}
+
+// Event listener pair for keyboard keys
+document.addEventListener('keydown', (event) => {
+    resumeAudioContext(); // Resume audio context when a key is pressed
+    const key = event.key.toLowerCase();
+    
+    if (!pressed_keys.includes(key)) {  // Check if key is not already pressed
+        pressed_keys.push(key);
+        const midiNote = keyToMidi[key] || null;
+        if (midiNote) {
+            let note_arr = [midiNote + 12*octave]
+            playNoteFromMIDI(note_arr);
+        } else {
+            console.log("No MIDI note found for key:", key);
+        }
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    const key = event.key.toLowerCase();
+    const note = keyToMidi[key];
+
+    if (note != undefined && pressed_keys.find(e => e == key)) {
+        pressed_keys.splice(pressed_keys.indexOf(key), 1);
+    }
+});
