@@ -8,21 +8,23 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="/Code/assets/css/styles.css">
-    <link rel="stylesheet" href="/Code/assets/css/piano.css">
-    <link rel="stylesheet" href="/Code/assets/css/pentagram.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/piano.css">
+    <link rel="stylesheet" href="/assets/css/pentagram.css">
     <!-- Firebase and Script -->
-    <script type="module" src="/Code/assets/js/script.js" defer></script>
-    <script type="module" src="/Code/assets/js/server.js" defer></script>
-    <script type="module" src="/Code/assets/js/pentagramma.js" defer></script>
+    <script type="module" src="/assets/js/script.js" defer></script>
+    <script type="module" src="/assets/js/server.js" defer></script>
+    <script type="module" src="/assets/js/pentagramma.js" defer></script>
+    <script src="/assets/js/exercise_code.js" defer></script>
+    <script src="/assets/js/exercise_vars.js" defer></script>
     
 </head>
 <body>
     <!-- Header Section -->
     <header class="app-header">
         <div class="header-left">
-            <button class="btn home-btn" onclick="window.location.href='/Code/index.html'">
-                <img src="/Code/assets/img/home.png" alt="Home" class="home-img">
+            <button class="btn home-btn" onclick="window.location.href='/'">
+                <img src="/assets/img/home.png" alt="Home" class="home-img">
             </button>
             <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>
             <button class="btn btn-primary language-btn" onclick="setLanguage('it')">Italiano</button>
@@ -46,7 +48,7 @@
         </div>
         <div class="item-pentagramma">
             <svg width="400" height="290" id="pentagramma" style="margin-left: 10%;">
-                <image xlink:href="/Code/assets/img/chiave_di_violino.png" x="10" y="38" width="40" height="80" style="transform: scale(2.6);"></image>
+                <image xlink:href="/assets/img/chiave_di_violino.png" x="10" y="38" width="40" height="80" style="transform: scale(2.6);"></image>
                 <line x1="50" y1="148" x2="350" y2="148" class="pentagramma"></line>
                 <line x1="50" y1="173" x2="350" y2="173" class="pentagramma"></line>
                 <line x1="50" y1="198" x2="350" y2="198" class="pentagramma"></line>
@@ -54,11 +56,16 @@
                 <line x1="50" y1="248" x2="350" y2="248" class="pentagramma"></line>
             </svg>
         </div>
-        <ul class="set">
+        <ul class="item-buttons">
+            <div id = "choices"></div>
+            <div id = "controls"></div>
+        </ul>
+        <ul class="set" id="keyboard">
+            <button class="Piano-btn" onclick="hideKeyboard()">hide</button>
             <!-- Key control buttons -->
             <div id="key_control">
-                <button class="Piano-btn" id="oct" onclick="octave_down()">Octave Down</button>
-                <button class="Piano-btn" id="oct" onclick="octave_up()">Octave Up</button>
+                <button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>
+                <button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>
             </div>
             
             <li class="white c" data-note="60" onclick="playNoteFromMIDI(60)"></li> <!-- C4 (MIDI 60) -->
@@ -73,7 +80,7 @@
             <li class="white a" data-note="69" onclick="playNoteFromMIDI(69)"></li> <!-- A4 (MIDI 69) -->
             <li class="black as" data-note="70" onclick="playNoteFromMIDI(70)"></li> <!-- A#4 (MIDI 70) -->
             <li class="white b" data-note="71" onclick="playNoteFromMIDI(71)"></li> <!-- B4 (MIDI 71) -->
-          </ul>
+        </ul>
     </main>
 
 </body>
