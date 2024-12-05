@@ -57,6 +57,8 @@ const keyToMidi = {
 var buttons_div = document.getElementById("choices")
 var controls_div = document.getElementById("controls")
 var key_div = document.getElementById("keyboard");
+var box = document.getElementById('keyboard') 
+var hide = document.getElementById('hide')
 
 
 
@@ -504,10 +506,15 @@ function octaveDown() {
 function hideKeyboard(){ // function to hide the keyboard
     is_keyboard = !is_keyboard;
     if(is_keyboard){
-        if(!is_test)
-            key_div.innerHTML = hide_btn + keyboard_html
+        if(!is_test){
+            key_div.innerHTML = hide_btn + keyboard_html;
+            box.style.display = 'initial';
+            hide.classList.add('visible-position');}
         else key_div.innerHTML = hide_btn + 'keyboard cannot be used during a test'
-    } else key_div.innerHTML = hide_btn + ''
+    } else {key_div.innerHTML = hide_btn;
+        box.style.display = 'contents';
+        hide.classList.add('hidden-position');
+    }
 }
 
 function next(){ // function that creates the next
