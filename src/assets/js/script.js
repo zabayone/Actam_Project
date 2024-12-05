@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Category:', category);
 
             // Redirect to the level.html with category and level in the query string
-            window.location.href = `/ear-training/level.html?category=${category}&level=${level}`;
+            window.location.href = `level.html?category=${category}&level=${level}`;
         });
     });
 });

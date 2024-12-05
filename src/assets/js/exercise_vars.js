@@ -68,7 +68,7 @@ var chord_controls = '<button id = "replay" onclick = "replay()" class = "contro
 var interval_controls = '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
                         '<button id = "next" onclick = "next()" class = "controls_button">Next</button>'
 
-var hide_btn = '<button class="Piano-btn" onclick="hideKeyboard()">hide</button>'
+var hide_btn = '<button class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>'
 
 var keyboard_html = '<div id="key_control">' +
                     '<button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>'+
@@ -86,3 +86,4 @@ var keyboard_html = '<div id="key_control">' +
                     '<li class="white a" data-note="69" onclick="playNoteFromMIDI(69)"></li> <!-- A4 (MIDI 69) -->'+
                     '<li class="black as" data-note="70" onclick="playNoteFromMIDI(70)"></li> <!-- A#4 (MIDI 70) -->'+
                     '<li class="white b" data-note="71" onclick="playNoteFromMIDI(71)"></li> <!-- B4 (MIDI 71) -->'
+
