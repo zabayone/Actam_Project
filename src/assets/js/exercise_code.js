@@ -507,13 +507,12 @@ function hideKeyboard(){ // function to hide the keyboard
     is_keyboard = !is_keyboard;
     if(is_keyboard){
         if(!is_test){
-            key_div.innerHTML = hide_btn + keyboard_html;
+            key_div.innerHTML = keyboard_html;
             box.style.display = 'initial';
-            hide.classList.add('visible-position');}
-        else key_div.innerHTML = hide_btn + 'keyboard cannot be used during a test'
-    } else {key_div.innerHTML = hide_btn;
+        }
+        else key_div.innerHTML = 'keyboard cannot be used during a test'
+    } else {key_div.innerHTML = '';
         box.style.display = 'contents';
-        hide.classList.add('hidden-position');
     }
 }
 

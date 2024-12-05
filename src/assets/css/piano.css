@@ -107,18 +107,9 @@ ul li:last-child {
 
 #hide{
     position: absolute;
-    top: 10%;
-    right: 8%;
+    top: 543px;
+    right: 35%;
     z-index: 2;
-}
-
-.visible-position {
-    top: 10%;
-    right: 8%;
-}
-.hidden-position {
-    top: 50%;
-    right: 50%;
 }
 
 #keyboard{
