@@ -56,12 +56,13 @@
                 <line x1="50" y1="248" x2="350" y2="248" class="pentagramma"></line>
             </svg>
         </div>
-        <button class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>
             <ul class="set" id="keyboard">
                 <!-- Key control buttons -->
                 <div id="key_control">
                     <button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>
                     <button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>
+                    <button class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>
+
                 </div>
                 
                 <li class="white c" data-note="60" onclick="playNoteFromMIDI(60)"></li> <!-- C4 (MIDI 60) -->

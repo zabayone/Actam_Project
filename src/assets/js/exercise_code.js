@@ -57,7 +57,6 @@ const keyToMidi = {
 var buttons_div = document.getElementById("choices")
 var controls_div = document.getElementById("controls")
 var key_div = document.getElementById("keyboard");
-var box = document.getElementById('keyboard') 
 var hide = document.getElementById('hide')
 
 
@@ -508,11 +507,11 @@ function hideKeyboard(){ // function to hide the keyboard
     if(is_keyboard){
         if(!is_test){
             key_div.innerHTML = keyboard_html;
-            box.style.display = 'initial';
+            key_div.style.display = 'initial';
         }
         else key_div.innerHTML = 'keyboard cannot be used during a test'
-    } else {key_div.innerHTML = '';
-        box.style.display = 'contents';
+    } else {key_div.innerHTML = hide_btn;
+        key_div.style.display = 'contents';
     }
 }
 

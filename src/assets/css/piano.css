@@ -105,10 +105,16 @@ ul li:last-child {
     right: -10px;
 }
 
-#hide{
-    position: absolute;
-    top: 543px;
-    right: 35%;
+#hide {
+    top: -20px;
+    right: -14%;
+    z-index: 2;
+}
+
+#hidden {
+    position: -webkit-sticky;
+    top: 355px;
+    right: -11%;
     z-index: 2;
 }
 
