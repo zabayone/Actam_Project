@@ -70,7 +70,7 @@ var interval_controls = '<button id = "replay" onclick = "replay()" class = "con
 
 var hide_btn = '<button class="Piano-btn" id="hidden" onclick="hideKeyboard()">Show Keyboard</button>'
 
-var keyboard_html = '<div id="key_control">' +
+var keyboard_html = '<div id="key_control">'+
     
     '<button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>'+
     '<button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>'+

@@ -1,9 +1,3 @@
-/*import FFT from '../libs/fft.js'
-
-var fft = new FFT(512)
-*/
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
 // global variables
 var type
 var reps
@@ -57,9 +51,8 @@ const keyToMidi = {
 var buttons_div = document.getElementById("choices")
 var controls_div = document.getElementById("controls")
 var key_div = document.getElementById("keyboard");
-var hide = document.getElementById('hide')
 
-
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 /* function runned when the page is firstly loaded
  *  - loads the saved variables from the local storage
@@ -433,7 +426,56 @@ function midiToBuff(midi){
 }
 
 function octaveShifter(buff, shift){
-    return
+    if(shift == 0) return buff;
+    let fftSize = 1024;
+    let hopSize = 1024;
+    const fft = new FFT(fftSize);
+    if(buff.length%fftSize != 0) { // zero padding
+        let i = buff.length%fftSize;
+        while(i > 0){
+            buff.push(0)
+            i--;
+        }
+    }
+    const numWindows = buff.length / hopSize;
+    let out = [];
+    
+    for (let i = 0; i < numWindows; i++) {
+        const start = i * hopSize;
+        const end = start + fftSize;
+        let segment = new Float32Array(fftSize);
+        for (let j = 0; j < fftSize; j++) { 
+            segment[j] = buff[start+j]        
+        }
+
+        // Perform FFT
+        const spectrum = fft.createComplexArray()
+        fft.transform(spectrum, segment)
+
+        // Frequency shift by pitchFactor
+        const shiftedSpectrum = fft.createComplexArray();
+        const freqBins = fftSize / 2;
+        for (let k = 0; k < freqBins; k++) {
+             newBin = 2**shift * k;
+            if (newBin < freqBins) {
+                shiftedSpectrum[newBin * 2] = spectrum[k * 2];       // Real part
+                shiftedSpectrum[newBin * 2 + 1] = spectrum[k * 2 + 1]; // Imaginary part
+            }
+        }
+
+        // Inverse FFT
+        const shiftedSignal = fft.createComplexArray();
+        fft.inverseTransform(shiftedSignal, shiftedSpectrum);
+
+        // Overlap-add to reconstruct the signal
+        for (let j = 0; j < fftSize; j++) {
+            const index = start + j;
+            if (index < outputSignal.length) {
+                out[start + j] += shiftedSignal[j * 2] / fftSize; // Real part
+            }
+        }
+    }
+    return out;
 }
 
 function playAudio(to_play) {
