@@ -9,6 +9,18 @@ var is_keyboard = 1
 var is_test = 0
 var root = []           // MIDI of the root note
 var audio_buffs = []    // Buffers for the 12 notes in the octave
+var file_names =  [ '/assets/Notes/C.wav',
+                    '/assets/Notes/Db.wav', 
+                    '/assets/Notes/D.wav',
+                    '/assets/Notes/Eb.wav', 
+                    '/assets/Notes/E.wav',  
+                    '/assets/Notes/F.wav', 
+                    '/assets/Notes/Gb.wav',  
+                    '/assets/Notes/G.wav', 
+                    '/assets/Notes/Ab.wav',  
+                    '/assets/Notes/A.wav', 
+                    '/assets/Notes/Bb.wav',  
+                    '/assets/Notes/B.wav'  ]
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
 var octave = 0          // Octave shift for the keyboard
@@ -383,8 +395,10 @@ function midiToFreq(midi) {
     let offset = midi_n - 69; // Offset from MIDI note 69 (A4)
     return 440 * (Math.pow(2, offset / 12)); // Calculate the frequency
 }
+*/
 
 // Ensure the audio context is resumed on user interaction (fix for Safari)
+
 function resumeAudioContext() {
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
@@ -393,13 +407,13 @@ function resumeAudioContext() {
         console.log("Audio Context Already Running"); // Check if it’s running already
     }
 }
-*/
+
 
 async function file2Buffer(fname) {
     try {
        // Fetch the MP3 file
        const file = await fetch(fname);
-       if (!response.ok) throw new Error(`Failed to fetch ${fname}`);
+       if (!file.ok) throw new Error(`Failed to fetch ${fname}`);
 
        // Read the file as an ArrayBuffer
        const arrayBuffer = await file.arrayBuffer();
@@ -408,11 +422,9 @@ async function file2Buffer(fname) {
        const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
 
        // Access audio data as Float32Array for each channel
-       for (let i = 0; i < audioBuffer.numberOfChannels; i++) {
-           audio_buffs.push(audioBuffer.getChannelData(i)); // Each channel is a Float32Array
-       }
+        audio_buffs.push(audioBuffer.getChannelData(0)); // Each channel is a Float32Array
 
-       console.log(`Processed file: ${filePath}`);
+       console.log(`Processed file: ${fname}`);
    } catch (error) {
        console.error('Error processing audio file:', error);
    }
@@ -488,7 +500,10 @@ function playAudio(to_play) {
         const source = audioCtx.createBufferSource();
         source.buffer = buffer;
         // Connect the source to the audio context destination (speakers)
-        source.connect(audioCtx.destination);
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 50; // Set to a value greater than 1 for amplification
+        source.connect(gainNode).connect(audioCtx.destination);
+
         // Start playback
         source.start();
         console.log(`Playing buffer ${index + 1}...`);
@@ -527,11 +542,11 @@ function playNoteFromMIDI(midi_arr){
     midi_arr.forEach(midi => {
         idx_oct.push(midiToBuff(midi))
     })
-
     idx_oct.forEach((idx, oct) => {
         shifted_buffs.push(octaveShifter(audio_buffs[idx], oct))
     })
-    if(true) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
+
+    if(false) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
     else playAudio(shifted_buffs)
 }
 // BUTTON FUNCTIONS
@@ -585,7 +600,8 @@ document.addEventListener('keydown', (event) => {
         pressed_keys.push(key);
         const midiNote = keyToMidi[key] || null;
         if (midiNote) {
-            let note_arr = [midiNote + 12*octave]
+            let note_arr = []
+            note_arr.push(midiNote + 12*octave)
             playNoteFromMIDI(note_arr);
         } else {
             console.log("No MIDI note found for key:", key);
@@ -601,3 +617,13 @@ document.addEventListener('keyup', (event) => {
         pressed_keys.splice(pressed_keys.indexOf(key), 1);
     }
 });
+
+async function init(items) {
+    for (let i = 0; i < items.length; i++) {
+        await file2Buffer(items[i])
+        console.log(audio_buffs.length)
+        console.log(audio_buffs[i])
+    }
+}
+
+init(file_names)
