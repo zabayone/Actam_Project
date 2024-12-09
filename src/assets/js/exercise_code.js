@@ -1,8 +1,8 @@
 // global variables
+var cat
 var type
-var reps
 var key
-var dir
+var test
 
 // Running state
 var is_keyboard = 1
@@ -21,11 +21,11 @@ var file_names =  [ '/assets/Notes/C.wav',
                     '/assets/Notes/A.wav', 
                     '/assets/Notes/Bb.wav',  
                     '/assets/Notes/B.wav'  ]
+var values; // array of the indexes of the active exercises 
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
 var octave = 0          // Octave shift for the keyboard
 /*
-var values;
 var rep_index = 0;
 var button_list = []; // Container of the HTML for the buttons
 var curr_val = 1;     // Exercise value
@@ -140,7 +140,6 @@ function check_fun(value) { // executed when chosing an option
     } else {
         play(value)
     }
-
 }
 
 // Function to play a note based on MIDI note number
@@ -430,14 +429,14 @@ async function file2Buffer(fname) {
    }
 }
 
-function midiToBuff(midi){
+async function midiToBuff(midi){
     var relative = (midi - 60)
     var oct_shift = Math.floor(relative/12)
     var idx = relative%12
     return [idx, oct_shift]
 }
 
-function octaveShifter(buff, shift){
+async function octaveShifter(buff, shift){
     if(shift == 0) return buff;
     let fftSize = 1024;
     let hopSize = 1024;
@@ -535,20 +534,38 @@ function playAudioInSuccession(to_play) {
     });
 }
 
-function playNoteFromMIDI(midi_arr){
+async function playNoteFromMIDI(midi_arr, type){
     let idx_oct = []
     let shifted_buffs = []
 
-    midi_arr.forEach(midi => {
-        idx_oct.push(midiToBuff(midi))
-    })
-    idx_oct.forEach((idx, oct) => {
-        shifted_buffs.push(octaveShifter(audio_buffs[idx], oct))
-    })
-
-    if(false) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
+    for (midi of midi_arr) {
+        idx_oct.push(await midiToBuff(midi))
+    }
+    for ([idx, oct] of idx_oct) {
+        shifted_buffs.push(await octaveShifter(audio_buffs[idx], oct))
+    }
+    
+    if(type == 2) shifted_buffs = shifted_buffs.reverse()
+    if(type != 3) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
     else playAudio(shifted_buffs)
 }
+
+function getButtons(code){ // function for the Html
+    let text
+    switch (type) {
+        case "0":
+            text = interval_text[code-1]
+            break;
+        case "1":
+            text = chord_text[code-1]
+            break;
+        default:
+            text = "bosh"
+            break;
+    }
+    return '<button id = "'+code+'" onclick = "  check_fun('+code+')" class = "choice_button">'+text+' </button>'
+}
+
 // BUTTON FUNCTIONS
 
 function octaveUp() {
@@ -571,7 +588,7 @@ function hideKeyboard(){ // function to hide the keyboard
         key_div.style.display = 'contents';
     }
 }
-
+/*
 function next(){ // function that creates the next
     if (rep_index < reps){
         if (checked) {
@@ -590,7 +607,7 @@ function next(){ // function that creates the next
         seeResults()
     }
 }
-
+*/
 // Event listener pair for keyboard keys
 document.addEventListener('keydown', (event) => {
     resumeAudioContext(); // Resume audio context when a key is pressed
@@ -608,7 +625,7 @@ document.addEventListener('keydown', (event) => {
         }
     }
 });
-
+dir
 document.addEventListener('keyup', (event) => {
     const key = event.key.toLowerCase();
     const note = keyToMidi[key];
@@ -624,6 +641,17 @@ async function init(items) {
         console.log(audio_buffs.length)
         console.log(audio_buffs[i])
     }
+
+    cat = localStorage.getItem("category")
+    key = localStorage.getItem("key")
+    type = localStorage.getItem("type")
+    test = localStorage.getItem("test")
+
+    values = key.split('-')
+    buttonHtml = ''
+    values.forEach(val => {
+        buttonHtml = buttonHtml + getButtons(val)
+    });
 }
 
 init(file_names)

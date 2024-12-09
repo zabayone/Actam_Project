@@ -61,12 +61,20 @@ var chord_codes = ['3 7',                   //  0
                     ]
 
 // controls for the chord exercises
-var chord_controls = '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
-                     '<button id = "replay" onclick = "play_root()" class = "controls_button">Root</button>'+
-                     '<button id = "next" onclick = "next()" class = "controls_button">Next</button>'
-// control for interval exercises
-var interval_controls = '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
-                        '<button id = "next" onclick = "next()" class = "controls_button">Next</button>'
+var controls = [ // controls for intervals
+                '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
+                '<button id = "next" onclick = "next()" class = "controls_button">Next</button>',
+                 // controls for chords
+                '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
+                '<button id = "root" onclick = "play_root()" class = "controls_button">Root</button>'+
+                '<button id = "next" onclick = "next()" class = "controls_button">Next</button>',
+                 // controls for scales
+                '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
+                '<button id = "next" onclick = "next()" class = "controls_button">Next</button>',
+                 // controls for sandbox
+                 '<button id = "replay" onclick = "replay()" class = "controls_button">Replay</button>'+
+                 '<button id = "next" onclick = "next()" class = "controls_button">Next</button>',
+            ]
 
 var hide_btn = '<button class="Piano-btn" id="hidden" onclick="hideKeyboard()">Show Keyboard</button>'
 

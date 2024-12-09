@@ -45,7 +45,7 @@ function selectLevel(intervals, type, test){
         int_string = int_string + interval.toString() + '-'
     })
     int_string = int_string.slice(0, -1);
-    localStorage.setItem("intervals", int_string);
+    localStorage.setItem("key", int_string);
     localStorage.setItem("type", type);
     localStorage.setItem("test", test);
     document.location.href = 'level.html'
