@@ -70,22 +70,22 @@ var interval_controls = '<button id = "replay" onclick = "replay()" class = "con
 
 var hide_btn = '<button class="Piano-btn" id="hidden" onclick="hideKeyboard()">Show Keyboard</button>'
 
-var keyboard_html = '<div id="key_control">' +
+var keyboard_html = '<div id="key_control">'+
     
     '<button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>'+
     '<button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>'+
     `<button class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>`+
     '</div>'+
-    '<li class="white c" data-note="60" onclick="playNoteFromMIDI(60)"></li> <!-- C4 (MIDI 60) -->'+
-    '<li class="black cs" data-note="61" onclick="playNoteFromMIDI(61)"></li> <!-- C#4 (MIDI 61) -->'+
-    '<li class="white d" data-note="62" onclick="playNoteFromMIDI(62)"></li> <!-- D4 (MIDI 62) -->'+
-    '<li class="black ds" data-note="63" onclick="playNoteFromMIDI(63)"></li> <!-- D#4 (MIDI 63) -->'+
-    '<li class="white e" data-note="64" onclick="playNoteFromMIDI(64)"></li> <!-- E4 (MIDI 64) -->'+
-    '<li class="white f" data-note="65" onclick="playNoteFromMIDI(65)"></li> <!-- F4 (MIDI 65) -->'+
-    '<li class="black fs" data-note="66" onclick="playNoteFromMIDI(66)"></li> <!-- F#4 (MIDI 66) -->'+
-    '<li class="white g" data-note="67" onclick="playNoteFromMIDI(67)"></li> <!-- G4 (MIDI 67) -->'+
-    '<li class="black gs" data-note="68" onclick="playNoteFromMIDI(68)"></li> <!-- G#4 (MIDI 68) -->'+
-    '<li class="white a" data-note="69" onclick="playNoteFromMIDI(69)"></li> <!-- A4 (MIDI 69) -->'+
-    '<li class="black as" data-note="70" onclick="playNoteFromMIDI(70)"></li> <!-- A#4 (MIDI 70) -->'+
-    '<li class="white b" data-note="71" onclick="playNoteFromMIDI(71)"></li> <!-- B4 (MIDI 71) -->'
+    '<li class="white c" data-note="60" onclick="playNoteFromMIDI([60])"></li> <!-- C4 (MIDI 60) -->'+
+    '<li class="black cs" data-note="61" onclick="playNoteFromMIDI([61])"></li> <!-- C#4 (MIDI 61) -->'+
+    '<li class="white d" data-note="62" onclick="playNoteFromMIDI([62])"></li> <!-- D4 (MIDI 62) -->'+
+    '<li class="black ds" data-note="63" onclick="playNoteFromMIDI([63])"></li> <!-- D#4 (MIDI 63) -->'+
+    '<li class="white e" data-note="64" onclick="playNoteFromMIDI([64])"></li> <!-- E4 (MIDI 64) -->'+
+    '<li class="white f" data-note="65" onclick="playNoteFromMIDI([65])"></li> <!-- F4 (MIDI 65) -->'+
+    '<li class="black fs" data-note="66" onclick="playNoteFromMIDI([66])"></li> <!-- F#4 (MIDI 66) -->'+
+    '<li class="white g" data-note="67" onclick="playNoteFromMIDI([67])"></li> <!-- G4 (MIDI 67) -->'+
+    '<li class="black gs" data-note="68" onclick="playNoteFromMIDI([68])"></li> <!-- G#4 (MIDI 68) -->'+
+    '<li class="white a" data-note="69" onclick="playNoteFromMIDI([69])"></li> <!-- A4 (MIDI 69) -->'+
+    '<li class="black as" data-note="70" onclick="playNoteFromMIDI([70])"></li> <!-- A#4 (MIDI 70) -->'+
+    '<li class="white b" data-note="71" onclick="playNoteFromMIDI([71])"></li> <!-- B4 (MIDI 71) -->'
 
