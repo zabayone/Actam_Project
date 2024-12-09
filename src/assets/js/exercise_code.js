@@ -655,3 +655,26 @@ async function init(items) {
 }
 
 init(file_names)
+
+
+
+/*
+const sampler = new Tone.Sampler({
+    
+    urls:{
+        C2: "C2.mp3",
+        "D#2": 'Ds2.mp3',
+        "F#2": 'Fs2.mp3',
+        A2: "A2.mp3",
+    },
+    
+    release: 1,
+    baseUrl: "https://tonejs.github.io/audio/casio/"
+    
+}).toDestination();
+
+Tone.loaded().then(()=>{
+    sampler.triggerAttackRelease(["C4","E4","G4"],4);
+});
+
+*/
