@@ -48,12 +48,12 @@ function selectLevel(intervals, type, test){
     localStorage.setItem("intervals", int_string);
     localStorage.setItem("type", type);
     localStorage.setItem("test", test);
-    document.location.href = '/ear-training/level.html'
+    document.location.href = 'level.html'
 }
 
 function selectCategory(arg){
     localStorage.setItem("category", arg);
-    document.location.href = '/ear-training/map.html'
+    document.location.href = 'map.html'
 }
 
 function loadLevels(){
