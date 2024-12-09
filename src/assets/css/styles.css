@@ -298,7 +298,7 @@ body {
     color: white;
     border-radius: 30px;
     padding: 20px 0; /* Increase padding to make buttons larger */
-    width: 250px; /* Make buttons wider */
+    width: 185px; /* Make buttons wider */
     font-size: 18px; /* Make text larger */
     font-weight: bold;
     text-align: center;
@@ -310,10 +310,25 @@ body {
     line-height: 50px;
 }
 
+.exercise_button:hover{
+    background-color: #006666;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFA500;
+}
+
+.exercise_button:active{
+    background-color: #015555;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(200, 200, 200, 0.2);
+    border: 2px solid #f6f6f6;
+}
+
 .ex_btn_container{
-    display:grid;
+    display: inline-grid;
     position: absolute;
-    right: 6%;
-    bottom: 45%;
+    grid-template-columns: repeat(2,185px);
+    right: 3%;
+    top: 15%;
     grid-gap: 15px;
 }

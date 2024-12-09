@@ -85,7 +85,6 @@ ul li:last-child {
 }
 
 .Piano-btn {
-    
     background-color: #175357;
     /*border-color: linear-gradient(to right, #444 0%, #222 100%);*/
     color: #fff;
@@ -97,7 +96,7 @@ ul li:last-child {
 #oct {
     vertical-align: middle;
     top: -20px;
-    right: 138px;
+    right: 120px;
 }
 
 #inst{
