@@ -19,9 +19,11 @@ let pipes = [];
 let score = 0;
 
 const frequencyToNote = [
-    ['C4', 261.63], ['Db4', 277.18], ['D4', 293.66], ['Eb4', 311.13], 
-    ['E4', 329.63], ['F4', 349.23], ['Gb4', 369.99], ['G4', 392.00], 
-    ['Ab4', 415.30], ['A4', 440.00], ['Bb4', 466.16], ['B4', 493.88]
+    ['C2', 65.41],  ['D2', 73.42], ['E2', 82.41], ['F2', 87.31], 
+    ['G2', 98.00],  ['A2', 110.00], ['B2', 123.47],
+    ['C3', 130.81], ['D3', 146.83], ['E3', 164.81], ['F3', 174.61],
+    ['G3', 196.00], ['A3', 220.00], ['B3', 246.94],
+    ['C4', 261.63], ['D4', 293.66], ['E4', 329.63]
 ];
 
 // Show Start Modal
@@ -74,15 +76,15 @@ function initAudio() {
 
         const dataArray = new Float32Array(analyser.frequencyBinCount);
 
-        function detectFrequency() {
-            analyser.getFloatTimeDomainData(dataArray);
-
-            // Analyze the pitch using the FFT data and get the dominant frequency
-            const frequency = getPitchFromData(dataArray);
-
-            // Update player position based on detected pitch
-            updatePlayerPosition(frequency);
-        }
+function detectFrequency() {
+    analyser.getFloatTimeDomainData(dataArray);
+        
+    const frequency = getPitchFromData(dataArray);
+    console.log("Detected Frequency:", frequency); // Log the detected frequency
+        
+        updatePlayerPosition(frequency);
+}
+        
 
         frequencyInterval = setInterval(detectFrequency, 100);
     }).catch(error => {
@@ -94,33 +96,36 @@ function initAudio() {
 function getPitchFromData(dataArray) {
     const autoCorrelate = (data) => {
         const SIZE = data.length;
-        const threshold = 0.2;
+        const threshold = 0.1; // Lower threshold for weaker signals
         let bestOffset = -1;
         let bestCorrelation = 0;
         let correlation;
-
-        for (let offset = 0; offset < SIZE; offset++) {
+    
+        for (let offset = 50; offset < SIZE; offset++) { // Start from 50 to skip noise
             correlation = 0;
             for (let i = 0; i < SIZE - offset; i++) {
-                correlation += Math.abs(data[i] - data[i + offset]);
+                correlation += data[i] * data[i + offset]; // Cross-correlation
             }
-            correlation = 1 - (correlation / SIZE);
+            correlation = correlation / SIZE; // Normalize
             if (correlation > bestCorrelation && correlation > threshold) {
                 bestCorrelation = correlation;
                 bestOffset = offset;
             }
         }
-
+    
         const sampleRate = audioContext.sampleRate;
         return bestOffset > 0 ? sampleRate / bestOffset : -1;
     };
+    
 
     return autoCorrelate(dataArray);
 }
 
-// Update player position based on detected frequency
 function updatePlayerPosition(frequency) {
-    if (frequency === -1) return;
+    if (frequency === -1) {
+        console.log("No valid frequency detected");
+        return;
+    }
 
     let closestNote = frequencyToNote[0];
     for (let note of frequencyToNote) {
@@ -129,12 +134,15 @@ function updatePlayerPosition(frequency) {
         }
     }
 
+    console.log("Closest Note:", closestNote[0], "Frequency:", closestNote[1]);
+
     const noteIndex = frequencyToNote.indexOf(closestNote);
     const sectionHeight = gameScreen.clientHeight / frequencyToNote.length;
     playerY = sectionHeight * noteIndex + sectionHeight / 2;
+
+    console.log("Player New Y Position:", playerY);
     player.style.top = `${playerY}px`;
 }
-
 // Start game
 function startGame() {
     isPlaying = true;

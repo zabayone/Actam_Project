@@ -22,6 +22,9 @@ const translations = {
         chords: "Chords",
         sandbox: "Sandbox",
         level: "Level {number}",
+        arcade: "Arcade",
+        guessTheNote: "Guess the note",
+        play:"Play",    
     },
     it: {
         title: "Progetto Actam",
@@ -44,7 +47,10 @@ const translations = {
         scales: "Scale",
         chords: "Accordi",
         sandbox: "Sandbox",
-        level: "Livello {number}"
+        level: "Livello {number}",
+        arcade: "arcade",
+        guessTheNote: "Indovina la nota",
+        play:"Suona", 
     }
 };
 

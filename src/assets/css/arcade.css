@@ -124,7 +124,7 @@ arcade-body {
     left: 100px; 
     top: 50%; 
     transform: translateY(-50%) scale(2.5) rotate(21deg); /* Visually scale the guitar (2x size) */
-    background-image: url('/Code/assets/img/guitar.png');
+    background-image: url('/src/assets/img/guitar.png');
     background-size: contain;
     background-repeat: no-repeat;
     transition: transform 0.2s ease; /* Smooth transformation when moving */
@@ -144,3 +144,33 @@ arcade-body {
 .pipe.bottom {
     bottom: 0;
 }
+
+.retroButton {
+    outline:none;
+    border:none;
+    cursor:pointer;
+    display:block;
+    position:relative;
+    background-color:#008080;
+    font-size: 16px;
+    font-weight:300px;
+    color:white;
+    text-transform: uppercase;
+    letter-spacing:2px;
+    padding: 25px 80px;
+    margin: 0 auto;
+    border-radius:50px;
+    box-shadow: 0 6px #28283d;
+    top: 80px;
+}
+
+.retroButton:hover{
+    box-shadow: 0 4px #28283d;
+    top: 82px;
+}
+
+.retroButton:active{
+    box-shadow: none;
+    top: 86px;
+}
+

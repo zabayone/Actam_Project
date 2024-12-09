@@ -7,6 +7,7 @@ body {
     color: #333;
 }
 
+
 /* Header Section */
 .app-header {
     display: flex;
@@ -269,3 +270,25 @@ body {
         height: 40px;
         width: 40px;
     }
+
+    
+:root {
+    --gap: 8.33%;
+}
+
+#arcade{
+    background: linear-gradient(
+        to bottom,
+        #e57373 0%, #e57373 calc(0% + var(--gap)),
+        #ffb74d 8.33%, #ffb74d calc(8.33% + var(--gap)),
+        #fff176 16.66%, #fff176 calc(16.66% + var(--gap)),
+        #81c784 25%, #81c784 calc(25% + var(--gap)),
+        #4caf50 33.33%, #4caf50 calc(33.33% + var(--gap)), 
+        #66bb6a 41.66%, #66bb6a calc(41.66% + var(--gap)), 
+        #26a69a 50%, #26a69a calc(50% + var(--gap)), 
+        #29b6f6 58.33%, #29b6f6 calc(58.33% + var(--gap)), 
+        #42a5f5 66.66%, #42a5f5 calc(66.66% + var(--gap)),  
+        #7e57c2 75%, #7e57c2 calc(75% + var(--gap)), 
+        #ab47bc 83.33%, #ab47bc calc(83.33% + var(--gap)), 
+        #8e24aa 91.66%, #8e24aa 100%);
+}
