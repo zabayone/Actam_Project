@@ -76,13 +76,13 @@ var controls = [ // controls for intervals
                  '<button id = "next" onclick = "next()" class = "controls_button">Next</button>',
             ]
 
-var hide_btn = '<button class="Piano-btn" id="hidden" onclick="hideKeyboard()">Show Keyboard</button>'
+var hide_btn = '<button data-translate="show" class="Piano-btn" id="hidden" onclick="hideKeyboard()">Show Keyboard</button>'
 
 var keyboard_html = '<div id="key_control">'+
     
-    '<button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>'+
-    '<button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>'+
-    `<button class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>`+
+    '<button data-translate="octaveDown" class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>'+
+    '<button data-translate="octaveUp" class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>'+
+    `<button data-translate="hide" class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>`+
     '</div>'+
     '<li class="white c" data-note="60" onclick="playNoteFromMIDI([60])"></li> <!-- C4 (MIDI 60) -->'+
     '<li class="black cs" data-note="61" onclick="playNoteFromMIDI([61])"></li> <!-- C#4 (MIDI 61) -->'+

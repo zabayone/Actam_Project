@@ -46,9 +46,9 @@
         <ul class="set" id="keyboard">
             <!-- Key control buttons -->
             <div id="key_control">
-                <button class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>
-                <button class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>
-                <button class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>
+                <button data-translate="octaveDown" class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>
+                <button data-translate="octaveUp" class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>
+                <button data-translate="hide" class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>
             </div>
             
             <li class="white c" data-note="60" onclick="playNoteFromMIDI(60)"></li> <!-- C4 (MIDI 60) -->

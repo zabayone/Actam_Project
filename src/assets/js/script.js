@@ -25,6 +25,10 @@ const translations = {
         arcade: "Arcade",
         guessTheNote: "Guess the note",
         play:"Play",    
+        octaveUp:"Octave Up",
+        octaveDown:"Octave Down",
+        hide:"Hide",
+        showKeyboard:"Show Keyboard",
     },
     it: {
         title: "Progetto Actam",
@@ -51,6 +55,10 @@ const translations = {
         arcade: "arcade",
         guessTheNote: "Indovina la nota",
         play:"Suona", 
+        octaveUp:"Ottava Su",
+        octaveDown:"Ottava Giù",
+        hide:"Nascondi",
+        showKeyboard:"Mostra la Tastiera"
     }
 };
 
