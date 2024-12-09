@@ -271,7 +271,7 @@ body {
         width: 40px;
     }
 
-    
+
 :root {
     --gap: 8.33%;
 }
@@ -291,4 +291,29 @@ body {
         #7e57c2 75%, #7e57c2 calc(75% + var(--gap)), 
         #ab47bc 83.33%, #ab47bc calc(83.33% + var(--gap)), 
         #8e24aa 91.66%, #8e24aa 100%);
+}
+
+.exercise_button {
+    background-color: #008080; /* Teal */
+    color: white;
+    border-radius: 30px;
+    padding: 20px 0; /* Increase padding to make buttons larger */
+    width: 250px; /* Make buttons wider */
+    font-size: 18px; /* Make text larger */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent; /* Transparent border to prevent resizing */
+    height: 100px;
+    line-height: 50px;
+}
+
+.ex_btn_container{
+    display:grid;
+    position: absolute;
+    right: 6%;
+    bottom: 45%;
+    grid-gap: 15px;
 }

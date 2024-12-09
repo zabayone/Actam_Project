@@ -18,7 +18,7 @@ const level_buttons = [ // buttons for intervals
                        '<button class="level-btn" data-level="7" data-translate="level" onclick = "selectLevel([1,2,3],1,0)">Level 7</button>'+
                        '<button class="level-btn" data-level="8" data-translate="level" onclick = "selectLevel([1,2,3],1,0)">Level 8</button>'+
                        '<button class="level-btn" data-level="9" data-translate="level" onclick = "selectLevel([1,2,3],1,0)">Level 9</button>',
-                        // buttons for scalses
+                        // buttons for scales
                        '<button class="level-btn" data-level="1" data-translate="level" onclick = "selectLevel([1,2,3],1,0)">Level 1</button>'+
                        '<button class="level-btn" data-level="2" data-translate="level" onclick = "selectLevel([1,2,3],1,0)">Level 2</button>'+
                        '<button class="level-btn" data-level="3" data-translate="level" onclick = "selectLevel([1,2,3],1,0)">Level 3</button>'+
