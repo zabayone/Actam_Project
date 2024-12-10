@@ -335,3 +335,16 @@ body {
     top: 32%;
     grid-gap: 15px;
 }
+
+.control_button{
+    justify-content: center;
+    align-content: center;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.control_button_icon{
+    height: 40px;
+    width: 40px;
+}
