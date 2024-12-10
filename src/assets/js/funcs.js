@@ -2,52 +2,52 @@
 const levelsConfig = {
     0: [ // Intervals
         { type: "separator", text: "Thirds" }, 
-        { level: 1, params: [[2, 3], 0, 0] },
-        { level: 2, params: [[2, 3], 1, 0] },
-        { level: 3, params: [[2, 3], 2, 1] },
+        { level: 1, params: [[2, 3], [1,0,0], 0] },
+        { level: 2, params: [[2, 3], [1,0,0], 0] },
+        { level: 3, params: [[2, 3], [1,0,0], 1] },
         { type: "separator", text: "Seconds" }, 
-        { level: 4, params: [[0, 1], 0, 0] },
-        { level: 5, params: [[0, 1], 1, 0] },
-        { level: 6, params: [[0, 1], 2, 1] },
+        { level: 4, params: [[0, 1], [1,0,0], 0] },
+        { level: 5, params: [[0, 1], [1,0,0], 0] },
+        { level: 6, params: [[0, 1], [1,0,0], 1] },
         { type: "separator", text: "Thrids and seconds" },  
-        { level: 7, params: [[0, 1, 2, 3], 0, 0] },
-        { level: 8, params: [[0, 1, 2, 3], 1, 1] },
-        { level: 9, params: [[0, 1, 2, 3], 2, 0] },
-        { level: 10, params: [[0, 1, 2, 3], 3, 1] },
+        { level: 7, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 8, params: [[0, 1, 2, 3], [1,0,0], 1] },
+        { level: 9, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 10, params: [[0, 1, 2, 3], [1,0,0], 1] },
         { type: "separator", text: "" }, 
     ],
     1: 
     [ //chords
         { type: "separator", text: "Thirds" }, 
-        { level: 1, params: [[2, 3], 0, 0] },
-        { level: 2, params: [[2, 3], 1, 0] },
-        { level: 3, params: [[2, 3], 2, 1] },
-        { level: 4, params: [[0, 1], 0, 0] },
+        { level: 1, params: [[2, 3], [1,0,0], 0] },
+        { level: 2, params: [[2, 3], [1,0,0], 0] },
+        { level: 3, params: [[2, 3], [1,0,0], 1] },
+        { level: 4, params: [[0, 1], [1,0,0], 0] },
         { type: "separator", text: "Seconds" }, 
-        { level: 5, params: [[0, 1], 1, 0] },
-        { level: 6, params: [[0, 1], 2, 1] },
+        { level: 5, params: [[0, 1], [1,0,0], 0] },
+        { level: 6, params: [[0, 1], [1,0,0], 1] },
         { type: "separator", text: "Thrids and seconds" },  
-        { level: 7, params: [[0, 1, 2, 3], 0, 0] },
-        { level: 8, params: [[0, 1, 2, 3], 1, 0] },
-        { level: 9, params: [[0, 1, 2, 3], 2, 0] },
-        { level: 10, params: [[0, 1, 2, 3], 3, 1] },
+        { level: 7, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 8, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 9, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 10, params: [[0, 1, 2, 3], [1,0,0], 1] },
         { type: "separator", text: "" }, 
     ],
     2: 
     [ // scales
         { type: "separator", text: "Thirds" }, 
-        { level: 1, params: [[2, 3], 0, 0] },
-        { level: 2, params: [[2, 3], 1, 0] },
-        { level: 3, params: [[2, 3], 2, 1] },
+        { level: 1, params: [[2, 3], [1,0,0], 0] },
+        { level: 2, params: [[2, 3], [1,0,0], 0] },
+        { level: 3, params: [[2, 3], [1,0,0], 1] },
         { type: "separator", text: "Seconds" }, 
-        { level: 4, params: [[0, 1], 0, 0] },
-        { level: 5, params: [[0, 1], 1, 0] },
-        { level: 6, params: [[0, 1], 2, 1] },
-        { level: 7, params: [[0, 1, 2, 3], 0, 0] },
+        { level: 4, params: [[0, 1], [1,0,0], 0] },
+        { level: 5, params: [[0, 1], [1,0,0], 0] },
+        { level: 6, params: [[0, 1], [1,0,0], 1] },
+        { level: 7, params: [[0, 1, 2, 3], [1,0,0], 0] },
         { type: "separator", text: "Thrids and seconds" }, 
-        { level: 8, params: [[0, 1, 2, 3], 1, 0] },
-        { level: 9, params: [[0, 1, 2, 3], 2, 0] },
-        { level: 10, params: [[0, 1, 2, 3], 3, 1] },
+        { level: 8, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 9, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 10, params: [[0, 1, 2, 3], [1,0,0], 1] },
         { type: "separator", text: "" }, 
     ]
   };
@@ -66,7 +66,7 @@ function generateLevelButtons(levelsConfig) {
             rowsHTML += `<div class="level-row">
                         ${currentRow.map(level => 
                             `<button class="level-btn ${level.params[2] === 1 ? 'test-btn' : ''}" data-level="${level.level}" 
-                            onclick="selectLevel(${JSON.stringify(level.params[0])}, ${level.params[1]}, ${level.params[2]})">
+                            onclick="selectLevel(${JSON.stringify(level.params[0])}, ${JSON.stringify(level.params[1])}, ${level.params[2]})">
                             Level ${level.level}</button>`
                         ).join('')}
                         </div>`;
