@@ -281,7 +281,7 @@ function playFrequency(frequency, gainValue) {
     oscillator.stop(audioCtx.currentTime + 1);
 }
 
-// Updated playPianoTone function with gain control
+*/
 function playPianoTone(frequency) {
     const fundamental = audioCtx.createOscillator();
     const harmonic1 = audioCtx.createOscillator(); // 2nd harmonic
@@ -321,7 +321,7 @@ function playPianoTone(frequency) {
     harmonic2.stop(now + 1.5);
 }
 
-
+/*
 function playGuitarTone(frequency) {
     const fundamental = audioCtx.createOscillator();
     const harmonic1 = audioCtx.createOscillator(); // 2nd harmonic

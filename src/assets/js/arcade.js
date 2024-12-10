@@ -26,6 +26,12 @@ const frequencyToNote = [
     ['C4', 261.63], ['D4', 293.66], ['E4', 329.63]
 ];
 
+function playRandomNote() {
+    const semitonesFromA3 = Math.floor(Math.random() * 49) - 12;
+    const frequency = 220 * Math.pow(2, semitonesFromA3 / 12);
+    playPianoTone(frequency);
+}
+
 // Show Start Modal
 function showStartModal() {
     startOverlay.classList.add("active");

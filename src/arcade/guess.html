@@ -15,9 +15,10 @@
     <!-- Firebase and Script -->
     <script type="module" src="../assets/js/script.js" defer></script>
     <script type="module" src="../assets/js/server.js" defer></script>
+    <script src="../assets/js/arcade.js" defer></script>
     <script type="module" src="../assets/js/pentagramma.js" defer></script>
     <script src="../assets/js/exercise_code.js" defer></script>
-    <script src="../assets/js/exercise_vars.js" defer></script>
+    <script type="module" src="../assets/js/exercise_vars.js" defer></script>
     
 </head>
 
@@ -42,7 +43,7 @@
         </div>
     </header>
     <main class="main-container">
-        <button data-translate="play" class="retroButton">Play</button>
+        <button data-translate="play" class="retroButton" onclick="playRandomNote()">Play</button>
         <ul class="set" id="keyboard">
             <!-- Key control buttons -->
             <div id="key_control">
