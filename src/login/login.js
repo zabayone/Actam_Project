@@ -5,7 +5,22 @@ import { db } from '../assets/js/ConnectDB.js';  // Conexión a la base de datos
 // Crea una referencia a la colección 'Usernames'
 const usernamesCollection = collection(db, "Usernames");
 
-let currentUser = '';
+
+//Manage local storing
+
+let lvlInfo = ['lvlInterval', 'lvlChord', 'lvlScale', 'lvlEar'];
+let minigamesInfo = ['game1Score', 'game2Score', 'game3Score'];
+
+lvlInfo.forEach(element => {
+  if (!localStorage.getItem(element)) {
+    localStorage.setItem(element, 0); // Almacena el valor 0 si no está presente
+    console.log('Dato almacenado:', element);
+  } else {
+    console.log('El dato ya estaba guardado:', element, localStorage.getItem(element));
+  }
+});
+
+
 
 // Función de inicio de sesión
 async function checkLogin(user, password) {
@@ -16,17 +31,23 @@ async function checkLogin(user, password) {
 
     if (docSnap.exists()) {
       if (docSnap.data().password === password) {
-        localStorage.setItem('currentUser', user); 
+        informationElem.style.display = 'block';
+        informationElem.innerText = `Welcome back, ${user}!`;
+        localStorage.setItem('username', user); 
+        informationElem.innerText = `Welcome back, ${user}!`;
        // window.location.href =  '../leaderboard/index.html';
       } else {
+        informationElem.style.display = 'block';
         informationElem.innerText = "Wrong Password";  // Contraseña incorrecta
       }
     } else {
+      informationElem.style.display = 'block';
       informationElem.innerText = "That username does not exist";  // Usuario no encontrado
     }
   } catch (error) {
-    console.error("Error:", error);
-    informationElem.innerText = "Error";
+    console.error("Error during login:", error);
+    informationElem.style.display = 'block';
+    informationElem.innerText = "An error occurred during login.";
   }
 }
 
@@ -38,50 +59,57 @@ async function checkRegister(user, password) {
     const docSnap = await getDoc(docRef);  // Usa async/await para obtener los datos
 
     if (docSnap.exists()) {
-      informationElem.innerText = "This user already exists";  // El usuario ya existe
+      informationElem.style.display = 'block';
+      informationElem.innerText = "This username is already taken.";  // El usuario ya existe
     } else {
       // Si el usuario no existe, crea el documento
       await setDoc(docRef, {
         password: password
       });
-      console.log("Colección y documento creados!");
-      informationElem.innerText = "User registered successfully!";
-      localStorage.setItem('currentUser', user); 
+      informationElem.style.display = 'block';
+      informationElem.innerText = "Registration successful!";
+      localStorage.setItem('username', user); 
       //window.location.href = '../leaderboard/index.html';
     }
   } catch (error) {
-    console.error("Error al crear el documento:", error);
+    informationElem.style.display = 'block';
+    console.error("Error during registration check:", error);
     informationElem.innerText = "Error";
   }
 }
 
 // Evento de login
 document.getElementById('Login').addEventListener('click', function() {
-  const user = document.getElementById('loginUsername').value.trim();
-  const password = document.getElementById('loginPassword').value.trim();
+  const user = document.getElementById('authUsername').value.trim();
+  const password = document.getElementById('authPassword').value.trim();
   const informationElem = document.getElementById('information');
   
   if (user === "" || password === "") {
-    informationElem.innerText = 'Fill both fields';
+    informationElem.style.display = 'block';
+    informationElem.innerText = "Please fill in both fields.";
   } else {
-    console.log("user:", user);
-    console.log("Password:", password);
+    //console.log("user:", user);
+    //console.log("Password:", password);
     checkLogin(user, password);
   }
 });
 
 // Evento de registro
 document.getElementById('Register').addEventListener('click', function() {
-  const user = document.getElementById('registerUsername').value.trim();
-  const password = document.getElementById('registerPassword').value.trim();
+  const user = document.getElementById('authUsername').value.trim();
+  const password = document.getElementById('authPassword').value.trim();
   const informationElem = document.getElementById('information');
   
   if (user === "" || password === "") {
-    informationElem.innerText = 'Fill both fields';
+    informationElem.style.display = 'block';
+    informationElem.innerText = "Please fill in both fields.";
   } else {
     informationElem.innerText = 'Good';
-    console.log("user:", user);
-    console.log("Password:", password);
+    //console.log("user:", user);
+    //console.log("Password:", password);
     checkRegister(user, password);
   }
 });
+
+
+
