@@ -9,8 +9,8 @@ const gameOverModal = document.getElementById('gameOverModal');
 const finalScore = document.getElementById('finalScore');
 const restartButton = document.getElementById('restartButton');
 
-const pipesInterval = 10000;
-const pipeSpeed = 10;
+const pipesInterval = 5000; // Faster pipe generation
+const pipeSpeed = 5; // Slower pipe movement for smaller octave
 
 let audioContext, analyser, frequencyInterval, mediaStream;
 let playerY = gameScreen.clientHeight / 2; // Initial position
@@ -18,19 +18,12 @@ let isPlaying = false;
 let pipes = [];
 let score = 0;
 
+// Single octave notes with sharps and flats
 const frequencyToNote = [
-    ['C2', 65.41],  ['D2', 73.42], ['E2', 82.41], ['F2', 87.31], 
-    ['G2', 98.00],  ['A2', 110.00], ['B2', 123.47],
-    ['C3', 130.81], ['D3', 146.83], ['E3', 164.81], ['F3', 174.61],
-    ['G3', 196.00], ['A3', 220.00], ['B3', 246.94],
-    ['C4', 261.63], ['D4', 293.66], ['E4', 329.63]
+    ['C4', 261.63], ['C#4', 277.18], ['D4', 293.66], ['D#4', 311.13], 
+    ['E4', 329.63], ['F4', 349.23], ['F#4', 369.99], ['G4', 392.00], 
+    ['G#4', 415.30], ['A4', 440.00], ['A#4', 466.16], ['B4', 493.88]
 ];
-
-function playRandomNote() {
-    const semitonesFromA3 = Math.floor(Math.random() * 49) - 12;
-    const frequency = 220 * Math.pow(2, semitonesFromA3 / 12);
-    playPianoTone(frequency);
-}
 
 // Show Start Modal
 function showStartModal() {
@@ -60,8 +53,9 @@ function hideGameOverModal() {
 function setupBackground() {
     // Remove existing note sections if they already exist
     const existingNotes = document.querySelectorAll('.noteSection');
-    existingNotes.forEach(note => note.remove()); // Remove all note sections
+    existingNotes.forEach(note => note.remove());
 
+    // Add new note sections for single octave
     frequencyToNote.forEach(([note]) => {
         const noteSection = document.createElement('div');
         noteSection.classList.add('noteSection');
@@ -82,15 +76,12 @@ function initAudio() {
 
         const dataArray = new Float32Array(analyser.frequencyBinCount);
 
-function detectFrequency() {
-    analyser.getFloatTimeDomainData(dataArray);
-        
-    const frequency = getPitchFromData(dataArray);
-    console.log("Detected Frequency:", frequency); // Log the detected frequency
-        
-        updatePlayerPosition(frequency);
-}
-        
+        function detectFrequency() {
+            analyser.getFloatTimeDomainData(dataArray);
+            const frequency = getPitchFromData(dataArray);
+            console.log("Detected Frequency:", frequency);
+            updatePlayerPosition(frequency);
+        }
 
         frequencyInterval = setInterval(detectFrequency, 100);
     }).catch(error => {
@@ -98,35 +89,49 @@ function detectFrequency() {
     });
 }
 
+function resumeAudioContext() {
+    if (!audioContext) {
+        // Initialize AudioContext if it doesn't exist
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioContext.state === 'suspended') {
+        audioContext.resume().then(() => {
+            console.log("AudioContext resumed successfully.");
+        }).catch((error) => {
+            console.error("Failed to resume AudioContext:", error);
+        });
+    }
+}
+
 // Function to get the dominant frequency from FFT data
 function getPitchFromData(dataArray) {
     const autoCorrelate = (data) => {
         const SIZE = data.length;
-        const threshold = 0.1; // Lower threshold for weaker signals
+        const threshold = 0.1;
         let bestOffset = -1;
         let bestCorrelation = 0;
         let correlation;
-    
-        for (let offset = 50; offset < SIZE; offset++) { // Start from 50 to skip noise
+
+        for (let offset = 50; offset < SIZE; offset++) {
             correlation = 0;
             for (let i = 0; i < SIZE - offset; i++) {
-                correlation += data[i] * data[i + offset]; // Cross-correlation
+                correlation += data[i] * data[i + offset];
             }
-            correlation = correlation / SIZE; // Normalize
+            correlation = correlation / SIZE;
             if (correlation > bestCorrelation && correlation > threshold) {
                 bestCorrelation = correlation;
                 bestOffset = offset;
             }
         }
-    
+
         const sampleRate = audioContext.sampleRate;
         return bestOffset > 0 ? sampleRate / bestOffset : -1;
     };
-    
 
     return autoCorrelate(dataArray);
 }
 
+// Update player position based on detected frequency
 function updatePlayerPosition(frequency) {
     if (frequency === -1) {
         console.log("No valid frequency detected");
@@ -140,22 +145,20 @@ function updatePlayerPosition(frequency) {
         }
     }
 
-    console.log("Closest Note:", closestNote[0], "Frequency:", closestNote[1]);
-
     const noteIndex = frequencyToNote.indexOf(closestNote);
     const sectionHeight = gameScreen.clientHeight / frequencyToNote.length;
     playerY = sectionHeight * noteIndex + sectionHeight / 2;
 
-    console.log("Player New Y Position:", playerY);
     player.style.top = `${playerY}px`;
 }
+
 // Start game
 function startGame() {
     isPlaying = true;
     score = 0;
     hideStartModal();
     setupBackground();
-    player.style.top = `${playerY}px`; // Ensure the player starts at the correct position
+    player.style.top = `${playerY}px`;
     initAudio();
     spawnPipes();
     gameLoop();
@@ -164,10 +167,8 @@ function startGame() {
 // Game loop
 function gameLoop() {
     if (!isPlaying) return;
-
     movePipes();
     checkCollisions();
-
     requestAnimationFrame(gameLoop);
 }
 
@@ -196,10 +197,7 @@ function spawnPipes() {
         pipes.push(pipeTop, pipeBottom);
     };
 
-    // Spawn the first pipe immediately
     spawnPipe();
-
-    // Spawn subsequent pipes at regular intervals
     setInterval(spawnPipe, pipesInterval);
 }
 
@@ -243,39 +241,40 @@ function endGame() {
 
 // Restart game
 function restartGame() {
-    // Reset game state
-    isPlaying = false;
-    score = 0;
-
-    // Clear all pipes
     pipes.forEach(pipe => pipe.remove());
-    pipes = []; // Empty the pipes array
-
-    // Reset the player position
-    playerY = gameScreen.clientHeight / 2; // Set to initial position
-    player.style.top = `${playerY}px`; // Update the player's position on screen
-
-    // Reset background notes
-    setupBackground(); // Re-add the notes to the background
-
-    // Restart audio context (and any other required states)
-    mediaStream.getTracks().forEach(track => track.stop()); // Stop microphone stream
-    clearInterval(frequencyInterval); // Clear frequency detection
-
-    // Show the start modal again
+    pipes = [];
+    playerY = gameScreen.clientHeight / 2;
+    player.style.top = `${playerY}px`;
+    setupBackground();
+    mediaStream.getTracks().forEach(track => track.stop());
+    clearInterval(frequencyInterval);
     showStartModal();
 }
 
-// Restart the game when the restart button is clicked
+// Event Listeners
 restartButton.addEventListener("click", () => {
-    hideGameOverModal(); // Hide game over modal
-    restartGame(); // Restart the game
+    hideGameOverModal();
+    restartGame();
 });
 
-// Show the start modal on load
 window.addEventListener("DOMContentLoaded", () => {
     showStartModal();
+    document.addEventListener('click', resumeAudioContext); // Resume audio on click
 });
 
-// Start the game on button click
-startButton.addEventListener('click', startGame);
+startButton.addEventListener('click', () => {
+    startGame();
+    resumeAudioContext(); // Ensure AudioContext resumes
+});
+
+document.addEventListener('click', () => {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioContext.state === 'suspended') {
+        audioContext.resume().then(() => {
+            console.log("AudioContext resumed after user gesture");
+        });
+    }
+});
+

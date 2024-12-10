@@ -124,7 +124,7 @@ arcade-body {
     left: 100px; 
     top: 50%; 
     transform: translateY(-50%) scale(2.5) rotate(21deg); /* Visually scale the guitar (2x size) */
-    background-image: url('/src/assets/img/guitar.png');
+    background-image: url('/assets/img/guitar.png');
     background-size: contain;
     background-repeat: no-repeat;
     transition: transform 0.2s ease; /* Smooth transformation when moving */
