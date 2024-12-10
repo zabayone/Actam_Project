@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
+    const category = localStorage.getItem('category');
     const level = urlParams.get('level');
 
     // Elements to update
