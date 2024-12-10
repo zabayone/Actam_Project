@@ -1,3 +1,4 @@
+
 const levelsConfig = {
     0: [ // Intervals
         { type: "separator", text: "Thirds" }, 
@@ -96,15 +97,20 @@ function generateLevelButtons(levelsConfig) {
     return rowsHTML;
 }
 
-
 function selectLevel(intervals, type, test){
     let int_string = '';
     intervals.forEach(interval => {
         int_string = int_string + interval.toString() + '-'
     })
+    let type_string = '';
+    type.forEach(interval => {
+        type_string = type_string + interval.toString() + '-'
+    })
+
     int_string = int_string.slice(0, -1);
+    type_string = type_string.slice(0, -1);
     localStorage.setItem("key", int_string);
-    localStorage.setItem("type", type);
+    localStorage.setItem("type", type_string);
     localStorage.setItem("test", test);
     document.location.href = 'level.html'
 }

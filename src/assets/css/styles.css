@@ -319,14 +319,13 @@ body {
     padding: 20px;
     width: 150px;
     font-size: 18px;
-    font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
     height: 80px;
-    line-height: 37px;
+    line-height: 20px;
     }
 
 
@@ -368,3 +367,32 @@ body {
     font-style: italic;        /* Estilo opcional para el separador */
   }
   
+.control_btn{
+    justify-content: center;
+    align-content: center;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.control_btn_icon{
+    height: 40px;
+    width: 40px;
+}
+
+.control_btn_icon:hover{
+    transform: scale(1.05);
+    -webkit-filter: drop-shadow(1px 5px 5px #78787865);
+    filter: drop-shadow(1px 5px 5px #6060606f);
+}
+.control_btn_icon:active{
+    transform: scale(1.05);
+    -webkit-filter: drop-shadow(1px 5px 5px #9a9a9a65);
+    filter: drop-shadow(1px 5px 5px #c8c8c86f);
+}
+
+.control_btn_container{
+    position: absolute;
+    top: 52%;
+    left: 44%;
+}
