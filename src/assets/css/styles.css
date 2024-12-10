@@ -296,21 +296,22 @@ body {
 }
 
 .exercise_button {
-    background-color: #008080; /* Teal */
+    background-color: #008080;
     color: white;
-    border-radius: 30px;
-    padding: 20px 0; /* Increase padding to make buttons larger */
-    width: 185px; /* Make buttons wider */
-    font-size: 18px; /* Make text larger */
+    border-radius: 15px;
+    padding: 20px;
+    width: 150px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid transparent; /* Transparent border to prevent resizing */
-    height: 100px;
-    line-height: 50px;
-}
+    border: 2px solid transparent;
+    height: 80px;
+    line-height: 37px;
+    }
+
 
 .exercise_button:hover{
     background-color: #006666;
@@ -329,12 +330,8 @@ body {
 .ex_btn_container{
     display: inline-grid;
     position: absolute;
-    grid-template-columns: repeat(2,185px);
+    grid-template-columns: repeat(6,150px);
     right: 3%;
-    top: 15%;
+    top: 32%;
     grid-gap: 15px;
-}
-
-#key_control{
-    gap: 5px;
 }
