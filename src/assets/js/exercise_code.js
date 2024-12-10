@@ -66,6 +66,24 @@ var key_div = document.getElementById("keyboard");
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+const sampler = new Tone.Sampler({
+    urls:{
+        C4:  '/assets/Notes/C.wav',
+        Db4: '/assets/Notes/Db.wav', 
+        D4:  '/assets/Notes/D.wav',
+        Eb4: '/assets/Notes/Eb.wav', 
+        E4:  '/assets/Notes/E.wav',  
+        F4:  '/assets/Notes/F.wav', 
+        Gb4: '/assets/Notes/Gb.wav',  
+        G4:  '/assets/Notes/G.wav', 
+        Ab4: '/assets/Notes/Ab.wav',  
+        A4:  '/assets/Notes/A.wav', 
+        Bb4: '/assets/Notes/Bb.wav',  
+        B4:  '/assets/Notes/B.wav'  
+    },
+    release: 1,
+}).toDestination();
+
 /* function runned when the page is firstly loaded
  *  - loads the saved variables from the local storage
  *  - generates the correct html
@@ -281,7 +299,7 @@ function playFrequency(frequency, gainValue) {
     oscillator.stop(audioCtx.currentTime + 1);
 }
 
-// Updated playPianoTone function with gain control
+*/
 function playPianoTone(frequency) {
     const fundamental = audioCtx.createOscillator();
     const harmonic1 = audioCtx.createOscillator(); // 2nd harmonic
@@ -321,7 +339,7 @@ function playPianoTone(frequency) {
     harmonic2.stop(now + 1.5);
 }
 
-
+/*
 function playGuitarTone(frequency) {
     const fundamental = audioCtx.createOscillator();
     const harmonic1 = audioCtx.createOscillator(); // 2nd harmonic
@@ -436,6 +454,14 @@ async function midiToBuff(midi){
     return [idx, oct_shift]
 }
 
+async function midiToNote(midi){
+    var relative = (midi - 60)
+    var oct_shift = Math.floor(relative/12)
+    var idx = relative%12
+    var note = notes[idx] + (4+oct_shift).toString()
+    return note
+}
+
 async function octaveShifter(buff, shift){
     if(shift == 0) return buff;
     let fftSize = 1024;
@@ -534,20 +560,48 @@ function playAudioInSuccession(to_play) {
     });
 }
 
-async function playNoteFromMIDI(midi_arr, type){
-    let idx_oct = []
-    let shifted_buffs = []
+// async function playNoteFromMIDI(midi_arr, type){
+//     let idx_oct = []
+//     let shifted_buffs = []
 
+//     for (midi of midi_arr) {
+//         idx_oct.push(await midiToBuff(midi))
+//     }
+//     for ([idx, oct] of idx_oct) {
+//         shifted_buffs.push(await octaveShifter(audio_buffs[idx], oct))
+//     }
+//     /*
+//     if(type == 2) shifted_buffs = shifted_buffs.reverse()
+//     if(type != 3) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
+//     else playAudio(shifted_buffs)
+//     }
+//     */
+//         if(false) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
+//         else playAudio(shifted_buffs)
+// }
+
+async function playNoteFromMIDI(midi_arr, type){
+    let note_arr = []
+    i = 0;
     for (midi of midi_arr) {
-        idx_oct.push(await midiToBuff(midi))
+        note_arr.push(await midiToNote(midi))
     }
-    for ([idx, oct] of idx_oct) {
-        shifted_buffs.push(await octaveShifter(audio_buffs[idx], oct))
+    console.log(note_arr)
+    if (type == 2){
+        note_arr = note_arr.reverse()
+    } 
+    if(type == 3) {
+        Tone.loaded().then(()=>{
+            sampler.triggerAttackRelease(note_arr, 4);
+        });
+    } else {
+        for(note of note_arr){
+            Tone.loaded().then(()=>{
+                sampler.triggerAttackRelease([note], now + i*0.5);
+            });
+            i = i+1;
+        }
     }
-    
-    if(type == 2) shifted_buffs = shifted_buffs.reverse()
-    if(type != 3) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
-    else playAudio(shifted_buffs)
 }
 
 function getButtons(code){ // function for the Html
@@ -574,6 +628,10 @@ function octaveUp() {
 
 function octaveDown() {
     octave -= 1;
+}
+
+function adaptOctave(val){
+    return val + 12*octave
 }
 
 function hideKeyboard(){ // function to hide the keyboard
@@ -636,22 +694,24 @@ document.addEventListener('keyup', (event) => {
 });
 
 async function init(items) {
-    for (let i = 0; i < items.length; i++) {
-        await file2Buffer(items[i])
-        console.log(audio_buffs.length)
-        console.log(audio_buffs[i])
-    }
-
     cat = localStorage.getItem("category")
     key = localStorage.getItem("key")
     type = localStorage.getItem("type")
     test = localStorage.getItem("test")
+
+    butt_div = document.getElementById("ex_btn_container")
 
     values = key.split('-')
     buttonHtml = ''
     values.forEach(val => {
         buttonHtml = buttonHtml + getButtons(val)
     });
+    butt_div.innerHTML = buttonHtml
+
+    if(test == 1) {
+        key_div.style.display = 'contents'
+        key_div.innerHTML = ''
+    }
 }
 
 init(file_names)
