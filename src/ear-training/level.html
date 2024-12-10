@@ -72,14 +72,14 @@
             <button class="exercise_button">test 12</button>
         </div>
         <div class="control_btn_container">
-            <button class="control_button" onclick="next()">
-                <img src="/assets/img/replay.png" alt="replay" class="control_button_icon">
+            <button class="control_btn" onclick="next()">
+                <img src="/assets/img/replay.png" alt="replay" class="control_btn_icon">
             </button>
-            <button class="control_button">
-                <img src="/assets/img/play.png" alt="root" class="control_button_icon">
+            <button class="control_btn">
+                <img src="/assets/img/play.png" alt="root" class="control_btn_icon">
             </button>
-            <button class="control_button">
-                <img src="/assets/img/skip.png" alt="next" class="control_button_icon">
+            <button class="control_btn">
+                <img src="/assets/img/skip.png" alt="next" class="control_btn_icon">
             </button>
 
         </div>
@@ -104,27 +104,6 @@
             <li class="black as" data-note="70" onclick="playNoteFromMIDI([adaptOctave(70)], 3)"></li> <!-- A#4 (MIDI 70) -->
             <li class="white b" data-note="71" onclick="playNoteFromMIDI([adaptOctave(71)], 3)"></li> <!-- B4 (MIDI 71) -->
         </ul>
-            <ul class="set" id="keyboard">
-                <!-- Key control buttons -->
-                <div id="key_control">
-                    <button data-translate="octaveDown" class="Piano-btn" id="oct" onclick="octaveDown()">Octave Down</button>
-                    <button data-translate="octaveUp" class="Piano-btn" id="oct" onclick="octaveUp()">Octave Up</button>
-                    <button data-translate="hide" class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>
-                </div>
-                
-                <li class="white c" data-note="60" onclick="playNoteFromMIDI([adaptOctave(60)], 3)"></li> <!-- C4 (MIDI 60) -->
-                <li class="black cs" data-note="61" onclick="playNoteFromMIDI([adaptOctave(61)], 3)"></li> <!-- C#4 (MIDI 61) -->
-                <li class="white d" data-note="62" onclick="playNoteFromMIDI([adaptOctave(62)], 3)"></li> <!-- D4 (MIDI 62) -->
-                <li class="black ds" data-note="63" onclick="playNoteFromMIDI([adaptOctave(63)], 3)"></li> <!-- D#4 (MIDI 63) -->
-                <li class="white e" data-note="64" onclick="playNoteFromMIDI([adaptOctave(64)], 3)"></li> <!-- E4 (MIDI 64) -->
-                <li class="white f" data-note="65" onclick="playNoteFromMIDI([adaptOctave(65)], 3)"></li> <!-- F4 (MIDI 65) -->
-                <li class="black fs" data-note="66" onclick="playNoteFromMIDI([adaptOctave(66)], 3)"></li> <!-- F#4 (MIDI 66) -->
-                <li class="white g" data-note="67" onclick="playNoteFromMIDI([adaptOctave(67)], 3)"></li> <!-- G4 (MIDI 67) -->
-                <li class="black gs" data-note="68" onclick="playNoteFromMIDI([adaptOctave(68)], 3)"></li> <!-- G#4 (MIDI 68) -->
-                <li class="white a" data-note="69" onclick="playNoteFromMIDI([adaptOctave(69)], 3)"></li> <!-- A4 (MIDI 69) -->
-                <li class="black as" data-note="70" onclick="playNoteFromMIDI([adaptOctave(70)], 3)"></li> <!-- A#4 (MIDI 70) -->
-                <li class="white b" data-note="71" onclick="playNoteFromMIDI([adaptOctave(71)], 3)"></li> <!-- B4 (MIDI 71) -->
-            </ul>
     </main>
 
 </body>
