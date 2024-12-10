@@ -15,8 +15,9 @@
     <script type="module" src="/assets/js/script.js" defer></script>
     <script type="module" src="/assets/js/server.js" defer></script>
     <script type="module" src="/assets/js/pentagramma.js" defer></script>
-    <script src="/assets/js/exercise_code.js" defer></script>
+    <script src="http://unpkg.com/tone" defer></script>
     <script src="/assets/js/exercise_vars.js" defer></script>
+    <script src="/assets/js/exercise_code.js" defer></script>
     
 </head>
 <body>
@@ -56,7 +57,7 @@
                 <line x1="50" y1="248" x2="350" y2="248" class="pentagramma"></line>
             </svg>
         </div>
-        <div class="ex_btn_container">
+        <div class="ex_btn_container" id="ex_btn_container">
             <button class="exercise_button">test 1</button>
             <button class="exercise_button">test 2</button>
             <button class="exercise_button">test 3</button>
@@ -69,6 +70,9 @@
             <button class="exercise_button">test 10</button>
             <button class="exercise_button">test 11</button>
             <button class="exercise_button">test 12</button>
+        </div>
+        <div class="ctrl_btn_container" id="ctrl_btn_container">
+            <button class="exercise_button" onclick = "next()">next</button>
         </div>
             <ul class="set" id="keyboard">
                 <!-- Key control buttons -->

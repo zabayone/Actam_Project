@@ -22,15 +22,17 @@ var file_names =  [ '/assets/Notes/C.wav',
                     '/assets/Notes/Bb.wav',  
                     '/assets/Notes/B.wav'  ]
 var values; // array of the indexes of the active exercises 
+var types; // array of the indexes of the active exercises 
+var reps = 10
+var rep_index = 0;
+var checked = 1;
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
 var octave = 0          // Octave shift for the keyboard
 /*
-var rep_index = 0;
 var button_list = []; // Container of the HTML for the buttons
 var curr_val = 1;     // Exercise value
 var note_list = [];   // List of frequencies of the current exercise
-var checked = 1;
 */
 //keyboards variables
 
@@ -606,7 +608,7 @@ async function playNoteFromMIDI(midi_arr, type){
 
 function getButtons(code){ // function for the Html
     let text
-    switch (type) {
+    switch (cat) {
         case "0":
             text = interval_text[code-1]
             break;
@@ -617,7 +619,7 @@ function getButtons(code){ // function for the Html
             text = "bosh"
             break;
     }
-    return '<button id = "'+code+'" onclick = "  check_fun('+code+')" class = "choice_button">'+text+' </button>'
+    return '<button id = "'+code+'" onclick = "  check_fun('+code+')" class = "exercise_button">'+text+' </button>'
 }
 
 // BUTTON FUNCTIONS
@@ -646,26 +648,74 @@ function hideKeyboard(){ // function to hide the keyboard
         key_div.style.display = 'contents';
     }
 }
-/*
-function next(){ // function that creates the next
+
+async function next(){ // function that creates the next
     if (rep_index < reps){
         if (checked) {
-            checked = 0
+            //checked = 0
             note_list = []
             //head_div.innerHTML = "values =  " + values
+            console.log(values)
             let idx = Math.floor(Math.random() * values.length)
             curr_val = values[idx]
             root = Math.floor(Math.random() * 32) + 50
-            head_div.innerHTML = "post =  " + idx + " " + curr_val + " " + root
-            play(curr_val)
-            head_div.innerHTML = "rep_idx = " + rep_index
-            rep_index++;
+            let midi_arr = []
+            let ones = []
+            for (let i = 0; i < types.length; i++) {
+                console.log("i = " + i + " types.length = " + types.length)
+                console.log("values.length = " + values.length)
+                console.log(values)
+                if(types[i]){
+                    ones.push(i)
+                    console.log("i = " + i + " ones = " + ones)
+                }
+                
+            }
+            let idx_2 = Math.floor(Math.random() * ones.length)
+            switch (cat) {
+                case 0:
+                    switch (ones[idx_2]) {
+                        case 0:
+                        case 2:
+                            midi_arr.push(root)
+                            midi_arr.push(root + parseInt(curr_val))
+                        break;
+                        case 1:
+                            midi_arr.push(root + parseInt(curr_val))
+                            midi_arr.push(root)
+                        break;
+                        default:
+                        break;
+                    }
+                break;
+                case 1:
+                    let curr_arr = chord_codes[curr_val];
+                    midi_arr.push(root)
+                    for (const note of curr_arr) {
+                        midi_arr.push(root + parseInt(note))
+                    }
+                    if(idx_2 == 1){
+                        midi_arr.reverse()
+                    }
+                default:
+                break;
+            }
+
+            playNoteFromMIDI(midi_arr)
+            console.log("values = " + values + " root = " + root)
+            console.log("curr_val = " + curr_val)
+            console.log("midi_arr = " + midi_arr)
+            console.log("idx_2 = " + idx_2)
+            console.log("cat = " + cat)
+            console.log(ones)
+            console.log(types)
+            rep_index = rep_index+1;
         }
     } else {
         seeResults()
     }
 }
-*/
+
 // Event listener pair for keyboard keys
 document.addEventListener('keydown', (event) => {
     resumeAudioContext(); // Resume audio context when a key is pressed
@@ -683,7 +733,7 @@ document.addEventListener('keydown', (event) => {
         }
     }
 });
-dir
+
 document.addEventListener('keyup', (event) => {
     const key = event.key.toLowerCase();
     const note = keyToMidi[key];
@@ -693,16 +743,23 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-async function init(items) {
+async function init() {
     cat = localStorage.getItem("category")
     key = localStorage.getItem("key")
     type = localStorage.getItem("type")
     test = localStorage.getItem("test")
 
+    console.log(key)
+    console.log(type)
+
     butt_div = document.getElementById("ex_btn_container")
 
     values = key.split('-')
+    types = type.split('-')
+    console.log(values)
+    console.log(types)
     buttonHtml = ''
+
     values.forEach(val => {
         buttonHtml = buttonHtml + getButtons(val)
     });
