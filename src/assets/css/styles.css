@@ -326,14 +326,19 @@ body {
     border: 2px solid #f6f6f6;
 }
 
-.ex_btn_container{
-    display: inline-grid;
+.ex_btn_container {
+    display: grid;
     position: absolute;
-    grid-template-columns: repeat(6,150px);
-    right: 3%;
-    top: 32%;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-gap: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-content: center;
+    max-width: calc(6 * 150px + 11 * 15px); /* Ensure no more than 12 columns */
 }
+
 
 .control_btn{
     justify-content: center;
@@ -359,8 +364,9 @@ body {
     filter: drop-shadow(1px 5px 5px #c8c8c86f);
 }
 
-.control_btn_container{
+.control_btn_container {
     position: absolute;
     top: 52%;
-    left: 44%;
+    left: 50%;
+    transform: translateX(-50%);
 }
