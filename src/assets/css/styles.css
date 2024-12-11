@@ -233,13 +233,14 @@ body {
     }
     
     .levels {
-        display: grid;
-        grid-template-columns: repeat(3, 200px); /* 3 buttons per row */
+        display: flex;             /* Flexbox para el contenedor principal */
+        flex-direction: column;
         gap: 20px; /* 20px gap between buttons */
         justify-items: center;
         margin-top: 30px;
     }
-    
+
+
     .level-btn {
         background-color: #008080; /* Teal */
         color: white;
@@ -267,6 +268,22 @@ body {
     .level-btn:active {
         background-color: #004d40; /* Even darker teal on active */
     }
+
+    .test-btn{
+        background-color: #e10b0b; /* Teal */
+    }
+
+    .test-btn:hover {
+        background-color: #870202; /* Darker teal on hover */
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: 2px solid #FFA500; /* Orange border on hover */
+    }
+    
+    .test-btn:active {
+        background-color: #680000; /* Even darker teal on active */
+    }
+    
 
     .home-img {
         height: 40px;
@@ -339,7 +356,21 @@ body {
     max-width: calc(6 * 150px + 11 * 15px); /* Ensure no more than 12 columns */
 }
 
+.level-row {
+    display: flex;             /* Flexbox para las filas de niveles */
+    gap: 40px;                 /* Espacio entre botones dentro de cada fila */
+    justify-content: center;   /* Centrar los botones horizontalmente */
+    align-items: center;       /* Centrar los botones verticalmente */
+    flex-wrap: wrap;           /* Permite que los botones se ajusten si hay demasiados */
+  }
 
+  .separator {
+    display: block;            /* Los separadores ocupan todo el ancho disponible */
+    text-align: center;        /* Centrar el texto */
+    margin-top: 20px;          /* Espacio arriba del separador */
+    font-style: italic;        /* Estilo opcional para el separador */
+  }
+  
 .control_btn{
     justify-content: center;
     align-content: center;
