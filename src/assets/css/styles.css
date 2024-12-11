@@ -401,3 +401,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
 }
+
+.level-info{
+    text-align: center;
+}
