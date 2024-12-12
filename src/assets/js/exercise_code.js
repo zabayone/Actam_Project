@@ -7,7 +7,7 @@ var test
 // Running state
 var is_keyboard = 1
 var is_test = 0
-var root = []           // MIDI of the root note
+var root = 0            // MIDI of the root note
 var audio_buffs = []    // Buffers for the 12 notes in the octave
 var file_names =  [ '/assets/Notes/C.wav',
                     '/assets/Notes/Db.wav', 
@@ -26,6 +26,8 @@ var types; // array of the indexes of the active exercises
 var reps = 10
 var rep_index = 0;
 var checked = 1;
+var midi_arr = [];
+let chosen_type = -1;
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
 var octave = 0          // Octave shift for the keyboard
@@ -459,6 +461,7 @@ async function midiToBuff(midi){
 async function midiToNote(midi){
     var relative = (midi - 60)
     var oct_shift = Math.floor(relative/12)
+    while(relative < 0) relative += 12;
     var idx = relative%12
     var note = notes[idx] + (4+oct_shift).toString()
     return note
@@ -562,58 +565,36 @@ function playAudioInSuccession(to_play) {
     });
 }
 
-// async function playNoteFromMIDI(midi_arr, type){
-//     let idx_oct = []
-//     let shifted_buffs = []
-
-//     for (midi of midi_arr) {
-//         idx_oct.push(await midiToBuff(midi))
-//     }
-//     for ([idx, oct] of idx_oct) {
-//         shifted_buffs.push(await octaveShifter(audio_buffs[idx], oct))
-//     }
-//     /*
-//     if(type == 2) shifted_buffs = shifted_buffs.reverse()
-//     if(type != 3) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
-//     else playAudio(shifted_buffs)
-//     }
-//     */
-//         if(false) playAudioInSuccession(shifted_buffs)           // change true for an exercise check when jorge is done
-//         else playAudio(shifted_buffs)
-// }
-
 async function playNoteFromMIDI(midi_arr, type){
     let note_arr = []
     i = 0;
     for (midi of midi_arr) {
         note_arr.push(await midiToNote(midi))
     }
-    console.log(note_arr)
-    if (type == 2){
-        note_arr = note_arr.reverse()
-    } 
-    if(type == 3) {
+    if(type == 2) {
         Tone.loaded().then(()=>{
             sampler.triggerAttackRelease(note_arr, 4);
         });
     } else {
-        for(note of note_arr){
+        let now = Tone.now(); // Start scheduling from the current time
             Tone.loaded().then(()=>{
-                sampler.triggerAttackRelease([note], now + i*0.5);
+                for(note of note_arr){
+                    console.log(note)
+                    sampler.triggerAttackRelease([note], 1, now + i);
+                    i = i+1;
+                }
             });
-            i = i+1;
         }
-    }
 }
 
 function getButtons(code){ // function for the Html
     let text
     switch (cat) {
         case "0":
-            text = interval_text[code-1]
+            text = interval_text[code]
             break;
         case "1":
-            text = chord_text[code-1]
+            text = chord_text[code]
             break;
         default:
             text = "bosh"
@@ -653,67 +634,58 @@ async function next(){ // function that creates the next
     if (rep_index < reps){
         if (checked) {
             //checked = 0
-            note_list = []
-            //head_div.innerHTML = "values =  " + values
-            console.log(values)
+            midi_arr = []
             let idx = Math.floor(Math.random() * values.length)
             curr_val = values[idx]
             root = Math.floor(Math.random() * 32) + 50
-            let midi_arr = []
             let ones = []
             for (let i = 0; i < types.length; i++) {
-                console.log("i = " + i + " types.length = " + types.length)
-                console.log("values.length = " + values.length)
-                console.log(values)
-                if(types[i]){
+                if(parseInt(types[i])){
                     ones.push(i)
-                    console.log("i = " + i + " ones = " + ones)
                 }
                 
             }
             let idx_2 = Math.floor(Math.random() * ones.length)
-            switch (cat) {
+            chosen_type = ones[idx_2]
+            switch (parseInt(cat)) {
                 case 0:
-                    switch (ones[idx_2]) {
-                        case 0:
-                        case 2:
-                            midi_arr.push(root)
-                            midi_arr.push(root + parseInt(curr_val))
-                        break;
-                        case 1:
-                            midi_arr.push(root + parseInt(curr_val))
-                            midi_arr.push(root)
-                        break;
-                        default:
-                        break;
+                    console.log("case 0 for cat:")
+                    midi_arr.push(root)
+                    midi_arr.push(root + parseInt(curr_val))
+                    if(ones[idx_2] == 1){
+                        midi_arr.reverse()
                     }
                 break;
-                case 1:
-                    let curr_arr = chord_codes[curr_val];
+                case 1:                    
+                    console.log("case 1 for cat:")
+                    let curr_arr = chord_codes[curr_val].split(' ');
                     midi_arr.push(root)
                     for (const note of curr_arr) {
-                        midi_arr.push(root + parseInt(note))
+                        if(note) midi_arr.push(root + parseInt(note))
                     }
-                    if(idx_2 == 1){
+                    if(chosen_type == 1){
                         midi_arr.reverse()
                     }
                 default:
                 break;
             }
-
-            playNoteFromMIDI(midi_arr)
-            console.log("values = " + values + " root = " + root)
-            console.log("curr_val = " + curr_val)
-            console.log("midi_arr = " + midi_arr)
-            console.log("idx_2 = " + idx_2)
-            console.log("cat = " + cat)
-            console.log(ones)
-            console.log(types)
-            rep_index = rep_index+1;
+            console.log(midi_arr)
+            console.log("chosen type: " + chosen_type)
+            playNoteFromMIDI(midi_arr, chosen_type);
+            //rep_index = rep_index+1;
         }
     } else {
         seeResults()
     }
+}
+
+function playRoot(){
+    let to_play = [root]
+    playNoteFromMIDI(to_play, 2);
+}
+
+function playAgain(){
+    playNoteFromMIDI(midi_arr, chosen_type);
 }
 
 // Event listener pair for keyboard keys
