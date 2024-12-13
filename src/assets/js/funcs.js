@@ -147,6 +147,8 @@ function empty(){}
 
 // Function to update the results based on the selected category
 function showCategory(category) {
+    //totalCount=
+    //correctCount= 
     const resultsTitle = document.getElementById('resultsTitle');
     const resultsContent = document.getElementById('resultsContent');
     const sliderElements = document.querySelectorAll('.slider_element');
@@ -160,6 +162,7 @@ function showCategory(category) {
             element.classList.add('active');
         });
     });
+
     // Update the title based on the category
     const titles = {
         intervals: 'Intervals Results',
@@ -169,6 +172,12 @@ function showCategory(category) {
 
     resultsTitle.textContent = titles[category] || 'Results';
 
+    // Create the correct blocks HTML dynamically based on the correctCount
+    let correctBarsHTML = '';
+    for (let i = 0; i < correctCount; i++) {
+        correctBarsHTML += '<a class="correct_bar"></a>';
+    }
+
     // Update the content dynamically (this can be replaced with actual data fetching logic)
     const content = {
         intervals: '<p>Here are the results for intervals.</p>',
@@ -176,8 +185,24 @@ function showCategory(category) {
         scales: '<p>Here are the results for scales.</p>'
     };
 
-    resultsContent.innerHTML = content[category] || '<p>No results available.</p>';
+    // Add the correct blocks and total block HTML to the content
+    const dynamicContent = `
+        ${content[category] || '<p>No results available.</p>'}
+        <div class="bars">
+            <!-- Correct blocks -->
+            <div class="correct_blocks">
+                ${correctBarsHTML}
+            </div>
+            <!-- Total blocks -->
+            <div class="total_blocks">
+                <a class="total_bar"></a>
+            </div>
+        </div>
+    `;
+
+    resultsContent.innerHTML = dynamicContent;
 }
+
 
 const levelDescription = document.getElementById('levelDescription');
 //levelDescription.textContent = `Level ${whichever variable contains the level number}`; // Update the description

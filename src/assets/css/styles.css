@@ -489,3 +489,47 @@ th {
     transform: translateX(-50%);
     text-align: center;
 }
+
+.bars {
+    display: flex;
+    gap: 10px; /* Space between correct and total block groups */
+    align-items: center; /* Align bars to the bottom for consistency */
+    text-align: center;
+    justify-content: center;
+}
+
+.correct_blocks,
+.total_blocks {
+    display: flex;
+    flex-direction: row; /* Stack bars vertically */
+    position: absolute; /* Enable stacking on the z-axis */
+}
+
+.correct_bar, .total_bar {
+    width: 50px;
+    height: 20px; /* Default height for individual bars */
+    position: relative; 
+    top: 0;
+    left: 0;
+}
+
+.correct_bar {
+    background-color: #008080;
+    z-index: 2; /* Correct bar on top */
+}
+
+.total_bar {
+    background-color: lightgray;
+    border-radius: 20px;
+    width: 500px;
+    z-index: 1; /* Total bar underneath */
+}
+
+/* Add border-radius to the first and last bars in each group */
+.correct_blocks .correct_bar:first-child{
+    border-radius: 20px 0 0 20px; /* Rounded top corners */
+}
+
+.correct_blocks .correct_bar:last-child{
+    border-radius: 0 3px 3px 0; /* Rounded bottom corners */
+}
