@@ -45,7 +45,8 @@ const keyToMidi = {
 };
 
 // html oblects
-
+var level_description = document.getElementById("levelDescription")
+var level_counter = document.getElementById("levelCounter")
 var buttons_div = document.getElementById("choices")
 var controls_div = document.getElementById("controls")
 var key_div = document.getElementById("keyboard");
@@ -69,6 +70,9 @@ const sampler = new Tone.Sampler({
     },
     release: 1,
 }).toDestination();
+
+level_counter.textContent = `${rep_index} / ${reps}`;
+
 
 // Ensure the audio context is resumed on user interaction (fix for Safari)
 function resumeAudioContext() {
@@ -200,6 +204,7 @@ async function next(){ // function that creates the next
             console.log("chosen type: " + chosen_type)
             playNoteFromMIDI(midi_arr, chosen_type);
             rep_index = rep_index+1;
+            level_counter.textContent = `${rep_index} / ${reps}`;
         }
     } else {
         seeResults()

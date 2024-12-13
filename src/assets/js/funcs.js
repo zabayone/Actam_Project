@@ -178,3 +178,6 @@ function showCategory(category) {
 
     resultsContent.innerHTML = content[category] || '<p>No results available.</p>';
 }
+
+const levelDescription = document.getElementById('levelDescription');
+//levelDescription.textContent = `Level ${whichever variable contains the level number}`; // Update the description

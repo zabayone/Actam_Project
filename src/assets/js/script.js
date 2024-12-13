@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryTitle = document.getElementById('categoryTitle');
     const categoryHeading = document.getElementById('categoryHeading');
     const categoryDescription = document.getElementById('categoryDescription');
-    const levelDescription = document.getElementById('levelDescription'); // For level-specific content
+
 
     // Update the page content dynamically based on the category
     if (category) {
@@ -208,32 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryHeading.textContent = 'Please Select a Category';
         categoryDescription.textContent = 'Use the main page to choose a training category.';
     }
-
-    // Update the level information dynamically based on the level
-    if (level) {
-        levelDescription.textContent = `You have selected Level ${level}. Now proceed with the tasks for this level.`;
-    } else if (levelDescription) {
-        levelDescription.textContent = 'No level selected.';
-    }
 });
-
-
-//level.html script
-// Get the URL parameters (level number)
-const urlParams = new URLSearchParams(window.location.search);
-const level = urlParams.get('level');
-
-// Update the page based on the level parameter
-const levelDescription = document.getElementById('levelDescription');
-
-// Example: You can display different information or load different content based on the level
-if (level) {
-    levelDescription.textContent = `You have selected Level ${level}. Now proceed with the tasks for this level.`;
-} else {
-    levelDescription.textContent = 'No level selected.';
-}
-
-const sliderElements = document.querySelectorAll('.slider_element');
 
 // function for the slider of the results page
 sliderElements.forEach(element => {
