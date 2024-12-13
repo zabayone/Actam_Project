@@ -16,23 +16,24 @@
 </head>
 <body>
     <!-- Header Section -->
-    <div class="header-left">
-        <button class="btn home-btn" onclick="goHome()">
-            <img src="/assets/img/home.png" alt="Home" class="home-img">
-        </button>
-        <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>
-        <button class="btn btn-primary language-btn" onclick="setLanguage('it')">Italiano</button>
-    </div>
-    
-    <div class="header-center">
-        <h1 id="categoryTitle">Training</h1>
-    </div>
+    <header class="app-header">
+        <div class="header-left">
+            <button class="btn home-btn" onclick="goHome()">
+                <img src="/assets/img/home.png" alt="Home" class="home-img">
+            </button>
+            <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>
+            <button class="btn btn-primary language-btn" onclick="setLanguage('it')">Italiano</button>
+        </div>
+        
+        <div class="header-center">
+            <h1 id="categoryTitle">Training</h1>
+        </div>
 
-    <div class="header-right">
-        <!-- Display the username here -->
-        <p id="information" data-translate="guest"> Guest </p>
-    </div>
-</header>
+        <div class="header-right">
+            <!-- Display the username here -->
+            <p id="information" data-translate="guest"> Guest </p>
+        </div>
+    </header>
 
     <!-- Main Content Section -->
     <main class="main-container">
@@ -44,6 +45,8 @@
                 <a data-translate="scales" class="btn btn-primary ex-btn" onclick="selectCategory(2)">Scales</a>
                 <a data-translate="sandbox" class="btn btn-primary ex-btn" onclick="selectCategory(3)">Sandbox</a>
             </div>
+            <h2 data-translate="seeResults">Check your results</h2>
+            <a data-translate="Results" class="results_btn" href="results.html"> Results </a>
         </div>
         
     </main>

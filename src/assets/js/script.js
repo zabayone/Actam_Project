@@ -29,6 +29,8 @@ const translations = {
         octaveDown:"Octave Down",
         hide:"Hide",
         showKeyboard:"Show Keyboard",
+        seeResults:"Check your results",
+        results:"Results",
     },
     it: {
         title: "Progetto Actam",
@@ -58,7 +60,9 @@ const translations = {
         octaveUp:"Ottava Su",
         octaveDown:"Ottava Giù",
         hide:"Nascondi",
-        showKeyboard:"Mostra la Tastiera"
+        showKeyboard:"Mostra la Tastiera",
+        seeResults:"Controlla i tuoi risultati",
+        results:"Risultati",
     }
 };
 
