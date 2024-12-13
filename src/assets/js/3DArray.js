@@ -100,3 +100,31 @@ class ThreeDArray {
         }
     }
 }
+
+function visualizeArray(arrayObj) {
+    const container = document.getElementById('table-container');
+    container.innerHTML = ''; // Clear any existing tables
+
+    for (let x = 0; x < 3; x++) {
+        const table = document.createElement('table');
+        const caption = document.createElement('caption');
+        caption.textContent = `Layer ${x}`;
+        table.appendChild(caption);
+
+        const headerRow = document.createElement('tr');
+        headerRow.innerHTML = '<th>Index</th><th>Correct</th><th>Incorrect</th>';
+        table.appendChild(headerRow);
+
+        for (let y = 0; y < arrayObj.array[x].length; y++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${y}</td>
+                <td>${arrayObj.array[x][y][0]}</td>
+                <td>${arrayObj.array[x][y][1]}</td>
+            `;
+            table.appendChild(row);
+        }
+
+        container.appendChild(table);
+    }
+}

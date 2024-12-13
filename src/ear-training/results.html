@@ -12,10 +12,12 @@
     <link rel="stylesheet" href="/assets/css/piano.css">
     <link rel="stylesheet" href="/assets/css/pentagram.css">
     <!-- Firebase and Script -->
-    <script type="module" src="/assets/js/script.js" defer></script>
-    <script type="module" src="/assets/js/server.js" defer></script>
+    <script src="/assets/js/script.js" defer></script>
+    <script src="/assets/js/server.js" defer></script>
     <script src="/assets/js/funcs.js" defer></script>
     <script src="/assets/js/results_code.js" defer></script>
+    <script src="/assets/js/3DArray.js" defer></script>
+
     
 </head>
 <body>
@@ -38,8 +40,55 @@
             <p id="information" data-translate="guest"> Guest </p>
         </div>
     </header>
+    <main>
+        <div class="category_slider" role="group" aria-label="Category Selector">
+            <button type="button" class="slider_element" onclick="showCategory('intervals')">Intervals</button>
+            <button type="button" class="slider_element" onclick="showCategory('chords')">Chords</button>
+            <button type="button" class="slider_element" onclick="showCategory('scales')">Scales</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results">
+            <h2 id="resultsTitle">Select a category to see results</h2>
+            <div id="resultsContent" class="mt-3"></div>
+        </div>
     </main>
-    <div>BRAVO DIO BOIA</div>
+
+    <script>
+        // Function to update the results based on the selected category
+        function showCategory(category) {
+            const resultsTitle = document.getElementById('resultsTitle');
+            const resultsContent = document.getElementById('resultsContent');
+            const sliderElements = document.querySelectorAll('.slider_element');
+
+            sliderElements.forEach(element => {
+                element.addEventListener('click', () => {
+                    // Remove the 'active' class from all elements
+                    sliderElements.forEach(el => el.classList.remove('active'));
+
+                    // Add the 'active' class to the clicked element
+                    element.classList.add('active');
+                });
+            });
+            // Update the title based on the category
+            const titles = {
+                intervals: 'Intervals Results',
+                chords: 'Chords Results',
+                scales: 'Scales Results'
+            };
+
+            resultsTitle.textContent = titles[category] || 'Results';
+
+            // Update the content dynamically (this can be replaced with actual data fetching logic)
+            const content = {
+                intervals: '<p>Here are the results for intervals.</p>',
+                chords: '<p>Here are the results for chords.</p>',
+                scales: '<p>Here are the results for scales.</p>'
+            };
+
+            resultsContent.innerHTML = content[category] || '<p>No results available.</p>';
+        }
+    </script>
 </body>
 </html>
 

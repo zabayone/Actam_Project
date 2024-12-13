@@ -195,6 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 categoryHeading.textContent = 'Explore the Sandbox';
                 categoryDescription.textContent = 'Experiment freely with various musical elements.';
                 break;
+            case '4':
+                categoryTitle.textContent = 'Results';
+                categoryHeading.textContent = 'Check your results';
             default:
                 categoryTitle.textContent = 'Unknown Category';
                 categoryHeading.textContent = 'Category Not Found';
@@ -230,3 +233,15 @@ if (level) {
     levelDescription.textContent = 'No level selected.';
 }
 
+const sliderElements = document.querySelectorAll('.slider_element');
+
+// function for the slider of the results page
+sliderElements.forEach(element => {
+    element.addEventListener('click', () => {
+        // Remove the 'active' class from all elements
+        sliderElements.forEach(el => el.classList.remove('active'));
+
+        // Add the 'active' class to the clicked element
+        element.classList.add('active');
+    });
+});
