@@ -1,6 +1,5 @@
 // global variables
 var cat
-var type
 var test
 
 // Running state
@@ -18,6 +17,8 @@ var storage;
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
 var octave = 0          // Octave shift for the keyboard
+
+let num_stored = 0
 
 // Volume settings
 const volumes = {
@@ -260,10 +261,12 @@ function checkButton(val){
 }
 
 function seeResults(){
+    storage.localStore()
     document.location.href = '/ear-training/results.html'
 }
+
 function storeData(){
-    localStorage.setItem()
+    storage.localStore()
 }
 // Event listener pair for keyboard keys
 document.addEventListener('keydown', (event) => {
@@ -295,18 +298,13 @@ document.addEventListener('keyup', (event) => {
 async function init() {
     cat = localStorage.getItem("category")
     let key = localStorage.getItem("key")
-    type = localStorage.getItem("type")
+    let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
-
-    console.log(key)
-    console.log(type)
 
     butt_div = document.getElementById("ex_btn_container")
 
     values = key.split('-')
     types = type.split('-')
-    console.log(values)
-    console.log(types)
     buttonHtml = ''
     storage = new ThreeDArray(values.length)
 
@@ -319,6 +317,7 @@ async function init() {
         key_div.style.display = 'contents'
         key_div.innerHTML = ''
     }
+    next()
 }
 
 init()

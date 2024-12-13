@@ -134,6 +134,9 @@ function loadLevels(){
 
 function goHome(in_fun){
     in_fun()
+    
     localStorage.clear()
     document.location.href = '/'
 }
+
+function empty(){}
