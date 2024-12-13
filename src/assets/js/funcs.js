@@ -118,12 +118,12 @@ function selectLevel(intervals, type, test){
     localStorage.setItem("key", int_string);
     localStorage.setItem("type", type_string);
     localStorage.setItem("test", test);
-    document.location.href = 'level.html'
+    document.location.href = '/ear-training/level.html'
 }
 
 function selectCategory(arg){
     localStorage.setItem("category", arg);
-    document.location.href = 'map.html'
+    document.location.href = '/ear-training/map.html'
 }
 
 function loadLevels(){
@@ -132,5 +132,8 @@ function loadLevels(){
     lvl_div.innerHTML = generateLevelButtons(levelsConfig[cat]);
 }
 
-
-console.log(shape.length)
+function goHome(in_fun){
+    in_fun()
+    localStorage.clear()
+    document.location.href = '/'
+}
