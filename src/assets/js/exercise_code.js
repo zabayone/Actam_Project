@@ -14,6 +14,10 @@ var checked = 1;
 var midi_arr = [];
 let chosen_type = -1;
 var storage;
+var day;
+
+var curr_val
+var curr_idx
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
 var octave = 0          // Octave shift for the keyboard
@@ -169,6 +173,7 @@ async function next(){ // function that creates the next
             midi_arr = []
             let idx = Math.floor(Math.random() * values.length)
             curr_val = values[idx]
+            curr_idx = idx
             root = Math.floor(Math.random() * 32) + 50
             let ones = []
             for (let i = 0; i < types.length; i++) {
@@ -225,13 +230,13 @@ function checkButton(val){
         console.log("checking")
         checked = 1
         if(val == curr_val){
-            storage.setCorrect(chosen_type,curr_val)
+            storage.setCorrect(chosen_type,curr_idx)
             storage.printArray()
             console.log("correct")
             let butt1 = "check_btn_"+val
             document.getElementById(butt1).style.background = '#08c43a'
         } else {
-            storage.setIncorrect(chosen_type,curr_val)
+            storage.setIncorrect(chosen_type,curr_idx)
             storage.printArray()
             let butt1 = "check_btn_"+val
             let butt2 = "check_btn_"+curr_val
@@ -268,6 +273,7 @@ function checkButton(val){
 
 function seeResults(){
     storage.localStore()
+    day.addExercise(storage)
     document.location.href = '/ear-training/results.html'
 }
 
@@ -301,6 +307,12 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
+function saveAndGoHome(){
+    storage.localStore() 
+    day.addExercise(storage)
+    document.location.href = '/'
+}
+
 async function init() {
     cat = localStorage.getItem("category")
     let key = localStorage.getItem("key")
@@ -312,7 +324,8 @@ async function init() {
     values = key.split('-')
     types = type.split('-')
     buttonHtml = ''
-    storage = new ExerciseContaner(values.length, null)
+    storage = new ExerciseContainer(values.length, null)
+    day = new DayContainer(null)
 
     values.forEach(val => {
         buttonHtml = buttonHtml + getButtons(val)
@@ -324,64 +337,6 @@ async function init() {
         key_div.innerHTML = ''
     }
     next()
-}
-
-// Function to update the results based on the selected category
-function showCategory(category) {
-    correctCount = storage.calculateTotalCorrectResults;
-    //correctCount= 
-    const resultsTitle = document.getElementById('resultsTitle');
-    const resultsContent = document.getElementById('resultsContent');
-    const sliderElements = document.querySelectorAll('.slider_element');
-
-    sliderElements.forEach(element => {
-        element.addEventListener('click', () => {
-            // Remove the 'active' class from all elements
-            sliderElements.forEach(el => el.classList.remove('active'));
-
-            // Add the 'active' class to the clicked element
-            element.classList.add('active');
-        });
-    });
-
-    // Update the title based on the category
-    const titles = {
-        intervals: 'Intervals Results',
-        chords: 'Chords Results',
-        scales: 'Scales Results'
-    };
-
-    resultsTitle.textContent = titles[category] || 'Results';
-
-    // Create the correct blocks HTML dynamically based on the correctCount
-    let correctBarsHTML = '';
-    for (let i = 0; i < correctCount; i++) {
-        correctBarsHTML += '<a class="correct_bar"></a>';
-    }
-
-    // Update the content dynamically (this can be replaced with actual data fetching logic)
-    const content = {
-        intervals: '<p>Here are the results for intervals.</p>',
-        chords: '<p>Here are the results for chords.</p>',
-        scales: '<p>Here are the results for scales.</p>'
-    };
-
-    // Add the correct blocks and total block HTML to the content
-    const dynamicContent = `
-        ${content[category] || '<p>No results available.</p>'}
-        <div class="bars">
-            <!-- Correct blocks -->
-            <div class="correct_blocks">
-                ${correctBarsHTML}
-            </div>
-            <!-- Total blocks -->
-            <div class="total_blocks">
-                <a class="total_bar"></a>
-            </div>
-        </div>
-    `;
-
-    resultsContent.innerHTML = dynamicContent;
 }
 
 init()

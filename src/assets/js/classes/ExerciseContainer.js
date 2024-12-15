@@ -1,4 +1,4 @@
-class ExerciseContaner {
+class ExerciseContainer {
     constructor(n, idx) {
         if ((n <= 0 & idx === null) | (idx !== null & n !== null)) {
             throw new Error("Incorrect constructor call for ThreeDArray class");
@@ -95,6 +95,7 @@ class ExerciseContaner {
     }
 
     setIncorrect(x, y){
+        console.log("x = " + x + "\ny = " + y)
         if (x < 0 || x >= 3 || y < 0 || y >= this.array[0].length) {
             throw new Error("Index out of bounds.");
         }
@@ -136,8 +137,8 @@ class ExerciseContaner {
             let str = this.idx.toString() + '/' + i.toString() + '-' + j.toString()
             let item = localStorage.getItem(str)
             let vals = item.split('-')
-            this.array[i][j][0] = vals[0]
-            this.array[i][j][1] = vals[1]
+            this.array[i][j][0] = parseInt(vals[0])
+            this.array[i][j][1] = parseInt(vals[1])
            }      
         }
     }
