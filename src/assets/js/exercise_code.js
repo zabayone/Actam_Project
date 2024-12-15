@@ -8,7 +8,7 @@ var is_test = 0
 var root = 0            // MIDI of the root note
 var values; // array of the indexes of the active exercises 
 var types; // array of the indexes of the active exercises 
-var reps = 10
+var reps = 1
 var rep_index = 0;
 var checked = 1;
 var midi_arr = [];
@@ -226,12 +226,13 @@ function checkButton(val){
         checked = 1
         if(val == curr_val){
             storage.setCorrect(chosen_type,curr_val)
+            storage.printArray()
             console.log("correct")
             let butt1 = "check_btn_"+val
-            console.log(butt1)
             document.getElementById(butt1).style.background = '#08c43a'
         } else {
             storage.setIncorrect(chosen_type,curr_val)
+            storage.printArray()
             let butt1 = "check_btn_"+val
             let butt2 = "check_btn_"+curr_val
             document.getElementById(butt1).style.background = '#d91507'
@@ -244,7 +245,7 @@ function checkButton(val){
             case 0:
                 console.log("case 0 for cat:")
                 midi_buff.push(root)
-                let adder = parseInt(curr_val) + 1
+                let adder = parseInt(val) + 1
                 if(chosen_type == 1) adder = -adder;
                 midi_buff.push(root + adder)
             break;
@@ -311,7 +312,7 @@ async function init() {
     values = key.split('-')
     types = type.split('-')
     buttonHtml = ''
-    storage = new ThreeDArray(values.length)
+    storage = new ExerciseContaner(values.length, null)
 
     values.forEach(val => {
         buttonHtml = buttonHtml + getButtons(val)

@@ -12,12 +12,13 @@ f<!DOCTYPE html>
     <!-- Firebase and Script -->
     <script type="module" src="/assets/js/script.js" defer></script>
     <script type="module" src="/assets/js/server.js" defer></script>
+    <script src="/assets/js/funcs.js" defer></script>
 </head>
 <body>
 <!-- Header Section -->
     <header class="app-header">
         <div class="header-left">
-            <button class="btn home-btn" onclick="window.location.href='/index.html'">
+            <button class="btn home-btn" onclick="goHome()">
                 <img src="/assets/img/home.png" alt="Home" class="home-img">
             </button>
             <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>

@@ -27,7 +27,7 @@ var chord_text = ['Minor Triad',            //  0
                   'Diminished Seventh',     // 10
                   'Major Seventh (#5)',     // 11
                   'Dominant Seventh (#5)',  // 12
-                  'Dominant Seventh (b5)',  // 13
+                  'Dominant Seventh (♭5)',  // 13
                   'Sus2 Triad',             // 14
                   'Sus4 Triad',             // 15
                   'Lydian Triad',           // 16
@@ -58,6 +58,57 @@ var chord_codes = ['3 7',                   //  0
                    '1 6',                   // 18
                    '3 7 9',                 // 19
                    '4 7 9'                  // 20
+                    ]
+var scale_text = ['Ionian (Major)',         //  0
+                  'Dorian',                 //  1
+                  'Phrygian',               //  2
+                  'Lydian',                 //  3
+                  'Mixolydian',             //  4
+                  'Aeolian (Nat Minor)',    //  5
+                  'Locrian',                //  6 
+                  'Harmonic Minor',         //  7
+                  'Locrian ♮6th',           //  8
+                  'Augmented Major',        //  9
+                  'Dorian #11',             // 10
+                  'Phrygian dominant',      // 11
+                  'Lydian #2',              // 12
+                  'Super-Locrian bb7',      // 13
+                  'Melodic Minor',          // 14
+                  'Dorian ♭2',              // 15
+                  'Lydian Augmented',       // 16
+                  'Acoustic (Lyd Dom)',     // 17
+                  'Aeolian Dominant',       // 18
+                  'Aeolian ♭5',             // 19
+                  'Altered',                // 20
+                  'H-W diminished',         // 21
+                  'W-H diminished',         // 22
+                  'Exatonal',               // 23
+                   ]           
+      
+var scale_codes = ['2 4 5 7 9 11',                  //  0
+                   '2 3 5 7 9 10',                  //  1
+                   '1 3 5 7 8 10',                  //  2
+                   '2 4 6 7 9 11',                  //  3
+                   '2 4 5 7 9 10',                  //  4
+                   '2 3 5 7 8 10',                  //  5
+                   '1 3 5 6 8 10',                  //  6
+                   '2 3 5 7 8 11',                  //  7
+                   '1 3 5 6 9 10',                  //  8
+                   '2 4 5 8 9 11',                  //  9
+                   '2 3 6 7 9 10',                  // 10
+                   '1 4 5 7 8 10',                  // 11
+                   '3 4 6 7 9 11',                  // 12
+                   '1 3 4 6 8 9',                   // 13
+                   '2 3 5 7 9 11',                  // 14
+                   '1 3 5 7 9 10',                  // 15
+                   '2 4 6 8 9 11',                  // 16
+                   '2 4 6 7 9 10',                  // 17
+                   '2 4 5 7 8 10',                  // 18
+                   '2 3 5 6 8 10',                  // 19
+                   '1 3 4 6 8 10',                  // 20
+                   '2 3 5 6 8 9 11',                // 21
+                   '1 3 4 6 7 9 10',                // 22
+                   '2 4 6 8 10',                    // 23
                     ]
 
 // controls for the chord exercises

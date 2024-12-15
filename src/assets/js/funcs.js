@@ -137,10 +137,11 @@ function loadLevels(){
     lvl_div.innerHTML = generateLevelButtons(levelsConfig[cat]);
 }
 
-function goHome(in_fun){
+function goHome(){
     //in_fun() to be tested
-    //localStorage.clear()
-    document.location.href = '/index.html'
+    let cat = localStorage.getItem("category");
+    if(cat) localStorage.removeItem("category")
+    document.location.href = '/'
 }
 
 function empty(){}
