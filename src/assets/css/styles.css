@@ -462,10 +462,10 @@ th {
 .slider_element.active {
     background-color: #008080; /* Active background color */
     color: white;
-    animation: select-animation 0.3s ease forwards; /* Apply animation */
+    animation: slider-animation 0.3s ease forwards; /* Apply animation */
 }
 
-@keyframes select-animation {
+@keyframes slider-animation {
     0% {
         opacity: 0.5; /* Start partially transparent */
         transform: translateX(-5%);
