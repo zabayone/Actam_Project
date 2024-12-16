@@ -31,6 +31,38 @@ const translations = {
         showKeyboard:"Show Keyboard",
         seeResults:"Check your results",
         results:"Results",
+        categories: {
+            intervals: {
+                title: "Intervals",
+                heading: "Train Your Intervals",
+                description: "Learn to recognize intervals by ear and enhance your musical skills."
+            },
+            chords: {
+                title: "Chords",
+                heading: "Train Your Chords",
+                description: "Identify chords and improve your harmonic understanding."
+            },
+            scales: {
+                title: "Scales",
+                heading: "Train Your Scales",
+                description: "Practice scale recognition to sharpen your ear for melodies."
+            },
+            sandbox: {
+                title: "Sandbox",
+                heading: "Explore the Sandbox",
+                description: "Experiment freely with various musical elements."
+            },
+            results: {
+                title: "Results",
+                heading: "Check Your Results",
+                description: "View your progress and analyze your performance."
+            },
+            unknown: {
+                title: "Unknown Category",
+                heading: "Category Not Found",
+                description: "The selected category does not exist."
+            }
+        }
     },
     it: {
         title: "Progetto Actam",
@@ -63,7 +95,48 @@ const translations = {
         showKeyboard:"Mostra la Tastiera",
         seeResults:"Controlla i tuoi risultati",
         results:"Risultati",
+        categories: {
+            intervals: {
+                title: "Intervalli",
+                heading: "Allena i Tuoi Intervalli",
+                description: "Impara a riconoscere gli intervalli a orecchio e migliora le tue abilità musicali."
+            },
+            chords: {
+                title: "Accordi",
+                heading: "Allena i Tuoi Accordi",
+                description: "Identifica gli accordi e migliora la tua comprensione armonica."
+            },
+            scales: {
+                title: "Scale",
+                heading: "Allena le Tue Scale",
+                description: "Esercitati nel riconoscimento delle scale per affinare il tuo orecchio musicale."
+            },
+            sandbox: {
+                title: "Sandbox",
+                heading: "Esplora il Sandbox",
+                description: "Sperimenta liberamente con vari elementi musicali."
+            },
+            results: {
+                title: "Risultati",
+                heading: "Verifica i Tuoi Risultati",
+                description: "Visualizza i tuoi progressi e analizza le tue prestazioni."
+            },
+            unknown: {
+                title: "Categoria Sconosciuta",
+                heading: "Categoria Non Trovata",
+                description: "La categoria selezionata non esiste."
+            }
+        }
     }
+};
+
+//map for the translation
+const categoryMap = {
+    "0": "intervals",
+    "1": "chords",
+    "2": "scales",
+    "3": "sandbox",
+    "4": "results"
 };
 
 // JavaScript for handling language changes and updating text content
@@ -82,19 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage(localStorage.getItem('language') || 'en');
 });
 
-// Function to set the language
 function setLanguage(language) {
     // Save the selected language to localStorage
     localStorage.setItem('language', language);
 
     // Get all elements with the "data-translate" attribute
     const elements = document.querySelectorAll('[data-translate]');
-    
+
     // Loop through each element and set the text based on the selected language
     elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[language] && translations[language][key]) {
-            // For the level buttons, handle the dynamic translation
             if (key === 'level') {
                 for (let i = 1; i <= 9; i++) {
                     const levelButton = document.querySelector(`[data-level='${i}']`);
@@ -108,9 +179,34 @@ function setLanguage(language) {
         }
     });
 
-    // Update the language immediately on the page
+    // Update dynamic sections (welcome message, category info, etc.)
     updateWelcomeMessage(language);
+    updateCategoryInfo(language);
 }
+
+//Function to translate category informations
+function updateCategoryInfo(language) {
+    const category = localStorage.getItem('category');
+    const categoryKey = categoryMap[category]; // Map category ID to key
+
+    const categoryTranslations = translations[language]?.categories || {};
+    const categoryTitle = document.getElementById('categoryTitle');
+    const categoryHeading = document.getElementById('categoryHeading');
+    const categoryDescription = document.getElementById('categoryDescription');
+
+    if (categoryKey && categoryTranslations[categoryKey]) {
+        categoryTitle.textContent = categoryTranslations[categoryKey].title;
+        categoryHeading.textContent = categoryTranslations[categoryKey].heading;
+        categoryDescription.textContent = categoryTranslations[categoryKey].description;
+    } else {
+        const unknownCategory = categoryTranslations.unknown;
+        categoryTitle.textContent = unknownCategory?.title || "Unknown Category";
+        categoryHeading.textContent = unknownCategory?.heading || "Category Not Found";
+        categoryDescription.textContent = unknownCategory?.description || "The selected category does not exist.";
+    }
+}
+
+
 
 // Function to update the welcome message dynamically
 function updateWelcomeMessage(language) {
