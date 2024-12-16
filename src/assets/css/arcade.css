@@ -189,7 +189,7 @@ h1{
 
 #timer{
     font-size: 50px;
-    color: #008080;
+    color: #006464;
     margin-top: 50px;
     border-width: 2px;
     border-radius: 50px;
@@ -203,4 +203,50 @@ h1{
 
 #time-left{
     font-weight: bold;
+}
+
+#question-container{
+    font-size: 30px;
+}
+
+#question{
+    font-size: 30px;
+    color: #008080;
+    margin-top: 50px;
+    border-width: 1px;
+    border-radius: 50px;
+    border-style: double;
+    width: 700px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+#options {
+    display: grid;
+    justify-content: center;
+    height: 200px;
+    line-height: 190px;
+    grid-template-columns: repeat(2, 350px); /* Creates 2 columns of equal width */
+    gap: 10px; /* Adds space between grid items */
+    list-style-type: none; /* Removes default list bullets */
+    padding: 0; /* Removes default padding */
+    text-align: center;
+    color: white;
+}
+
+coso{background-color: #d51515;}
+
+
+#options li {
+    padding: 10px;
+    background-color: #008080;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px; /* Optional: rounds the corners */
+    transition: background-color 0.3s ease; /* Optional: smooth hover effect */
+}
+
+#options li:hover {
+    background-color: #009f9f; /* Optional: highlight on hover */
 }

@@ -56,14 +56,20 @@ function updateTimer() {
     });
   }
   
-  function checkAnswer(selected) {
-    if (selected === questions[currentQuestion].answer) score++;
+function checkAnswer(selected) {
+    if (selected === questions[currentQuestion].answer) {
+        score++;
+        optionsContainer.style.background="#00b164"
+    }
+    else{
+        optionsContainer.style.background="#d51515"
+    }
     currentQuestion++;
     loadQuestion();
-  }
-  
+}
+
   function endQuiz() {
-    clearInterval(timer);
+  clearInterval(timer);
     quizScreen.style.display = 'none';
     endScreen.style.display = 'block';
     scoreDisplay.textContent = score;
