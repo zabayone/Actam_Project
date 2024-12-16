@@ -177,8 +177,18 @@ arcade-body {
     text-align: center;
 }
 
-h1{
-    margin-top: 30px;
+#title{
+    width: max-content;
+    margin-top: 75px;
+    font-size: 75px;
+    padding-inline: 40px;
+    border-radius: 50px;
+    border-width: 2px;
+    border-style: dashed;
+    color: #008080;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #triviaContainer{
@@ -219,7 +229,24 @@ h1{
     width: 700px;
     position: relative;
     left: 50%;
-    transform: translateX(-50%)
+    transform: translateX(-50%);
+    width: max-content;
+    padding-inline: 20px;
+}
+
+#score{
+    width: max-content;
+    margin-top: 75px;
+    font-size: 40px;
+    padding-inline: 40px;
+    border-radius: 50px;
+    border-width: 2px;
+    border-style: dashed;
+    color: #008080;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
 }
 
 #options {
