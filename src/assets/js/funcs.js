@@ -1,4 +1,4 @@
-
+//[options for the exercise(check on exercise_vars)],[unison, asc,  desc],test or not,
 const levelsConfig = {
     0: [ // Intervals
         { type: "separator", text: "Thirds" }, 
