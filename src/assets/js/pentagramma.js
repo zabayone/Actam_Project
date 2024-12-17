@@ -1,135 +1,193 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const svg = document.getElementById('pentagramma');
-    let noteElement = null;
-    let ledgerLines = []; // Array to store ledger lines
-
-    const startX = 50;
-    const lineSpacing = 25;
-    const startY = 148;
-    const positions = [];
-
-    // Populate positions array for staff and ledger lines
-    for (let i = -3; i <= 7; i++) {
-        positions.push(startY + i * (lineSpacing / 2));
-    }
-
-    drawStaff();
-
-    // Draw the main staff
-    function drawStaff() {
-        for (let i = 0; i < 5; i++) {
-            const y = startY + i * lineSpacing;
-            drawLine(startX, y, 350, y);
-        }
-    }
-
-    // Draw a line on the SVG
-    function drawLine(x1, y1, x2, y2) {
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', x1);
-        line.setAttribute('y1', y1);
-        line.setAttribute('x2', x2);
-        line.setAttribute('y2', y2);
-        line.classList.add('pentagramma');
-        svg.appendChild(line);
-    }
-
-    // Add a note to the SVG
-    function addNoteAtPosition(x, y) {
-        // Remove existing note if any
-        clearPreviousNote();
-
-        noteElement = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        noteElement.setAttribute('cx', x + 150);
-        noteElement.setAttribute('cy', y);
-        noteElement.setAttribute('r', 10);
-        noteElement.classList.add('note');
-        svg.appendChild(noteElement);
-
-        // Add ledger lines if needed
-        addLedgerLines(y);
-    }
-
-    // Add ledger lines for notes outside the main staff
-    function addLedgerLines(y) {
-        // Remove existing ledger lines
-        ledgerLines.forEach(line => svg.removeChild(line));
-        ledgerLines = [];
-
-        const x1 = 170;
-        const x2 = 230;
-
-        if (y < startY) { // Notes above the staff
-            for (let pos = startY - lineSpacing; pos >= y; pos -= lineSpacing) {
-                ledgerLines.push(drawLedgerLine(x1, pos, x2, pos));
+const midiToNatural = {
+    0: 0,  // Do
+    1: 1,  // Re♭
+    2: 1,  // Re
+    3: 2,  // Mi♭
+    4: 2,  // Mi
+    5: 3,  // Fa
+    6: 4,  // Sol♭
+    7: 4,  // Sol
+    8: 5,  // La♭ 
+    9: 5,  // La
+    10: 6, // Si♭ 
+    11: 6, // Si
+};
+        // Configuración para el pentagrama
+        const midiToY = (midi) => {
+            // Tabla de posiciones en el pentagrama para una octava (Do = 0, Re = 1, etc.)
+        
+            const lineSpacing = 25; // Espaciado entre líneas del pentagrama
+            const baseY = 275; // Coordenada 'y' para Do central (C4, MIDI 60)
+        
+            // Determinar posición relativa dentro de la octava
+            const notePosition = midiToNatural[midi % 12];
+            if (notePosition === undefined) {
+                throw new Error("Valor MIDI fuera del rango permitido.");
             }
-        } else if (y > startY + 4 * lineSpacing) { // Notes below the staff
-            for (let pos = startY + 4 * lineSpacing + lineSpacing; pos <= y; pos += lineSpacing) {
-                ledgerLines.push(drawLedgerLine(x1, pos, x2, pos));
+        
+            // Ajustar la posición según la octava
+            const octaveOffset = Math.floor(midi / 12) - 5; // Octava base: 5 (Do central = 60)
+            return baseY - notePosition * (lineSpacing / 2) - octaveOffset * (lineSpacing * 3.5);
+        };
+        
+
+        const lineSpacing = 25;
+        const pentagramTop = 150; // Coordenada superior del pentagrama
+        const pentagramBottom = 400; // Coordenada inferior del pentagrama
+        const centralC=275;
+        const x=200
+    
+        const addNoteToPentagram = (midi, x, bemolflag=0) => {
+            const pentagram = document.getElementById('pentagramma');
+    
+            // Crear un círculo (nota)
+            const y=midiToY(midi);
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', x); // Posición horizontal
+            circle.setAttribute('cy', y); // Posición vertical según MIDI
+            circle.setAttribute('r', 12); // Radio del círculo
+            circle.setAttribute('fill', 'black'); // Color de la nota
+            circle.setAttribute('class', 'note'); // Clase opcional
+            console.log(y)
+            if (y < pentagramTop) {
+                for (let currentY = pentagramTop-lineSpacing; currentY >= y; currentY += -lineSpacing) {
+                    const extraLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    extraLine.setAttribute('x1', x + 20);
+                    extraLine.setAttribute('x2', x - 20);
+                    extraLine.setAttribute('y1', currentY);
+                    extraLine.setAttribute('y2', currentY);
+                    extraLine.setAttribute('class', `extraline`); // Clase única basada en el valor de currentY
+                    extraLine.setAttribute('stroke', 'black');
+                    extraLine.setAttribute('stroke-width', '1');
+                    
+                    // Agregar la línea al contenedor SVG
+                    document.querySelector('svg').appendChild(extraLine);
+                }
             }
+
+            let bemol=[1,3,6,8,10]
+            if(bemol.includes(midi%12)){
+                    // Crear el elemento de texto que representa el bemol
+                const bemol = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                bemol.setAttribute('x', x-39+(cat==2)*6-bemolflag*6); // Posición horizontal
+                bemol.setAttribute('y', y+8); // Posición vertical
+                bemol.setAttribute('font-family', 'Arial'); // Familia de la fuente
+                bemol.setAttribute('font-size', '48'); // Tamaño de la fuente
+                bemol.setAttribute('fill', 'black'); // Color del texto
+                bemol.textContent = '♭'; // Símbolo del bemol
+                pentagram.appendChild(bemol);
+            }
+
+            if (y === centralC) {
+                    const extraLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    extraLine.setAttribute('x1', x + 20);
+                    extraLine.setAttribute('x2', x - 20);
+                    extraLine.setAttribute('y1', y);
+                    extraLine.setAttribute('y2', y);
+                    extraLine.setAttribute('class', `extraline`); // Clase única basada en el valor de currentY
+                    extraLine.setAttribute('stroke', 'black');
+                    extraLine.setAttribute('stroke-width', '1');
+                    
+                    // Agregar la línea al contenedor SVG
+                    document.querySelector('svg').appendChild(extraLine);
+
+            }
+
+
+            if (y > pentagramBottom) {
+                for (let currentY = pentagramBottom+lineSpacing; currentY <= y; currentY += lineSpacing) {
+                    const extraLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    extraLine.setAttribute('x1', x + 20);
+                    extraLine.setAttribute('x2', x - 20);
+                    extraLine.setAttribute('y1', currentY);
+                    extraLine.setAttribute('y2', currentY);
+                    extraLine.setAttribute('class', `extraline`); // Clase única basada en el valor de currentY
+                    extraLine.setAttribute('stroke', 'black');
+                    extraLine.setAttribute('stroke-width', '1');
+                    
+                    // Agregar la línea al contenedor SVG
+                    document.querySelector('svg').appendChild(extraLine);
+                }
+            }
+        
+    
+            // Añadir la nota al pentagrama
+            pentagram.appendChild(circle);
+        };
+    
+        // Scale
+
+       /* for (let i=60; i<=72;i+=1){
+            addNoteToPentagram(i, 100+(i-59)*25); // DO central en x=100 
+        }*/
+
+        //Chord
+       
+        function addNotes(midiValues){
+            const pentagram = document.getElementById('pentagramma');
+
+            // Primero eliminar todas las notas existentes 
+            const existingNotes = pentagram.querySelectorAll('.note');
+            existingNotes.forEach(note => note.remove());
+        
+            // Luego eliminar todos los bemoles existentes 
+            const existingBemols = pentagram.querySelectorAll('text');
+            existingBemols.forEach(bemol => bemol.remove());
+
+            const existingExtraLines = pentagram.querySelectorAll('.extraline');
+            existingExtraLines.forEach(line => line.remove());
+
+            if (midiValues.length === 0) {
+                
+                return; // Termina la ejecución de la función
+            }
+            else{
+                if(cat===2){
+                    let x=150
+                    midiValues.forEach((note) => {
+                        addNoteToPentagram(note, x);
+                        x+=40;
+                    });
+                }
+                else{
+                    let previousnote=100;
+                    let moved=false;
+                    let actualnote=0;
+                    midiValues.forEach((note) => {
+                        actualnote= midiToNatural[note % 12];
+                        if(Math.abs(previousnote - actualnote) <= 1 && !moved){
+                            let bemol=[1,3,6,8,10]
+                            addNoteToPentagram(note, 220,bemol.includes(note%12));
+                            moved=true;
+
+                        }
+                        else{
+                            addNoteToPentagram(note, 200);
+                            moved=false;
+                        }
+                        previousnote = midiToNatural[note % 12];
+                    });
+                }
+            }
+
         }
-    }
 
-    // Draw a ledger line
-    function drawLedgerLine(x1, y1, x2, y2) {
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', x1);
-        line.setAttribute('y1', y1);
-        line.setAttribute('x2', x2);
-        line.setAttribute('y2', y2);
-        line.classList.add('ledger-line');
-        svg.appendChild(line);
-        return line;
-    }
+    
 
-    // Find the nearest Y position on the staff or ledger lines
-    function findNearestY(y) {
-        return positions.reduce((nearest, pos) => {
-            return Math.abs(y - pos) < Math.abs(y - nearest) ? pos : nearest;
-        });
-    }
+        const all = [35,40,45,50,55,60,65,70,75,80,85];
+        const scaleAm = [57,59,60,62,64,65,67,69];
+        const bemoles = [56,58,61,63,66,68];
+        const cat=1
+        addNotes(bemoles)
+        const noteSets = [all, scaleAm, bemoles];
 
-    // Event listener for clicking on the SVG to add a note
-    svg.addEventListener('click', function (event) {
-        const rect = svg.getBoundingClientRect();
-        const x = startX;
-        const y = event.clientY - rect.top;
-        const nearestY = findNearestY(y);
-        addNoteAtPosition(x, nearestY);
-    });
+// Función que se ejecutará cada 5 segundos
+let currentSetIndex = 0;
 
-    // Clear previous note and ledger lines
-    function clearPreviousNote() {
-        if (noteElement) {
-            svg.removeChild(noteElement);
-            noteElement = null;
-        }
-        ledgerLines.forEach(line => svg.removeChild(line));
-        ledgerLines = [];
-    }
+const interval = setInterval(() => {
+    const currentSet = noteSets[currentSetIndex];
+    addNotes(currentSet);  // Llama a la función para añadir las notas del conjunto actual
+    currentSetIndex = (currentSetIndex + 1) % noteSets.length;  // Cambia al siguiente conjunto de notas
+}, 5000); // 5000 ms = 5 segundos
 
-    // Draw a note dynamically from a MIDI value
-    function drawNoteFromMIDI(midiValue) {
-        const baseMidi = 60; // MIDI value for C4
-        const baseY = 185.5; // Y position for C4
-        const halfStepDistance = 12.5; // Distance per semitone (half-step)
-
-        // Calculate the Y position dynamically
-        const y = baseY - (midiValue - baseMidi) * halfStepDistance;
-
-        // Clear previous note and ledger lines
-        clearPreviousNote();
-
-        // Draw the note
-        const x = 200; // Fixed X position for the note
-        const note = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        note.setAttribute("cx", x);
-        note.setAttribute("cy", y);
-        note.setAttribute("r", 10);
-        note.classList.add("note");
-        svg.appendChild(note);
-
-        // Add ledger lines if necessary
-        addLedgerLines(y);
-    }
-});
+    
