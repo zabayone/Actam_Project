@@ -163,4 +163,4 @@ function getUsedLocalStorageSpace(){
 };
 
 const levelDescription = document.getElementById('levelDescription');
-//levelDescription.textContent = `Level ${whichever variable contains the level number}`; // Update the description
+levelDescription.textContent = `Level ${localStorage.getItem("level")}`; // Update the description
