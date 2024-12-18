@@ -7,6 +7,9 @@ body {
     color: #333;
 }
 
+.resultsPage{
+    display: flex;
+}
 
 /* Header Section */
 .app-header {
@@ -434,6 +437,7 @@ th {
 
 .category_slider{
     position: absolute;
+    width: fit-content;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50px;
@@ -441,7 +445,7 @@ th {
     border-color: #008080;
     border-style: solid;
     border-width: 3px;
-    margin-top: 1.5%;
+    margin-top: 3.5%;
     margin-bottom: 1.5%;
     z-index: 2;
 }
@@ -483,7 +487,7 @@ th {
 
 #results{
     position: absolute;
-    margin-top: 2%;
+    margin-top: 4%;
     left: 50%;
     top: 15%;
     transform: translateX(-50%);
@@ -503,6 +507,14 @@ th {
     display: flex;
     flex-direction: row; /* Stack bars vertically */
     position: absolute; /* Enable stacking on the z-axis */
+}
+
+.correct_blocks{
+    width: 500px;
+}
+
+.total_blocks{
+
 }
 
 .correct_bar, .total_bar {
@@ -530,8 +542,8 @@ th {
     border-radius: 20px 0 0 20px; /* Rounded top corners */
 }
 
-.correct_blocks .correct_bar:last-child{
-    border-radius: 0 3px 3px 0; /* Rounded bottom corners */
+.correct_bar:last-child{
+    border-radius: 0 20px 20px 0; /* Rounded bottom corners */
 }
 
 
@@ -545,6 +557,52 @@ th {
     top: 300px; /* Mueve el SVG hacia abajo */
 }
 
+#calendar {
+    display: inline-flex;
+    flex-direction: column; /* Makes the calendar vertical */
+    align-items: center; /* Centers the content horizontally */
+    width: 250px; /* Adjust width as needed */
+    border-radius: 20px;
+    margin: 0 auto; /* Centers the calendar in the page */
+    padding: 10px;
+    border: 2.5px solid #008080; /* Optional: Adds a border around the calendar */
+    background-color: #fff; 
+    position: absolute;
+    right: 7%;
+    top: 15%;
+    max-height: 73%;
+    overflow:scroll;
+}
+
+.day {
+    display: flex;
+    justify-content: space-evenly; /* Space between date and events/details */
+    align-items: center;
+    padding: 5px;
+    width: 210px;
+    height: 40px;
+    border: 1.5px dotted #008080;
+    background: #fff;
+    border-radius: 40px;
+    margin: 5px;
+}
+
+.day:hover {
+    background: #006a6a;
+}
+
+.day:active {
+    background: #217878;
+    border: 2px solid #ffb74d;
+}
+
+.day span {
+    font-size: 16px; /* Adjust font size */
+    color: #008080; /* Text color */
+}
+
+.day:hover span, .day:active span{
+    color: #fff;
 /* Estilos generales para botones bloqueados */
 .level-btn.locked {
      /* Color gris para botones bloqueados */
