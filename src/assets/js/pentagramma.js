@@ -48,7 +48,6 @@ const midiToNatural = {
             circle.setAttribute('r', 12); // Radio del círculo
             circle.setAttribute('fill', 'black'); // Color de la nota
             circle.setAttribute('class', 'note'); // Clase opcional
-            console.log(y)
             if (y < pentagramTop) {
                 for (let currentY = pentagramTop-lineSpacing; currentY >= y; currentY += -lineSpacing) {
                     const extraLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -69,7 +68,7 @@ const midiToNatural = {
             if(bemol.includes(midi%12)){
                     // Crear el elemento de texto que representa el bemol
                 const bemol = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                bemol.setAttribute('x', x-39+(cat==2)*6-bemolflag*6); // Posición horizontal
+                bemol.setAttribute('x', x-42+(cat==2)*6-bemolflag*5); // Posición horizontal
                 bemol.setAttribute('y', y+8); // Posición vertical
                 bemol.setAttribute('font-family', 'Arial'); // Familia de la fuente
                 bemol.setAttribute('font-size', '48'); // Tamaño de la fuente
@@ -175,7 +174,7 @@ const midiToNatural = {
     
 
         const all = [35,40,45,50,55,60,65,70,75,80,85];
-        const scaleAm = [57,59,60,62,64,65,67,69];
+        const scaleAm = [57,58,60,62,64,65,67,69];
         const bemoles = [56,58,61,63,66,68];
         const cat=1
         addNotes(bemoles)
