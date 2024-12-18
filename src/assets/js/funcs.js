@@ -28,7 +28,7 @@ const levelsConfig = {
         { level: 5, params: [[0, 1], [1,0,0], 0] },
         { level: 6, params: [[0, 1], [1,0,0], 1] },
         { type: "separator", text: "Extra Minor" },  
-        { level: 7, params: [[0, 1, 2, 3], [1,0,0], 0] },
+        { level: 7, params: [[0, 1, 2, 3,4,5,6,7], [1,0,0], 0] },
         { level: 8, params: [[0, 1, 2, 3], [1,0,0], 0] },
         { level: 9, params: [[0, 1, 2, 3], [1,0,0], 0] },
         { level: 10, params: [[0, 1, 2, 3], [1,0,0], 1] },
@@ -161,6 +161,4 @@ function getUsedLocalStorageSpace(){
     }
     return allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
 };
-
-const levelDescription = document.getElementById('levelDescription');
-levelDescription.textContent = `Level ${localStorage.getItem("level")}`; // Update the description
+ // Update the description

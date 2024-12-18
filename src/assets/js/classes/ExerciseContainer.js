@@ -24,11 +24,13 @@ class ExerciseContainer {
             this.type = localStorage.getItem("type")
             this.test = localStorage.getItem("test")
             this.level = localStorage.getItem("level")
+/*
             localStorage.removeItem("category")
             localStorage.removeItem("key")
             localStorage.removeItem("type")
             localStorage.removeItem("test")
-            localStorage.removeItem("level")
+            localStorage.removeItem("level")*/
+
             console.log(this.cat + " - " + this.key + " - " + this.type + " - " + this.test + " - ")
             this.array = Array.from({ length: 3 }, () => 
                 Array.from({ length: n }, () => Array(2).fill(0))

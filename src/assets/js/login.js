@@ -173,8 +173,9 @@ async function checkRegister(user, password) {
       // Si el usuario no existe, crea el documento
       await setDoc(docRef, {
         password: password,
-        levels: ['1','1','1','1'],
-        scores: ['0','0','0']
+        levels: ['3','3','3','3'],
+        scores: ['0','0','0'],
+        
       });
       informationElem.style.display = 'block';
       informationElem.innerText = "Registration successful!";
