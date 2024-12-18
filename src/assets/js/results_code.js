@@ -26,7 +26,8 @@ function showCategory(category) {
     const titles = {
         intervals: 'Intervals Results',
         chords: 'Chords Results',
-        scales: 'Scales Results'
+        scales: 'Scales Results',
+        exercise: 'Last exercise results',
     };
 
     resultsTitle.textContent = titles[category] || 'Results';
@@ -41,7 +42,8 @@ function showCategory(category) {
     const content = {
         intervals: '<p>Here are the results for intervals.</p>',
         chords: '<p>Here are the results for chords.</p>',
-        scales: '<p>Here are the results for scales.</p>'
+        scales: '<p>Here are the results for scales.</p>',
+        exercise: '<p>Here are the results of the Exercise<p>',
     };
 
     // Add the correct blocks and total block HTML to the content
