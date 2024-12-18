@@ -7,8 +7,7 @@ var day_array = []
 
 // Function to update the results based on the selected category
 function showCategory(category) {
-    correctCount = storage.calculateTotalCorrectResults;
-    //correctCount= 
+    //correctCount = storage.calculateTotalCorrectResults;
     const resultsTitle = document.getElementById('resultsTitle');
     const resultsContent = document.getElementById('resultsContent');
     const sliderElements = document.querySelectorAll('.slider_element');
@@ -34,7 +33,7 @@ function showCategory(category) {
 
     // Create the correct blocks HTML dynamically based on the correctCount
     let correctBarsHTML = '';
-    for (let i = 0; i < correctCount; i++) {
+    for (let i = 0; i < 7/*for testing*/; i++) {
         correctBarsHTML += '<a class="correct_bar"></a>';
     }
 
