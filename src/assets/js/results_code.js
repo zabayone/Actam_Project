@@ -74,11 +74,15 @@ async function init(){
     }
     i = 0
     str = "Day-" + i.toString()
-    while(item = localStorage.getItem(str)){
+    item = localStorage.getItem(str)
+    while(item){
+        //console.log(item)
         day_array.push(new DayContainer(i))
         i = i+1
         str = "Day-" + i.toString()
+        item = localStorage.getItem(str)
     }
+    console.log(getUsedLocalStorageSpace())
 }
 
 init()

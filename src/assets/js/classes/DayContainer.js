@@ -37,6 +37,7 @@ class DayContainer {
             if(this.date) this.localRetreive()
             else throw new Error("Wrong index value, non existent structure for that date")
             this.printArray()
+
         }
     }
 
@@ -183,21 +184,21 @@ class DayContainer {
     localStore(){
         for (let x = 0; x < 3; x++) {
             for (let y = 0; y < this.intervals[x].length; y++) {
-                let str = this.date + '/int/' + x.toString() + '-' + y.toString()
+                let str = this.idx + '/int/' + x.toString() + '-' + y.toString()
                 let item = this.intervals[x][y][0].toString() + '-' + this.intervals[x][y][1].toString()
                 localStorage.setItem(str, item)
             }
         }
         for (let x = 0; x < 3; x++) {
             for (let y = 0; y < this.chords[x].length; y++) {
-                let str = this.date + '/arr/' + x.toString() + '-' + y.toString()
+                let str = this.idx + '/arr/' + x.toString() + '-' + y.toString()
                 let item = this.chords[x][y][0].toString() + '-' + this.chords[x][y][1].toString()
                 localStorage.setItem(str, item)
             }
         }
         for (let x = 0; x < 3; x++) {
             for (let y = 0; y < this.scales[x].length; y++) {
-                let str = this.date + '/scal/' + x.toString() + '-' + y.toString()
+                let str = this.idx + '/scal/' + x.toString() + '-' + y.toString()
                 let item = this.scales[x][y][0].toString() + '-' + this.scales[x][y][1].toString()
                 localStorage.setItem(str, item)
             }
@@ -217,7 +218,7 @@ class DayContainer {
         }
         for (let x = 0; x < 3; x++) {
             for (let y = 0; y < this.intervals[x].length; y++) {
-                let str = this.date + '/int/' + x.toString() + '-' + y.toString()
+                let str = this.idx + '/int/' + x.toString() + '-' + y.toString()
                 let item = localStorage.getItem(str)
                 let vals = item.split('-')
                 this.intervals[x][y][0] = parseInt(vals[0])
@@ -226,7 +227,7 @@ class DayContainer {
         }
         for (let x = 0; x < 3; x++) {
             for (let y = 0; y < this.chords[x].length; y++) {
-                let str = this.date + '/arr/' + x.toString() + '-' + y.toString()
+                let str = this.idx + '/arr/' + x.toString() + '-' + y.toString()
                 let item = localStorage.getItem(str)
                 let vals = item.split('-')
                 this.chords[x][y][0] = parseInt(vals[0])
@@ -235,7 +236,7 @@ class DayContainer {
         }
         for (let x = 0; x < 3; x++) {
             for (let y = 0; y < this.scales[x].length; y++) {
-                let str = this.date + '/scal/' + x.toString() + '-' + y.toString()
+                let str = this.idx + '/scal/' + x.toString() + '-' + y.toString()
                 let item = localStorage.getItem(str)
                 let vals = item.split('-')
                 this.scales[x][y][0] = parseInt(vals[0])

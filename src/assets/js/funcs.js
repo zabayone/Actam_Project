@@ -144,7 +144,15 @@ function goHome(){
     document.location.href = '/'
 }
 
-function empty(){}
+function getUsedLocalStorageSpace(){
+    var allStrings = '';
+    for(var key in window.localStorage){
+        if(window.localStorage.hasOwnProperty(key)){
+            allStrings += window.localStorage[key];
+        }
+    }
+    return allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
+};
 
 const levelDescription = document.getElementById('levelDescription');
 //levelDescription.textContent = `Level ${whichever variable contains the level number}`; // Update the description
