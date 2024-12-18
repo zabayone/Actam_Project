@@ -601,4 +601,22 @@ th {
 
 .day:hover span, .day:active span{
     color: #fff;
+/* Estilos generales para botones bloqueados */
+.level-btn.locked {
+     /* Color gris para botones bloqueados */
+    cursor: not-allowed; /* Cursor indicando que está bloqueado */
+    transform: none; /* Sin transformaciones */
+    box-shadow: none; /* Sin sombras */
+    border: 2px solid #999; /* Borde gris claro */
+    opacity: 0.6; /* Hacerlos más opacos */
+    pointer-events: none; /* Desactiva interacciones con el puntero */
+}
+
+/* Desactivar hover en botones bloqueados */
+.level-btn.locked:hover,
+.test-btn.locked:hover {
+     /* Mantener el color bloqueado */
+    transform: none; /* Sin escala */
+    box-shadow: none; /* Sin sombras */
+    border: 2px solid #999; /* Mantener el borde gris */
 }

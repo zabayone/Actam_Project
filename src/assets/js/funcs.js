@@ -61,18 +61,25 @@ const levelsConfig = {
 
 
 // Función para generar los botones con texto explicativo entre las filas
+
 function generateLevelButtons(levelsConfig) {
     let rowsHTML = '';
     let currentRow = [];  // Contendrá los botones de la fila actual
+    let lvl;
+let cat=parseInt(localStorage.getItem("category"));
+if(cat==0){lvl=localStorage.getItem("lvlInterval")}
+else{if(cat==1){lvl=localStorage.getItem("lvlChord")}
+    else{lvl=localStorage.getItem("lvlScale")}
+}
 
     levelsConfig.forEach(item => {
         if (item.type === "separator") {
         // Si es un separador, generar la fila anterior y añadir un título
         if (currentRow.length > 0) {
-            rowsHTML += `<div class="level-row">
+            rowsHTML += `<div class="level-row" >
                         ${currentRow.map(level => 
-                            `<button class="level-btn ${level.params[2] === 1 ? 'test-btn' : ''}" data-level="${level.level}" 
-                            onclick="selectLevel(${JSON.stringify(level.params[0])}, ${JSON.stringify(level.params[1])}, ${level.params[2]})">
+                            `<button class="level-btn ${(lvl < level.level) ? 'locked' : ''} ${level.params[2] === 1 ? 'test-btn' : ''}" data-level="${level.level}" 
+                            onclick="selectLevel(${level.level},${JSON.stringify(level.params[0])}, ${JSON.stringify(level.params[1])}, ${level.params[2]})">
                             Level ${level.level}</button>`
                         ).join('')}
                         </div>`;
@@ -103,7 +110,7 @@ function generateLevelButtons(levelsConfig) {
     return rowsHTML;
 }
 
-function selectLevel(intervals, type, test){
+function selectLevel(level,intervals, type, test){
     let int_string = '';
     intervals.forEach(interval => {
         int_string = int_string + interval.toString() + '-'
@@ -118,6 +125,7 @@ function selectLevel(intervals, type, test){
     localStorage.setItem("key", int_string);
     localStorage.setItem("type", type_string);
     localStorage.setItem("test", test);
+    localStorage.setItem("level", level);
     document.location.href = '/ear-training/level.html'
 }
 
