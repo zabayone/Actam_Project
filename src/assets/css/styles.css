@@ -533,3 +533,14 @@ th {
 .correct_blocks .correct_bar:last-child{
     border-radius: 0 3px 3px 0; /* Rounded bottom corners */
 }
+
+
+.item-pentagramma {
+    display: inline-block;
+
+}
+
+#pentagramma {
+    position: relative;
+    top: 300px; /* Mueve el SVG hacia abajo */
+}

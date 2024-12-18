@@ -33,8 +33,8 @@
         
 
         const lineSpacing = 25;
-        const pentagramTop = 148; // Coordenada superior del pentagrama
-        const pentagramBottom = 248; // Coordenada inferior del pentagrama
+        const pentagramTop = 150; // Coordenada superior del pentagrama
+        const pentagramBottom = 250; // Coordenada inferior del pentagrama
         const x=200
     
         const addNoteToPentagram = (midi, x) => {
@@ -49,6 +49,7 @@
             circle.setAttribute('fill', 'black'); // Color de la nota
             circle.setAttribute('class', 'note'); // Clase opcional
             console.log(y)
+
             if (y < pentagramTop) {
                 for (let currentY = pentagramTop-lineSpacing; currentY >= y; currentY += -lineSpacing) {
                     const extraLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
