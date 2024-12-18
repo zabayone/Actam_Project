@@ -8,7 +8,7 @@ var is_test = 0
 var root = 0            // MIDI of the root note
 var values; // array of the indexes of the active exercises 
 var types; // array of the indexes of the active exercises 
-var reps = 1
+var reps = 3
 var rep_index = 0;
 var checked = 1;
 var midi_arr = [];
@@ -186,13 +186,15 @@ async function next(){ // function that creates the next
             chosen_type = ones[idx_2]
             switch (parseInt(cat)) {
                 case 0:
+                    addNotes([root])
                     console.log("case 0 for cat:")
                     midi_arr.push(root)
                     let adder = parseInt(curr_val) + 1
                     if(chosen_type == 1) adder = -adder;
                     midi_arr.push(root + adder)
                 break;
-                case 1:                    
+                case 1:
+                    addNotes(null)                    
                     console.log("case 1 for cat:")
                     let curr_arr = chord_codes[curr_val].split(' ');
                     midi_arr.push(root)
@@ -206,6 +208,7 @@ async function next(){ // function that creates the next
                 break;
             }
             console.log(midi_arr)
+            
             console.log("chosen type: " + chosen_type)
             playNoteFromMIDI(midi_arr, chosen_type);
             rep_index = rep_index+1;
@@ -228,6 +231,7 @@ function playAgain(){
 function checkButton(val){
     if(checked == 0){
         console.log("checking")
+        addNotes(midi_arr)
         checked = 1
         if(val == curr_val){
             storage.setCorrect(chosen_type,curr_idx)

@@ -136,7 +136,7 @@ const midiToNatural = {
             const existingExtraLines = pentagram.querySelectorAll('.extraline');
             existingExtraLines.forEach(line => line.remove());
 
-            if (midiValues.length === 0) {
+            if (!midiValues) {
                 
                 return; // Termina la ejecución de la función
             }
@@ -176,17 +176,16 @@ const midiToNatural = {
         const all = [35,40,45,50,55,60,65,70,75,80,85];
         const scaleAm = [57,58,60,62,64,65,67,69];
         const bemoles = [56,58,61,63,66,68];
-        const cat=1
         addNotes(bemoles)
         const noteSets = [all, scaleAm, bemoles];
 
 // Función que se ejecutará cada 5 segundos
 let currentSetIndex = 0;
 
-const interval = setInterval(() => {
+/*onst interval = setInterval(() => {
     const currentSet = noteSets[currentSetIndex];
     addNotes(currentSet);  // Llama a la función para añadir las notas del conjunto actual
     currentSetIndex = (currentSetIndex + 1) % noteSets.length;  // Cambia al siguiente conjunto de notas
-}, 5000); // 5000 ms = 5 segundos
+}, 5000); // 5000 ms = 5 segundos*/
 
     
