@@ -8,10 +8,13 @@ class ExerciseContainer {
         if(idx === null){
             this.idx = 0
             let str = "Container-" + this.idx.toString()
-            while(localStorage.getItem(str)){
+            let item = localStorage.getItem(str) 
+            while(item){
                 console.log(this.idx)
+                console.log(str + " = " + item)
                 this.idx++;
                 str = "Container-" + this.idx.toString()
+                item = localStorage.getItem(str) 
             }
             // let idx = localStorage.getItem("max_idx")
             // if(idx) this.idx = parseInt(idx) + 1 
@@ -20,10 +23,12 @@ class ExerciseContainer {
             this.key = localStorage.getItem("key")
             this.type = localStorage.getItem("type")
             this.test = localStorage.getItem("test")
+            this.level = localStorage.getItem("level")
             localStorage.removeItem("category")
             localStorage.removeItem("key")
             localStorage.removeItem("type")
             localStorage.removeItem("test")
+            localStorage.removeItem("level")
             console.log(this.cat + " - " + this.key + " - " + this.type + " - " + this.test + " - ")
             this.array = Array.from({ length: 3 }, () => 
                 Array.from({ length: n }, () => Array(2).fill(0))
