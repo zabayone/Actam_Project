@@ -62,7 +62,8 @@ const translations = {
                 heading: "Category Not Found",
                 description: "The selected category does not exist."
             }
-        }
+        },
+        sandPrompt: "personalise your Level", 
     },
     it: {
         title: "Progetto Actam",
@@ -126,7 +127,8 @@ const translations = {
                 heading: "Categoria Non Trovata",
                 description: "La categoria selezionata non esiste."
             }
-        }
+        },
+        sandPrompt: "personaliizza il tuo Livello", 
     }
 };
 

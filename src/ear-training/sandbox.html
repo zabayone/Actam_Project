@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Firebase and Script -->
+    <script type="module" src="/assets/js/script.js" defer></script>
+    <script src="/assets/js/funcs.js" defer></script>
+</head>
+<body onload="loadLevels()">
+    <!-- Header Section -->
+    <header class="app-header">
+        <div class="header-left">
+            <button class="btn home-btn" onclick="goHome()">
+                <img src="/assets/img/home.png" alt="Home" class="home-img">
+            </button>
+            <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>
+            <button class="btn btn-primary language-btn" onclick="setLanguage('it')">Italiano</button>
+        </div>
+        
+        <div class="header-center">
+            <h1 id="categoryTitle" data-translate="categoryTitle">Training</h1>
+        </div>
+
+        <div class="header-right">
+            <!-- Display the username here -->
+            <p id="information" data-translate="guest"> Guest </p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-container">
+        <div class="level-info">
+            <h2 id="categoryHeading" data-translate="categoryHeading">Category Information</h2>
+        </div>
+        <div class="level-map">
+            <h3 data-translate="sandPrompt">Personalise your Level</h3>
+            <div class="levels" id="levels">
+                <div class="sandboxSelector">
+                    <div class="interval-selector">
+                        <label for="intervalSelect">Select Interval:</label>
+                        <select id="intervalSelect" class="form-select">
+                            <option value="0">Minor Second</option>
+                            <option value="1">Major Second</option>
+                            <option value="2">Minor Third</option>
+                            <option value="3">Major Third</option>
+                            <option value="4">Perfect Forth</option>
+                            <option value="5">Tritone</option>
+                            <option value="6">Perfect Fifth</option>
+                            <option value="7">Minor Sixth</option>
+                            <option value="8">Major Sixth</option>
+                            <option value="9">Minor Seventh</option>
+                            <option value="10">Major Seventh</option>
+                            <option value="11">Octave</option>
+                        </select>
+                    </div>
+                    <div class="chord-selector">
+                        <label for="chordSelect">Select Chord:</label>
+                        <select id="chordSelect" class="form-select">
+                            <option value="0">Minor Triad</option>
+                            <option value="1">Major Triad</option>
+                            <option value="2">Diminished Triad</option>
+                            <option value="3">Augmented Triad</option>
+                            <option value="4">Minor Seventh</option>
+                            <option value="5">Major Seventh</option>
+                            <option value="6">Dominant Seventh</option>
+                            <option value="7">Half Deminished</option>
+                            <option value="8">Minor Major 7th</option>
+                            <option value="9">Minor Major 7th (b5)</option>
+                            <option value="10">Diminished Seventh</option>
+                            <option value="11">Major Seventh (#5)</option>
+                            <option value="12">Dominant Seventh (#5)</option>
+                            <option value="13">Dominant Seventh (♭5)</option>
+                            <option value="14">Sus2 Triad</option>
+                            <option value="15">Sus4 Triad</option>
+                            <option value="16">Lydian Triad</option>
+                            <option value="17">Phrygian Triad</option>
+                            <option value="18">Locrian Triad</option>
+                            <option value="19">Minor Sixth</option>
+                            <option value="20">Major Sixth</option>
+                        </select>
+                    </div>
+                    <div class="scale-selector">
+                        <label for="scaleSelect">Select Scale:</label>
+                        <select id="scaleSelect" class="form-select">
+                        <option value="0">Ionian (Major)</option>
+                        <option value="1">Dorian</option>
+                        <option value="2">Phrygian</option>
+                        <option value="3">Lydian</option>
+                        <option value="4">Mixolydian</option>
+                        <option value="5">Aeolian (Nat Minor)</option>
+                        <option value="6">Locrian</option>
+                        <option value="7">Harmonic Minor</option>
+                        <option value="8">Locrian ♮6th</option>
+                        <option value="9">Augmented Major</option>
+                        <option value="10">Dorian #11</option>
+                        <option value="11">Phrygian dominant</option>
+                        <option value="12">Lydian #2</option>
+                        <option value="13">Super Locrian bb7</option>
+                        <option value="14">Melodic Minor</option>
+                        <option value="15">Dorian ♭2</option>
+                        <option value="16">Lydian Augmented</option>
+                        <option value="17">Acoustic (Lyd Dom)</option>
+                        <option value="18">Aeolian Dominant</option>
+                        <option value="19">Aeolian ♭5</option>
+                        <option value="20">Altered</option>
+                        <option value="21">H-W diminished</option>
+                        <option value="22">W-H diminished</option>
+                        <option value="23">Exatonal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class="start_btn" onclick="startSandbox()">Start</button>
+        </div>
+    </main>
+    
+</body>
+</html>

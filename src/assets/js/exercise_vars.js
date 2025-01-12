@@ -35,7 +35,7 @@ var chord_text = ['Minor Triad',            //  0
                   'Locrian Triad',          // 18
                   'Minor Sixth',            // 19
                   'Major Sixth'             // 20
-                  ]           
+                ]           
 
 var chord_codes = ['3 7',                   //  0
                    '4 7',                   //  1
@@ -83,8 +83,8 @@ var scale_text = ['Ionian (Major)',         //  0
                   'H-W diminished',         // 21
                   'W-H diminished',         // 22
                   'Exatonal',               // 23
-                   ]           
-      
+                ]           
+
 var scale_codes = ['2 4 5 7 9 11',                  //  0
                    '2 3 5 7 9 10',                  //  1
                    '1 3 5 7 8 10',                  //  2

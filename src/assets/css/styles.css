@@ -603,6 +603,7 @@ th {
 
 .day:hover span, .day:active span{
     color: #fff;
+}
 /* Estilos generales para botones bloqueados */
 .level-btn.locked {
      /* Color gris para botones bloqueados */
@@ -621,4 +622,44 @@ th {
     transform: none; /* Sin escala */
     box-shadow: none; /* Sin sombras */
     border: 2px solid #999; /* Mantener el borde gris */
+}
+
+.start_btn{
+    background-color: #008080; /* Teal */
+    color: white;
+    border-radius: 50px;
+    padding: 20px 0; /* Increase padding to make buttons larger */
+    width: 240px;
+    font-size: 18px; /* Make text larger */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent; /* Transparent border to prevent resizing */
+    height: 60px;
+    line-height: 20px;
+    margin-top: 20px;
+}
+
+.start_btn:hover {
+    background-color: #006666; /* Darker teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFA500; /* Orange border on hover */
+}
+
+.start_btn:active {
+    background-color: #004d40; /* Even darker teal on active */
+    border: 2px solid #004d00;
+}
+
+.form-select{
+    border-radius: 20px;
+    border: 2px solid #006666;
+    padding: 10px;
+    width: 240px;
+    border-radius: 50px;
+    color: #006666;
+    margin: 7px;
 }
