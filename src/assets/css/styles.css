@@ -654,12 +654,56 @@ th {
     border: 2px solid #004d00;
 }
 
-.form-select{
-    border-radius: 20px;
-    border: 2px solid #006666;
-    padding: 10px;
-    width: 240px;
+.sandboxSelector {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.selector-column {
+    flex: 1;
+    min-width: 0;
+}
+
+.collapse-btn {
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    background: #f0f0f0;
+    border: 1px solid #004d40;
+    cursor: pointer;
     border-radius: 50px;
-    color: #006666;
-    margin: 7px;
+    color: #004d40;
+    width: 240px;
+    height: 45px;
+}
+
+.selector-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+}
+
+.selector-content.expanded {
+    max-height: 390px;
+    overflow: scroll;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    padding: 10px;
+    color: #004d40;
+}
+
+label {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.checkbox-grid input[type="checkbox"] {
+    background-color: #006a6a;
 }

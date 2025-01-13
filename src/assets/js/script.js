@@ -318,3 +318,12 @@ sliderElements.forEach(element => {
         element.classList.add('active');
     });
 });
+
+function toggleSection(id) {
+    const content = document.getElementById(id);
+    content.classList.toggle('expanded');
+    const btn = content.previousElementSibling;
+    btn.textContent = btn.textContent.includes('▼') ? 
+        btn.textContent.replace('▼', '▲') : 
+        btn.textContent.replace('▲', '▼');
+}
