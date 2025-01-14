@@ -134,6 +134,9 @@ function selectCategory(arg){
     if (arg == 4){
         document.location.href = '/ear-training/results.html'
     }
+    if (arg == 3){
+        document.location.href = '/ear-training/sandbox.html'
+    }
     else {
         document.location.href = '/ear-training/map.html'
     }
