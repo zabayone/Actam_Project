@@ -640,6 +640,8 @@ th {
     height: 60px;
     line-height: 20px;
     margin-top: 20px;
+    position: absolute;
+    top: 80%;
 }
 
 .start_btn:hover {
@@ -705,5 +707,5 @@ label {
 }
 
 .checkbox-grid input[type="checkbox"] {
-    background-color: #006a6a;
+    accent-color: #006a6a;
 }
