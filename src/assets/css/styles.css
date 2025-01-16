@@ -554,7 +554,7 @@ th {
 
 #pentagramma {
     position: relative;
-    top: 300px; /* Mueve el SVG hacia abajo */
+    top: 150px; /* Mueve el SVG hacia abajo */
 }
 
 #calendar {
