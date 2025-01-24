@@ -62,6 +62,10 @@ class ExerciseContainer {
         return this.key.split("-")
     }
 
+    getCategory() {
+        return this.cat
+    }
+
     getTypes() {
         return this.type.split("-")
     }

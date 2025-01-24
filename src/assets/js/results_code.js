@@ -5,12 +5,88 @@ var cat
 var exe_array = []
 var day_array = []
 
+var curr_exe
+var curr_day
+
+var curr_cat
+
+async function switchCurrentDay(curr) {
+    curr_day = curr;
+    showCategory(curr_cat);
+}
+async function switchCurrentExercise(curr) {
+    curr_exe = curr;
+    showCategory(curr_cat);
+}
 // Function to update the results based on the selected category
-function showCategory(category) {
+async function showCategory(category) {
+    curr_cat = category;
     //correctCount = storage.calculateTotalCorrectResults;
     const resultsTitle = document.getElementById('resultsTitle');
     const resultsContent = document.getElementById('resultsContent');
     const sliderElements = document.querySelectorAll('.slider_element');
+    const calendar = document.getElementById('calendar')
+
+    var calendar_txt = ''
+    if(category == 'exercise') {
+        for (let i = 0; i < exe_array.length; i++) {
+            var categ = exe_array[i].getCategory()
+            var keys = exe_array[i].getKeys()
+            var str1 = 'Exercise ' + parseInt(i+1)
+            // switch (parseInt(categ)) {
+            //     case 0:
+            //         for (let j = 0; j < keys.length; j++) {
+            //             str1 += interval_text[parseInt(keys[i])] + ', '
+            //         }
+            //         str1 += str1.substring(0,str1.length - 2)
+            //     break;
+            //     case 1:
+            //         for (let j = 0; j < keys.length; j++) {
+            //             str1 += chord_text[parseInt(keys[i])] + ', '
+            //         }
+            //         str1 += str1.substring(0,str1.length - 2)
+            //     break;
+            //     case 2:
+            //         for (let j = 0; j < keys.length; j++) {
+            //             str1 += scale_text[parseInt(keys[i])] + ', '
+            //         }
+            //         str1 += str1.substring(0,str1.length - 2)
+            //     break;
+            //     default:
+            //     break;
+            // }
+            var correct = exe_array[i].calculateTotalCorrectResults()
+            var perc = parseInt((correct[0]/correct[1]) * 100)
+            var str2 = correct[0].toString() + '/' + correct[1].toString() + ' | ' + perc.toString() + '%'
+            calendar_txt +=  `<button class="day" onclick="switchCurrentExercise(${i.toString()})">
+            <span>  ${str1} </span> 
+            <span>  ${str2}  </span> 
+            </button>`
+       }
+       calendar.innerHTML = calendar_txt;
+    } else {
+        for (let i = 0; i < day_array.length; i++) {
+            var str1 = day_array[i].date
+            var correct = day_array[i].calculateTotalCorrectResults()
+            var perc = parseInt((correct[0]/correct[1]) * 100)
+            var str2 = correct[0].toString() + '/' + correct[1].toString() + ' | ' + perc.toString() + '%'
+            calendar_txt +=  `<button class="day" onclick="switchCurrentDay(${i.toString()})">
+            <span>  ${str1} </span> 
+            <span>  ${str2}  </span> 
+            </button>`
+        }
+        calendar.innerHTML = calendar_txt;
+        switch (category) {
+            case 'intervals': 
+                break;
+            case 'chords': 
+                break;
+            case 'scales': 
+                break;
+            default:
+                break;
+        }
+    }
 
     sliderElements.forEach(element => {
         element.addEventListener('click', () => {
@@ -34,21 +110,30 @@ function showCategory(category) {
 
     // Create the correct blocks HTML dynamically based on the correctCount
     let correctBarsHTML = '';
-    for (let i = 0; i < 7/*for testing*/; i++) {
+    for (let i = 0; i < 10/*for testing*/; i++) {
         correctBarsHTML += '<a class="correct_bar"></a>';
     }
 
     // Update the content dynamically (this can be replaced with actual data fetching logic)
     const content = {
-        intervals: '<p>Here are the results for intervals.</p>',
-        chords: '<p>Here are the results for chords.</p>',
-        scales: '<p>Here are the results for scales.</p>',
-        exercise: '<p>Here are the results of the Exercise<p>',
+        intervals: 'Here are the results for intervals for day',
+        chords: 'Here are the results for chords for day',
+        scales: 'Here are the results for scales for day',
+        exercise: 'Here are the results of the Exercise',
     };
 
     // Add the correct blocks and total block HTML to the content
+    let dyn_txt = content[category];
+    if(dyn_txt){
+        if (category == 'exercise') {
+            dyn_txt += ' ' + parseInt(curr_exe + 1).toString() + '.'
+        } else {
+            console.log(curr_day)
+            dyn_txt += ' ' + day_array[curr_day].date + '.'
+        }
+    }
     const dynamicContent = `
-        ${content[category] || '<p>No results available.</p>'}
+        <p>${ dyn_txt || 'No results available.'}</p>
         <div class="bars">
             <!-- Correct blocks -->
             <div class="correct_blocks">
@@ -73,6 +158,7 @@ async function init(){
         i = i+1
         str = "Container-" + i.toString()
     }
+    curr_exe = i-1
     i = 0
     str = "Day-" + i.toString()
     item = localStorage.getItem(str)
@@ -83,7 +169,10 @@ async function init(){
         str = "Day-" + i.toString()
         item = localStorage.getItem(str)
     }
-    console.log(getUsedLocalStorageSpace())
+    curr_day = i-1
+    showCategory('exercise')
+    console.log(day_array.length)
+    console.log(exe_array.length)
 }
 
 init()

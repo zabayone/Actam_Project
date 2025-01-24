@@ -35,7 +35,6 @@ class DayContainer {
             let str = "Day-"+this.idx.toString()
             this.date = localStorage.getItem(str)
             if(this.date) this.localRetreive()
-            else throw new Error("Wrong index value, non existent structure for that date")
             this.printArray()
 
         }
@@ -58,6 +57,32 @@ class DayContainer {
                 throw new Error("Index out of bounds.");
             }
             return this.scales[x][y];
+            default:
+            break;
+        }
+
+    }
+
+    setValuePair(x, y, type, vals) {
+        switch(type){
+            case 0:
+            if (x < 0 || x >= 3 || y < 0 || y >= this.intervals[0].length) {
+                throw new Error("Index out of bounds.");
+            }
+            this.intervals[x][y][0] = vals[0];
+            this.intervals[x][y][1] = vals[1];
+            case 1:
+            if (x < 0 || x >= 3 || y < 0 || y >= this.chords[0].length) {
+                throw new Error("Index out of bounds.");
+            }
+            this.chords[x][y][0] = vals[0];
+            this.chords[x][y][1] = vals[1];
+            case 2:
+            if (x < 0 || x >= 3 || y < 0 || y >= this.scales[0].length) {
+                throw new Error("Index out of bounds.");
+            }
+            this.scales[x][y][0] = vals[0];
+            this.scales[x][y][1] = vals[1];
             default:
             break;
         }
@@ -109,6 +134,60 @@ class DayContainer {
             }
         }
         return total;
+    }
+
+    stringify(){
+        let str = this.date + '/' 
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.intervals[x].length; y++) {
+                str += this.intervals[x][y][0].toString() + "-" + this.intervals[x][y][1].toString() + "_"
+            }
+        }
+        str = str.slice(0, -1) + '/'
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.chords[x].length; y++) {
+                str += this.chords[x][y][0].toString() + "-" + this.chords[x][y][1].toString() + "_"
+            }
+        }
+        str = str.slice(0, -1) + '/'
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.scales[x].length; y++) {
+                str += this.scales[x][y][0].toString() + "-" + this.scales[x][y][1].toString() + "_"
+            }
+        }
+        return str
+    }
+
+    fromString(str){
+        f_div = str.split('/')
+        this.date = f_div[0]
+        s_div = f_div[1].split('_')
+        for (let i = 0; i < s_div.length; i++) {
+            let x = Math.floor(i/3)
+            let y = i%3
+            const element = s_div[i];
+            let vals = element.split('-')
+            let val_n = [vals[0].toString(), vals[1].toString()]
+            this.setValuePair(x,y,0,val_n)           
+        }
+        s_div = f_div[2].split('_')
+        for (let i = 0; i < s_div.length; i++) {
+            let x = Math.floor(i/3)
+            let y = i%3
+            const element = s_div[i];
+            let vals = element.split('-')
+            let val_n = [vals[0].toString(), vals[1].toString()]
+            this.setValuePair(x,y,1,val_n)           
+        }
+        s_div = f_div[3].split('_')
+        for (let i = 0; i < s_div.length; i++) {
+            let x = Math.floor(i/3)
+            let y = i%3
+            const element = s_div[i];
+            let vals = element.split('-')
+            let val_n = [vals[0].toString(), vals[1].toString()]
+            this.setValuePair(x,y,2,val_n)           
+        }
     }
 
     calculateTotalCorrectResultsForType(type) {
