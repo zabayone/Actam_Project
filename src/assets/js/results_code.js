@@ -110,7 +110,7 @@ async function showCategory(category) {
 
     // Create the correct blocks HTML dynamically based on the correctCount
     let correctBarsHTML = '';
-    for (let i = 0; i < 10/*for testing*/; i++) {
+    for (let i = 0; i < 7/*for testing*/; i++) {
         correctBarsHTML += '<a class="correct_bar"></a>';
     }
 

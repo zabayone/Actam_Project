@@ -713,16 +713,6 @@ label {
     accent-color: #006a6a;
 }
 
-.exerciseType{
-    left: -65%;
-    top: 86%;
-}
-
-.exercisePercentage{
-    right: -42%;
-    top: 86%;
-}
-
 #resultsContent{
     width: auto;
     margin-top: 30%;
@@ -732,22 +722,22 @@ label {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 800px;  /* Larghezza totale del contenitore */
+    width: 750px; 
     margin: 0 auto;
     gap: 20px;
     height: 10px;
 }
 
 .exerciseType {
-    flex: 0 0 150px;  /* Larghezza fissa per il tipo */
-    text-align: right;
+    flex: 0 0 110px;
+    text-align: center;
     margin: 0;
     color: #004d40;
     margin-top: 5%;
 }
 
 .exercisePercentage {
-    flex: 0 0 150px;  /* Larghezza fissa per la percentuale */
+    flex: 0 0 110px; 
     text-align: left;
     margin: 0;
     color: #004d40;
@@ -765,11 +755,13 @@ label {
     background: lightgray;
     border-radius: 50px;
     height: 20px;
+    width: 500px;
 }
 
 .correct_bar {
     height: 100%;
     background-color: #008080;
+    width: 50px;
 }
 
 .correct_bar:first-child {
