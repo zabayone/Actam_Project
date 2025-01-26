@@ -139,10 +139,6 @@ async function showCategory(category) {
             <div class="correct_blocks">
                 ${correctBarsHTML}
             </div>
-            <!-- Total blocks -->
-            <div class="total_blocks">
-                <a class="total_bar"></a>
-            </div>
         </div>
     `;
 
