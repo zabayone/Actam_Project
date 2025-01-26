@@ -132,14 +132,18 @@ async function showCategory(category) {
             dyn_txt += ' ' + day_array[curr_day].date + '.'
         }
     }
+    //dimanic content for the bar, the percentage and the type are hardcoded for now, it should be something like ${percentage} and ${type}
     const dynamicContent = `
         <p>${ dyn_txt || 'No results available.'}</p>
-        <div class="bars">
-            <!-- Correct blocks -->
-            <div class="correct_blocks">
-                ${correctBarsHTML}
+        <div class="exerciseRow">
+            <p class="exerciseType">Exercise type</p>
+            <div class="bars">
+                <div class="correct_blocks">
+                    ${correctBarsHTML}
+                </div>
             </div>
-        </div>
+            <p class="exercisePercentage">12%</p>
+        </div>    
     `;
 
     resultsContent.innerHTML = dynamicContent;
