@@ -131,11 +131,8 @@ function selectLevel(level,intervals, type, test){
 
 function selectCategory(arg){
     localStorage.setItem("category", arg);
-    if (arg == 4){
+    if (arg === 4){
         document.location.href = '/ear-training/results.html'
-    }
-    if (arg == 3){
-        document.location.href = '/ear-training/sandbox.html'
     }
     else {
         document.location.href = '/ear-training/map.html'
