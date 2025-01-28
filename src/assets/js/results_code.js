@@ -79,17 +79,11 @@ async function showCategory(category) {
     }
 
     sliderElements.forEach(element => {
-        // Remove active class from all elements
-        element.classList.remove('active');
-        
-        // Add active class to the element matching current category
-        if (element.dataset.category === curr_cat) {
-            element.classList.add('active');
-        }
-
-        // Add click handler
         element.addEventListener('click', () => {
+            // Remove the 'active' class from all elements
             sliderElements.forEach(el => el.classList.remove('active'));
+
+            // Add the 'active' class to the clicked element
             element.classList.add('active');
         });
     });
@@ -314,7 +308,7 @@ async function getBars(category) {
                 }
             }
             if(out == ''){
-                out = 'No intervals played in this day'
+                out = 'No intervals played in this day.'
             }
             break;
             case 'chords':
@@ -344,7 +338,7 @@ async function getBars(category) {
                         tp = "bosh"
                         break;
                     }
-                    let name = interval_text[key] + ', ' + tp 
+                    let name = chord_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -357,7 +351,7 @@ async function getBars(category) {
                 }
             }
             if(out == ''){
-                out = 'No chords played in this day'
+                out = 'No chords played in this day.'
             }
             break;
             case 'scales':
@@ -387,7 +381,7 @@ async function getBars(category) {
                         tp = "bosh"
                         break;
                     }
-                    let name = interval_text[key] + ', ' + tp 
+                    let name = scale_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -406,7 +400,7 @@ async function getBars(category) {
         }
     }
     if(out == ''){
-        out = 'No scales played in this day'
+        out = 'No scales played in this day.'
     }
     return out  
 }
