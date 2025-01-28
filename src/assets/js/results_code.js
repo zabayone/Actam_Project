@@ -79,6 +79,16 @@ async function showCategory(category) {
     }
 
     sliderElements.forEach(element => {
+<<<<<<< HEAD
+=======
+        // Remove active class from all elements
+        element.classList.remove('active');
+        
+        // Add active class to the exercise category by default
+        document.getElementById('defaultCategory').classList.add('active');
+
+        // Add click handler
+>>>>>>> 8fafca39903468dc4f36891b7d156fdf65a9a046
         element.addEventListener('click', () => {
             // Remove the 'active' class from all elements
             sliderElements.forEach(el => el.classList.remove('active'));
