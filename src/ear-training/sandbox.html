@@ -13,7 +13,7 @@
     <script src="/assets/js/script.js" defer></script>
     <script src="/assets/js/funcs.js" defer></script>
 </head>
-<body onload="loadLevels()">
+<body onload="checkbox()">
     <!-- Header Section -->
     <header class="app-header">
         <div class="header-left">
@@ -43,7 +43,7 @@
             <h3 data-translate="sandPrompt">Personalise your Level</h3>
             <div class="levels" id="levels">
                 <div class="sandboxSelector">
-                    <div class="selector-column">
+                    <div class="selector-column" id="intervalSelector">
                         <button class="collapse-btn" onclick="toggleSection('intervals')">
                             Intervals ▼
                         </button>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="selector-column">
+                    <div class="selector-column" id="chordSelector">
                         <button class="collapse-btn" onclick="toggleSection('chords')">
                             Chords ▼
                         </button>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="selector-column">
+                    <div class="selector-column" id="scaleSelector">
                         <button class="collapse-btn" onclick="toggleSection('scales')">
                             Scales ▼
                         </button>

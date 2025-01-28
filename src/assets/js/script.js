@@ -327,3 +327,37 @@ function toggleSection(id) {
         btn.textContent.replace('▼', '▲') : 
         btn.textContent.replace('▲', '▼');
 }
+
+function customLevel(){
+    const button=document.getElementById('custom-btn');
+    button.addEventListener('click',()=>{
+        window.location.href = `sandbox.html`;
+    });
+}
+
+function checkbox(){
+    const intervalSelector = document.getElementById('intervalSelector');
+    const chordSelector = document.getElementById('chordSelector');
+    const scaleSelector = document.getElementById('scaleSelector');
+    //show the checkbox of the selected category
+    const category = localStorage.getItem('category');
+    switch(category){
+        case '0':
+            intervalSelector.style.display = 'block';
+            chordSelector.style.display = 'none';
+            scaleSelector.style.display = 'none';
+            break;
+        case '1':
+            chordSelector.style.display = 'block';
+            intervalSelector.style.display = 'none';
+            scaleSelector.style.display = 'none';
+            break;
+        case '2':
+            scaleSelector.style.display = 'block';
+            chordSelector.style.display = 'none';
+            intervalSelector.style.display = 'none';
+            break;
+        default:
+            break;
+    }
+}

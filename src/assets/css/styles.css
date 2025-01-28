@@ -775,7 +775,7 @@ label {
     margin-top: 5%;
 }
 
-.custom-btn{
+#custom-btn{
     position: sticky;
     background-color: #008080; /* Teal */
     color: white;
