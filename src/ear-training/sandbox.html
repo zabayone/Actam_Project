@@ -12,8 +12,10 @@
     <!-- Firebase and Script -->
     <script src="/assets/js/script.js" defer></script>
     <script src="/assets/js/funcs.js" defer></script>
+    <script src="/assets/js/exercise_vars.js" defer></script>
+    <script src="/assets/js/checkbox.js" defer></script>
 </head>
-<body onload="checkbox()">
+<body>
     <!-- Header Section -->
     <header class="app-header">
         <div class="header-left">
@@ -39,94 +41,10 @@
         <div class="level-map">
             <h2 data-translate="sandPrompt">Personalise your Level</h2>
             <div class="levels" id="levels">
-                <div class="sandboxSelector">
-                    <div class="selector-column" id="intervalSelector">
-                        <button class="collapse-btn" onclick="toggleSection('intervals')">
-                            Intervals ▼
-                        </button>
-                        <div id="intervals" class="selector-content collapsed">
-                            <div class="checkbox-grid">
-                                <div><input type="checkbox" id="int1"><label for="int1">Minor Second</label></div>
-                                <div><input type="checkbox" id="int2"><label for="int2">Major Second</label></div>
-                                <div><input type="checkbox" id="int3"><label for="int3">Minor Third</label></div>
-                                <div><input type="checkbox" id="int4"><label for="int4">Major Third</label></div>
-                                <div><input type="checkbox" id="int5"><label for="int5">Perfect Fourth</label></div>
-                                <div><input type="checkbox" id="int6"><label for="int6">Tritone</label></div>
-                                <div><input type="checkbox" id="int7"><label for="int7">Perfect Fifth</label></div>
-                                <div><input type="checkbox" id="int8"><label for="int8">Minor Sixth</label></div>
-                                <div><input type="checkbox" id="int9"><label for="int9">Major Sixth</label></div>
-                                <div><input type="checkbox" id="int10"><label for="int10">Minor Seventh</label></div>
-                                <div><input type="checkbox" id="int11"><label for="int11">Major Seventh</label></div>
-                                <div><input type="checkbox" id="int12"><label for="int12">Perfect Octave</label></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="selector-column" id="chordSelector">
-                        <button class="collapse-btn" onclick="toggleSection('chords')">
-                            Chords ▼
-                        </button>
-                        <div id="chords" class="selector-content collapsed">
-                            <div class="checkbox-grid">
-                                <div><input type="checkbox" id="chord0"><label for="chord0">Minor Triad</label></div>
-                                <div><input type="checkbox" id="chord1"><label for="chord1">Major Triad</label></div>
-                                <div><input type="checkbox" id="chord2"><label for="chord2">Diminished Triad</label></div>
-                                <div><input type="checkbox" id="chord3"><label for="chord3">Augmented Triad</label></div>
-                                <div><input type="checkbox" id="chord4"><label for="chord4">Minor Seventh</label></div>
-                                <div><input type="checkbox" id="chord5"><label for="chord5">Major Seventh</label></div>
-                                <div><input type="checkbox" id="chord6"><label for="chord6">Dominant Seventh</label></div>
-                                <div><input type="checkbox" id="chord7"><label for="chord7">Half Diminished</label></div>
-                                <div><input type="checkbox" id="chord8"><label for="chord8">Minor Major 7th</label></div>
-                                <div><input type="checkbox" id="chord9"><label for="chord9">Minor Major 7th (b5)</label></div>
-                                <div><input type="checkbox" id="chord10"><label for="chord10">Diminished Seventh</label></div>
-                                <div><input type="checkbox" id="chord11"><label for="chord11">Major Seventh (#5)</label></div>
-                                <div><input type="checkbox" id="chord12"><label for="chord12">Dominant Seventh (#5)</label></div>
-                                <div><input type="checkbox" id="chord13"><label for="chord13">Dominant Seventh (♭5)</label></div>
-                                <div><input type="checkbox" id="chord14"><label for="chord14">Sus2 Triad</label></div>
-                                <div><input type="checkbox" id="chord15"><label for="chord15">Sus4 Triad</label></div>
-                                <div><input type="checkbox" id="chord16"><label for="chord16">Lydian Triad</label></div>
-                                <div><input type="checkbox" id="chord17"><label for="chord17">Phrygian Triad</label></div>
-                                <div><input type="checkbox" id="chord18"><label for="chord18">Locrian Triad</label></div>
-                                <div><input type="checkbox" id="chord19"><label for="chord19">Minor Sixth</label></div>
-                                <div><input type="checkbox" id="chord20"><label for="chord20">Major Sixth</label></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="selector-column" id="scaleSelector">
-                        <button class="collapse-btn" onclick="toggleSection('scales')">
-                            Scales ▼
-                        </button>
-                        <div id="scales" class="selector-content collapsed">
-                            <div class="checkbox-grid">
-                                <div><input type="checkbox" id="scale0"><label for="scale0">Ionian (Major)</label></div>
-                                <div><input type="checkbox" id="scale1"><label for="scale1">Dorian</label></div>
-                                <div><input type="checkbox" id="scale2"><label for="scale2">Phrygian</label></div>
-                                <div><input type="checkbox" id="scale3"><label for="scale3">Lydian</label></div>
-                                <div><input type="checkbox" id="scale4"><label for="scale4">Mixolydian</label></div>
-                                <div><input type="checkbox" id="scale5"><label for="scale5">Aeolian (Nat Minor)</label></div>
-                                <div><input type="checkbox" id="scale6"><label for="scale6">Locrian</label></div>
-                                <div><input type="checkbox" id="scale7"><label for="scale7">Harmonic Minor</label></div>
-                                <div><input type="checkbox" id="scale8"><label for="scale8">Locrian ♮6th</label></div>
-                                <div><input type="checkbox" id="scale9"><label for="scale9">Augmented Major</label></div>
-                                <div><input type="checkbox" id="scale10"><label for="scale10">Dorian #11</label></div>
-                                <div><input type="checkbox" id="scale11"><label for="scale11">Phrygian dominant</label></div>
-                                <div><input type="checkbox" id="scale12"><label for="scale12">Lydian #2</label></div>
-                                <div><input type="checkbox" id="scale13"><label for="scale13">Super Locrian bb7</label></div>
-                                <div><input type="checkbox" id="scale14"><label for="scale14">Melodic Minor</label></div>
-                                <div><input type="checkbox" id="scale15"><label for="scale15">Dorian ♭2</label></div>
-                                <div><input type="checkbox" id="scale16"><label for="scale16">Lydian Augmented</label></div>
-                                <div><input type="checkbox" id="scale17"><label for="scale17">Acoustic (Lyd Dom)</label></div>
-                                <div><input type="checkbox" id="scale18"><label for="scale18">Aeolian Dominant</label></div>
-                                <div><input type="checkbox" id="scale19"><label for="scale19">Aeolian ♭5</label></div>
-                                <div><input type="checkbox" id="scale20"><label for="scale20">Altered</label></div>
-                                <div><input type="checkbox" id="scale21"><label for="scale21">H-W diminished</label></div>
-                                <div><input type="checkbox" id="scale22"><label for="scale22">W-H diminished</label></div>
-                                <div><input type="checkbox" id="scale23"><label for="scale23">Exatonal</label></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="sandboxSelector" id ="grid">
                 </div>
             </div>
-            <button class="start_btn" onclick="startSandbox()">Start</button>
+            <button class="start_btn" onclick="start()">Start</button>
         </div>
     </main>
     
