@@ -421,6 +421,8 @@ async function init(){
     let item
     while(item = localStorage.getItem(str)){
         exe_array.push(new ExerciseContainer(null,i))
+        let pair = exe_array[exe_array.length-1].calculateTotalCorrectResults()
+        if(pair[1] == 0) exe_array.pop()
         i = i+1
         str = "Container-" + i.toString()
     }
