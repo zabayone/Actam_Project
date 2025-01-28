@@ -516,10 +516,6 @@ th {
     border-radius: 50px;
 }
 
-.total_blocks{
-
-}
-
 .correct_bar, .total_bar {
     width: 50px;
     height: 20px; /* Default height for individual bars */
