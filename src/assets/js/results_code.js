@@ -10,6 +10,8 @@ var curr_day
 
 var curr_cat
 
+var is_first = 1
+
 async function switchCurrentDay(curr) {
     curr_day = curr;
     showCategory(curr_cat);
@@ -33,28 +35,6 @@ async function showCategory(category) {
             var categ = exe_array[i].getCategory()
             var keys = exe_array[i].getKeys()
             var str1 = 'Exercise ' + parseInt(i+1)
-            // switch (parseInt(categ)) {
-            //     case 0:
-            //         for (let j = 0; j < keys.length; j++) {
-            //             str1 += interval_text[parseInt(keys[i])] + ', '
-            //         }
-            //         str1 += str1.substring(0,str1.length - 2)
-            //     break;
-            //     case 1:
-            //         for (let j = 0; j < keys.length; j++) {
-            //             str1 += chord_text[parseInt(keys[i])] + ', '
-            //         }
-            //         str1 += str1.substring(0,str1.length - 2)
-            //     break;
-            //     case 2:
-            //         for (let j = 0; j < keys.length; j++) {
-            //             str1 += scale_text[parseInt(keys[i])] + ', '
-            //         }
-            //         str1 += str1.substring(0,str1.length - 2)
-            //     break;
-            //     default:
-            //     break;
-            // }
             var correct = exe_array[i].calculateTotalCorrectResults()
             var perc = parseInt((correct[0]/correct[1]) * 100)
             var str2 = correct[0].toString() + '/' + correct[1].toString() + ' | ' + perc.toString() + '%'
@@ -79,12 +59,14 @@ async function showCategory(category) {
     }
 
     sliderElements.forEach(element => {
+
+        if(is_first){
         // Remove active class from all elements
         element.classList.remove('active');
         
         // Add active class to the exercise category by default
         document.getElementById('defaultCategory').classList.add('active');
-
+        }
         // Add click handler
         element.addEventListener('click', () => {
             // Remove the 'active' class from all elements
@@ -188,7 +170,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} (${perc.toString()}%)</p>
                                  </div>`
                     }
                } 
@@ -227,7 +209,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -266,7 +248,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -313,7 +295,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -356,7 +338,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -399,7 +381,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -433,14 +415,18 @@ async function init(){
     while(item){
         //console.log(item)
         day_array.push(new DayContainer(i))
+        let pair = day_array[day_array.length-1].calculateTotalCorrectResults()
+        if(pair[1] == 0) day_array.pop()
         i = i+1
         str = "Day-" + i.toString()
         item = localStorage.getItem(str)
     }
     curr_day = i-1
     showCategory('exercise')
+    is_first = 0
     console.log(day_array.length)
     console.log(exe_array.length)
+    // let day_str = day_array[day_array.length-1].stringify()
 }
 
 init()
