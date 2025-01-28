@@ -131,18 +131,8 @@ function selectLevel(level,intervals, type, test){
 
 function selectCategory(arg){
     localStorage.setItem("category", arg);
-    if (arg === 4){
-        document.location.href = '/ear-training/results.html'
-    }
-    if (arg === 5){
-        document.location.href = '/arcade/flappy.html'
-    }
-    if (arg === 6){
-        document.location.href = '/arcade/guess.html'
-    }
-    else {
-        document.location.href = '/ear-training/map.html'
-    }
+    console.log(arg)
+    document.location.href = '/ear-training/map.html'
 }
 
 function loadLevels(){
