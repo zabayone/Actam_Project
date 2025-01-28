@@ -261,7 +261,7 @@ function spawnPipes() {
         
         const pipeTopHeight = gapPosition;
         const pipeBottomHeight = gameScreen.clientHeight - gapPosition - gapSize;
-        if(gapsize>1){
+        if(gapSize>1){
             gapSize=gapSize*0.93;
         }
 
