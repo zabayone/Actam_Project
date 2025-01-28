@@ -433,6 +433,8 @@ async function init(){
     while(item){
         //console.log(item)
         day_array.push(new DayContainer(i))
+        let pair = day_array[day_array.length-1].calculateTotalCorrectResults()
+        if(pair[1] == 0) day_array.pop()
         i = i+1
         str = "Day-" + i.toString()
         item = localStorage.getItem(str)
