@@ -732,6 +732,10 @@ label {
     border-bottom-width: 2px;
 }
 
+.exerciseRow:last-child{
+    border-bottom: none;
+}
+
 .exerciseType {
     flex: 0 0 110px;
     text-align: center;
