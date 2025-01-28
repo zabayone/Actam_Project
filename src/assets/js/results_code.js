@@ -87,7 +87,10 @@ async function showCategory(category) {
 
         // Add click handler
         element.addEventListener('click', () => {
+            // Remove the 'active' class from all elements
             sliderElements.forEach(el => el.classList.remove('active'));
+
+            // Add the 'active' class to the clicked element
             element.classList.add('active');
         });
     });
@@ -155,6 +158,7 @@ async function getBars(category) {
                for (let key_i = 0; key_i < keys.length; key_i++) {
                     for await (const type of types) {
                         let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
                         var perc = parseInt((pair[0]/pair[1]) * 100)
                         var perc10 = parseInt((pair[0]/pair[1]) * 10)
                         let correctBarsHTML = '';
@@ -190,9 +194,10 @@ async function getBars(category) {
                } 
             break;
             case 1:
-               for await (const key of keys) {
+                for (let key_i = 0; key_i < keys.length; key_i++) {
                     for await (const type of types) {
-                        let pair = exe_array[curr_exe].getValuePair(type,key)
+                        let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
                         var perc = parseInt((pair[0]/pair[1]) * 100)
                         var perc10 = parseInt((pair[0]/pair[1]) * 10)
                         let correctBarsHTML = '';
@@ -214,7 +219,7 @@ async function getBars(category) {
                             tp = "bosh"
                             break;
                         }
-                        let name = chord_text[key] + ', ' + tp 
+                        let name = chord_text[parseInt(keys[key_i])] + ', ' + tp 
                         out +=  `<div class="exerciseRow">
                                      <p class="exerciseType">${name}</p>
                                      <div class="bars">
@@ -228,9 +233,10 @@ async function getBars(category) {
                } 
             break;
             case 2:
-               for await (const key of keys) {
+                for (let key_i = 0; key_i < keys.length; key_i++) {
                     for await (const type of types) {
-                        let pair = exe_array[curr_exe].getValuePair(type,key)
+                        let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
                         var perc = parseInt((pair[0]/pair[1]) * 100)
                         var perc10 = parseInt((pair[0]/pair[1]) * 10)
                         let correctBarsHTML = '';
@@ -252,7 +258,7 @@ async function getBars(category) {
                             tp = "bosh"
                             break;
                         }
-                        let name = scale_text[key] + ', ' + tp 
+                        let name = scale_text[parseInt(keys[key_i])] + ', ' + tp 
                         out +=  `<div class="exerciseRow">
                                      <p class="exerciseType">${name}</p>
                                      <div class="bars">
@@ -312,7 +318,7 @@ async function getBars(category) {
                 }
             }
             if(out == ''){
-                out = 'No intervals played in this day'
+                out = 'No intervals played in this day.'
             }
             break;
             case 'chords':
@@ -342,7 +348,7 @@ async function getBars(category) {
                         tp = "bosh"
                         break;
                     }
-                    let name = interval_text[key] + ', ' + tp 
+                    let name = chord_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -355,7 +361,7 @@ async function getBars(category) {
                 }
             }
             if(out == ''){
-                out = 'No chords played in this day'
+                out = 'No chords played in this day.'
             }
             break;
             case 'scales':
@@ -385,7 +391,7 @@ async function getBars(category) {
                         tp = "bosh"
                         break;
                     }
-                    let name = interval_text[key] + ', ' + tp 
+                    let name = scale_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -404,7 +410,7 @@ async function getBars(category) {
         }
     }
     if(out == ''){
-        out = 'No scales played in this day'
+        out = 'No scales played in this day.'
     }
     return out  
 }
