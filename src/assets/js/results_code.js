@@ -92,10 +92,8 @@ async function showCategory(category) {
         // Remove active class from all elements
         element.classList.remove('active');
         
-        // Add active class to the element matching current category
-        if (element.dataset.category === curr_cat) {
-            element.classList.add('active');
-        }
+        // Add active class to the exercise category by default
+        document.getElementById('defaultCategory').classList.add('active');
 
         // Add click handler
         element.addEventListener('click', () => {
