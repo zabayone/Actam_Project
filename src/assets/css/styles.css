@@ -127,8 +127,8 @@ body {
     color: white;
     border-radius: 20px;
     width: 300px;
-    font-size: 35px;
-    font-weight: bolder;
+    font-size: 34px;
+    font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -402,18 +402,18 @@ body {
 }
 
 .results_btn{
-    background-color: #008080; /* Teal */
+    background-color: #008080; 
     color: white;
     border-radius: 24px;
-    padding: 20px 0; /* Increase padding to make buttons larger */
-    width: 630px; /* Make buttons wider */
-    font-size: 18px; /* Make text larger */
+    padding: 20px 0;
+    width: 630px; 
+    font-size: 35px; 
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid transparent; /* Transparent border to prevent resizing */
+    border: 2px solid transparent; 
     height: 60px;
     line-height: 20px
 }
