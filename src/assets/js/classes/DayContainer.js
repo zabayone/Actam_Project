@@ -9,6 +9,9 @@ class DayContainer {
         this.scales = Array.from({ length: 3 }, () => 
             Array.from({ length: scale_text.length }, () => Array(2).fill(0))
         );
+        this.vocal = Array.from({ length: 3 }, () => 
+            Array.from({ length: interval_text.length }, () => Array(2).fill(0))
+        );
         if(index === null){
             let found = false
             this.idx = 0
@@ -57,6 +60,11 @@ class DayContainer {
                 throw new Error("Index out of bounds.");
             }
             return this.scales[x][y];
+            case 3:
+                if (x < 0 || x >= 3 || y < 0 || y >= this.vocal[0].length) {
+                    throw new Error("Index out of bounds.");
+                }
+                return this.vocal[x][y];
             default:
             break;
         }
@@ -71,18 +79,28 @@ class DayContainer {
             }
             this.intervals[x][y][0] = vals[0];
             this.intervals[x][y][1] = vals[1];
+            break;
             case 1:
             if (x < 0 || x >= 3 || y < 0 || y >= this.chords[0].length) {
                 throw new Error("Index out of bounds.");
             }
             this.chords[x][y][0] = vals[0];
             this.chords[x][y][1] = vals[1];
+            break;
             case 2:
             if (x < 0 || x >= 3 || y < 0 || y >= this.scales[0].length) {
                 throw new Error("Index out of bounds.");
             }
             this.scales[x][y][0] = vals[0];
             this.scales[x][y][1] = vals[1];
+            break;
+            case 3:
+            if (x < 0 || x >= 3 || y < 0 || y >= this.vocal[0].length) {
+                throw new Error("Index out of bounds.");
+            }
+            this.vocal[x][y][0] = vals[0];
+            this.vocal[x][y][1] = vals[1];
+            break;
             default:
             break;
         }
@@ -112,6 +130,13 @@ class DayContainer {
                 console.log(this.scales[x][y]);
             }
         }
+        console.log("--- intervals ---")
+        for (let x = 0; x < 3; x++) {
+            console.log(`Layer ${x}:`);
+            for (let y = 0; y < this.vocal[x].length; y++) {
+                console.log(this.vocal[x][y]);
+            }
+        }
     }
     calculateTotalCorrectResults() {
         let total = [0, 0];
@@ -131,6 +156,12 @@ class DayContainer {
             for (let y = 0; y < this.scales[x].length; y++) {
                 total[0] += this.scales[x][y][0]
                 total[1] += this.scales[x][y][1]
+            }
+        }
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.vocal[x].length; y++) {
+                total[0] += this.vocal[x][y][0]
+                total[1] += this.vocal[x][y][1]
             }
         }
         return total;
@@ -155,6 +186,13 @@ class DayContainer {
                 str += this.scales[x][y][0].toString() + "-" + this.scales[x][y][1].toString() + "_"
             }
         }
+        str = str.slice(0, -1) + '/'
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.vocal[x].length; y++) {
+                str += this.vocal[x][y][0].toString() + "-" + this.vocal[x][y][1].toString() + "_"
+            }
+        }
+        str = str.slice(0, -1)
         return str
     }
 
@@ -167,7 +205,7 @@ class DayContainer {
             let y = i%3
             const element = s_div[i];
             let vals = element.split('-')
-            let val_n = [vals[0].toString(), vals[1].toString()]
+            let val_n = [parseInt(vals[0]), parseInt(vals[1])]
             this.setValuePair(x,y,0,val_n)           
         }
         s_div = f_div[2].split('_')
@@ -176,7 +214,7 @@ class DayContainer {
             let y = i%3
             const element = s_div[i];
             let vals = element.split('-')
-            let val_n = [vals[0].toString(), vals[1].toString()]
+            let val_n = [parseInt(vals[0]), parseInt(vals[1])]
             this.setValuePair(x,y,1,val_n)           
         }
         s_div = f_div[3].split('_')
@@ -185,8 +223,17 @@ class DayContainer {
             let y = i%3
             const element = s_div[i];
             let vals = element.split('-')
-            let val_n = [vals[0].toString(), vals[1].toString()]
+            let val_n = [parseInt(vals[0]), parseInt(vals[1])]
             this.setValuePair(x,y,2,val_n)           
+        }
+        s_div = f_div[4].split('_')
+        for (let i = 0; i < s_div.length; i++) {
+            let x = Math.floor(i/3)
+            let y = i%3
+            const element = s_div[i];
+            let vals = element.split('-')
+            let val_n = [parseInt(vals[0]), parseInt(vals[1])]
+            this.setValuePair(x,y,3,val_n)           
         }
     }
 
@@ -217,7 +264,16 @@ class DayContainer {
                 }
             }
             break;
+            case 3:
+            for (let x = 0; x < 3; x++) {
+                for (let y = 0; y < this.vocal[x].length; y++) {
+                    total[0] += this.vocal[x][y][0]
+                    total[1] += this.vocal[x][y][1]
+                }
+            }
+            break;
             default:
+            console.error("Wrong input type")
             break;                
         }
         return total;
@@ -254,6 +310,15 @@ class DayContainer {
                 }
             } 
             break;
+            case 3:
+            for (let x = 0; x < 3; x++) {
+                for (let y = 0; y < keys.length; y++) { 
+                    let res = exe.getValuePair(x,y) 
+                    this.vocal[x][keys[y]][0] += parseInt(res[0])
+                    this.vocal[x][keys[y]][1] += parseInt(res[1])
+                }
+            } 
+            break;
             default:
             break;
         }
@@ -279,6 +344,13 @@ class DayContainer {
             for (let y = 0; y < this.scales[x].length; y++) {
                 let str = this.idx + '/scal/' + x.toString() + '-' + y.toString()
                 let item = this.scales[x][y][0].toString() + '-' + this.scales[x][y][1].toString()
+                localStorage.setItem(str, item)
+            }
+        }
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.vocal[x].length; y++) {
+                let str = this.idx + '/voc/' + x.toString() + '-' + y.toString()
+                let item = this.vocal[x][y][0].toString() + '-' + this.vocal[x][y][1].toString()
                 localStorage.setItem(str, item)
             }
         }
@@ -320,6 +392,15 @@ class DayContainer {
                 let vals = item.split('-')
                 this.scales[x][y][0] = parseInt(vals[0])
                 this.scales[x][y][1] = parseInt(vals[1])
+            }
+        }
+        for (let x = 0; x < 3; x++) {
+            for (let y = 0; y < this.vocal[x].length; y++) {
+                let str = this.idx + '/voc/' + x.toString() + '-' + y.toString()
+                let item = localStorage.getItem(str)
+                let vals = item.split('-')
+                this.vocal[x][y][0] = parseInt(vals[0])
+                this.vocal[x][y][1] = parseInt(vals[1])
             }
         }
     }

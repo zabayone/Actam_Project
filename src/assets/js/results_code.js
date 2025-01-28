@@ -35,28 +35,6 @@ async function showCategory(category) {
             var categ = exe_array[i].getCategory()
             var keys = exe_array[i].getKeys()
             var str1 = 'Exercise ' + parseInt(i+1)
-            // switch (parseInt(categ)) {
-            //     case 0:
-            //         for (let j = 0; j < keys.length; j++) {
-            //             str1 += interval_text[parseInt(keys[i])] + ', '
-            //         }
-            //         str1 += str1.substring(0,str1.length - 2)
-            //     break;
-            //     case 1:
-            //         for (let j = 0; j < keys.length; j++) {
-            //             str1 += chord_text[parseInt(keys[i])] + ', '
-            //         }
-            //         str1 += str1.substring(0,str1.length - 2)
-            //     break;
-            //     case 2:
-            //         for (let j = 0; j < keys.length; j++) {
-            //             str1 += scale_text[parseInt(keys[i])] + ', '
-            //         }
-            //         str1 += str1.substring(0,str1.length - 2)
-            //     break;
-            //     default:
-            //     break;
-            // }
             var correct = exe_array[i].calculateTotalCorrectResults()
             var perc = parseInt((correct[0]/correct[1]) * 100)
             var str2 = correct[0].toString() + '/' + correct[1].toString() + ' | ' + perc.toString() + '%'
@@ -448,6 +426,7 @@ async function init(){
     is_first = 0
     console.log(day_array.length)
     console.log(exe_array.length)
+    // let day_str = day_array[day_array.length-1].stringify()
 }
 
 init()
