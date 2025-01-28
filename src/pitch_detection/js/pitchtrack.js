@@ -119,33 +119,52 @@ function getPitch(){
     analyser.getFloatTimeDomainData(buffer);
     let frequencyInHz = autoCorrelate(buffer, audioContext.sampleRate);
     console.log(frequencyInHz);
-    
-    if (frequencyInHz!=-1){
-        let midiNote = noteFromPitch(frequencyInHz); 
-        noteElem.innerHTML = noteStrings[midiNote%12];
-        hzElem.innerHTML = frequencyInHz;
-        detune = centsOffFromPitch(frequencyInHz,midiNote);
-        detuneElem.innerHTML = detune;
-        if (detune<0){
-            detuneWarning.innerHTML="FLAT";
-            detuneWarning.className= "out-tune";
-        }
-        else{
-            detuneWarning.innerHTML="SHARP";
-            detuneWarning.className= "out-tune";
-        }
 
-        if(detune < 10 && detune > -10) {
-            detuneWarning.innerHTML= "IN-TUNE";
-            detuneWarning.className= "in-tune";
+    if (frequencyInHz!=-1){
+        zeroCounter=0;
+        
+        last_values[index] = frequencyInHz;
+        //move the index 
+        index = (index + 1) % MAX_LENGTH;
+
+        let averageFreq = 0;
+        for(let i=0;i<MAX_LENGTH;i++){
+            averageFreq=averageFreq+frequencyInHz;
+        }
+        averageFreq=averageFreq/MAX_LENGTH;
+        //We could make it faster only substracting the las value and adding the new one
+
+        if(index===0){
+            let midiNote = noteFromPitch(averageFreq); 
+            noteElem.innerHTML = noteStrings[midiNote%12];
+            hzElem.innerHTML = averageFreq;
+            detune = centsOffFromPitch(averageFreq,midiNote);
+            detuneElem.innerHTML = detune;
+            if (detune<0){
+                detuneWarning.innerHTML="FLAT";
+                detuneWarning.className= "out-tune";
+            }
+            else{
+                detuneWarning.innerHTML="SHARP";
+                detuneWarning.className= "out-tune";
+            }
+
+            if(detune < 10 && detune > -10) {
+                detuneWarning.innerHTML= "IN-TUNE";
+                detuneWarning.className= "in-tune";
+            }
         }
     }
     else{
-        noteElem.innerHTML = "-";
-        hzElem.innerHTML = "-";
-        detuneElem.innerHTML = "-";
-        detuneWarning.innerHTML= "-"
+        zeroCounter++;
+        if (zeroCounter%(MAX_LENGTH*10)==0){
+            noteElem.innerHTML = "-";
+            hzElem.innerHTML = "-";
+            detuneElem.innerHTML = "-";
+            detuneWarning.innerHTML= "-";
+        }
     }
+
     rafID =window.requestAnimationFrame(getPitch);
 }
 
@@ -181,9 +200,16 @@ let buffer = new Float32Array(1024);
 
 let rafID = null;
 
+const MAX_LENGTH = 20;
+let last_values = new Array(MAX_LENGTH);
+let index=0;
+let zeroCounter=0;
+
 const enableMicBtn = document.getElementById("enable-mic");
 const noteElem = document.getElementById("note");
 const hzElem = document.getElementById("hz");
 const detuneElem = document.getElementById("detune");
 const detuneWarning = document.getElementById("detune-warning");
+
+
 enableMicBtn.onclick = main;
