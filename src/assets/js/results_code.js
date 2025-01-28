@@ -170,7 +170,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} (${perc.toString()}%)</p>
                                  </div>`
                     }
                } 
