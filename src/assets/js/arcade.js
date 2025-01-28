@@ -9,7 +9,7 @@ const gameOverModal = document.getElementById('gameOverModal');
 const finalScore = document.getElementById('finalScore');
 const restartButton = document.getElementById('restartButton');
 
-const pipesInterval = 5000; // Faster pipe generation
+const pipesInterval = 10000; // Faster pipe generation
 const pipeSpeed = 5; // Slower pipe movement for smaller octave
 
 let audioContext, frequencyInterval;

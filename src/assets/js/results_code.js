@@ -76,19 +76,16 @@ async function showCategory(category) {
             </button>`
         }
         calendar.innerHTML = calendar_txt;
-        switch (category) {
-            case 'intervals': 
-                break;
-            case 'chords': 
-                break;
-            case 'scales': 
-                break;
-            default:
-                break;
-        }
     }
 
     sliderElements.forEach(element => {
+        // Remove active class from all elements
+        element.classList.remove('active');
+        
+        // Add active class to the exercise category by default
+        document.getElementById('defaultCategory').classList.add('active');
+
+        // Add click handler
         element.addEventListener('click', () => {
             // Remove the 'active' class from all elements
             sliderElements.forEach(el => el.classList.remove('active'));
@@ -109,10 +106,6 @@ async function showCategory(category) {
     resultsTitle.textContent = titles[category] || 'Results';
 
     // Create the correct blocks HTML dynamically based on the correctCount
-    let correctBarsHTML = '';
-    for (let i = 0; i < 7/*for testing*/; i++) {
-        correctBarsHTML += '<a class="correct_bar"></a>';
-    }
 
     // Update the content dynamically (this can be replaced with actual data fetching logic)
     const content = {
@@ -132,21 +125,294 @@ async function showCategory(category) {
             dyn_txt += ' ' + day_array[curr_day].date + '.'
         }
     }
+    let bars = await getBars(category)
     //dimanic content for the bar, the percentage and the type are hardcoded for now, it should be something like ${percentage} and ${type}
-    const dynamicContent = `
-        <p>${ dyn_txt || 'No results available.'}</p>
-        <div class="exerciseRow">
-            <p class="exerciseType">Exercise type</p>
-            <div class="bars">
-                <div class="correct_blocks">
-                    ${correctBarsHTML}
-                </div>
-            </div>
-            <p class="exercisePercentage">12%</p>
-        </div>    
-    `;
+    const dynamicContent = `<p>${ dyn_txt || 'No results available.'}</p>` + bars;
 
     resultsContent.innerHTML = dynamicContent;
+}
+
+async function getBars(category) {
+    let out = ''
+    console.log(category)
+    if (category == 'exercise') {
+        let keys = exe_array[curr_exe].getKeys()
+        let types_arr = exe_array[curr_exe].getTypes()
+        let categ = exe_array[curr_exe].getCategory()
+        categ = parseInt(categ)
+        console.log(keys)
+        console.log(types_arr)
+        console.log(categ)
+        let idx = 0;
+        let types = []
+        for await (const t of types_arr){
+            t_int = parseInt(t)
+            if(t_int != 0){
+                types.push(idx)
+            }
+            idx += 1
+        }
+        console.log(types)
+        switch (categ) {
+            case 0:
+               for (let key_i = 0; key_i < keys.length; key_i++) {
+                    for await (const type of types) {
+                        let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
+                        var perc = parseInt((pair[0]/pair[1]) * 100)
+                        var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                        let correctBarsHTML = '';
+                        for (let i = 0; i < perc10; i++) {
+                            correctBarsHTML += '<a class="correct_bar"></a>';
+                        }
+                        let tp;
+                        switch (type) {
+                            case 0:
+                            tp = 'ascending'
+                            break;
+                            case 1:
+                            tp = 'descending'
+                            break;
+                            case 2:
+                            tp = 'unison'
+                            break;
+                            default:
+                            tp = "bosh"
+                            break;
+                        }
+                        let name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        out +=  `<div class="exerciseRow">
+                                     <p class="exerciseType">${name}</p>
+                                     <div class="bars">
+                                         <div class="correct_blocks">
+                                             ${correctBarsHTML}
+                                         </div>
+                                     </div>
+                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                 </div>`
+                    }
+               } 
+            break;
+            case 1:
+                for (let key_i = 0; key_i < keys.length; key_i++) {
+                    for await (const type of types) {
+                        let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
+                        var perc = parseInt((pair[0]/pair[1]) * 100)
+                        var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                        let correctBarsHTML = '';
+                        for (let i = 0; i < perc10; i++) {
+                            correctBarsHTML += '<a class="correct_bar"></a>';
+                        }
+                        let tp;
+                        switch (type) {
+                            case 0:
+                            tp = 'ascending'
+                            break;
+                            case 1:
+                            tp = 'descending'
+                            break;
+                            case 2:
+                            tp = 'unison'
+                            break;
+                            default:
+                            tp = "bosh"
+                            break;
+                        }
+                        let name = chord_text[parseInt(keys[key_i])] + ', ' + tp 
+                        out +=  `<div class="exerciseRow">
+                                     <p class="exerciseType">${name}</p>
+                                     <div class="bars">
+                                         <div class="correct_blocks">
+                                             ${correctBarsHTML}
+                                         </div>
+                                     </div>
+                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                 </div>`
+                    }
+               } 
+            break;
+            case 2:
+                for (let key_i = 0; key_i < keys.length; key_i++) {
+                    for await (const type of types) {
+                        let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
+                        var perc = parseInt((pair[0]/pair[1]) * 100)
+                        var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                        let correctBarsHTML = '';
+                        for (let i = 0; i < perc10; i++) {
+                            correctBarsHTML += '<a class="correct_bar"></a>';
+                        }
+                        let tp;
+                        switch (type) {
+                            case 0:
+                            tp = 'ascending'
+                            break;
+                            case 1:
+                            tp = 'descending'
+                            break;
+                            case 2:
+                            tp = 'unison'
+                            break;
+                            default:
+                            tp = "bosh"
+                            break;
+                        }
+                        let name = scale_text[parseInt(keys[key_i])] + ', ' + tp 
+                        out +=  `<div class="exerciseRow">
+                                     <p class="exerciseType">${name}</p>
+                                     <div class="bars">
+                                         <div class="correct_blocks">
+                                             ${correctBarsHTML}
+                                         </div>
+                                     </div>
+                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                 </div>`
+                    }
+               } 
+            break;
+            default:
+            break;
+        }
+
+    } else {
+        let exe;
+        switch (category) {
+            case 'intervals':
+            exe = 0;
+            for (let key = 0; key < interval_text.length; key++) {
+                for (let type = 0; type < 3; type++) {
+                    let pair = day_array[curr_day].getValuePair(type,key, exe)
+                    if(pair[1] == 0) continue;
+                    var perc = parseInt((pair[0]/pair[1]) * 100)
+                    var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                    let correctBarsHTML = '';
+                    for (let i = 0; i < perc10; i++) {
+                        correctBarsHTML += '<a class="correct_bar"></a>';
+                    }
+                    let tp;
+                    switch (type) {
+                        case 0:
+                        tp = 'ascending'
+                        break;
+                        case 1:
+                        tp = 'descending'
+                        break;
+                        case 2:
+                        tp = 'unison'
+                        break;
+                        default:
+                        tp = "bosh"
+                        break;
+                    }
+                    let name = interval_text[key] + ', ' + tp 
+                    out +=  `<div class="exerciseRow">
+                                 <p class="exerciseType">${name}</p>
+                                 <div class="bars">
+                                     <div class="correct_blocks">
+                                         ${correctBarsHTML}
+                                     </div>
+                                 </div>
+                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                             </div>`
+                }
+            }
+            if(out == ''){
+                out = 'No intervals played in this day.'
+            }
+            break;
+            case 'chords':
+            exe = 1;
+            for (let key = 0; key < interval_text.length; key++) {
+                for (let type = 0; type < 3; type++) {
+                    let pair = day_array[curr_day].getValuePair(type,key, exe)
+                    if(pair[1] == 0) continue;
+                    var perc = parseInt((pair[0]/pair[1]) * 100)
+                    var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                    let correctBarsHTML = '';
+                    for (let i = 0; i < perc10; i++) {
+                        correctBarsHTML += '<a class="correct_bar"></a>';
+                    }
+                    let tp;
+                    switch (type) {
+                        case 0:
+                        tp = 'ascending'
+                        break;
+                        case 1:
+                        tp = 'descending'
+                        break;
+                        case 2:
+                        tp = 'unison'
+                        break;
+                        default:
+                        tp = "bosh"
+                        break;
+                    }
+                    let name = chord_text[key] + ', ' + tp 
+                    out +=  `<div class="exerciseRow">
+                                 <p class="exerciseType">${name}</p>
+                                 <div class="bars">
+                                     <div class="correct_blocks">
+                                         ${correctBarsHTML}
+                                     </div>
+                                 </div>
+                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                             </div>`
+                }
+            }
+            if(out == ''){
+                out = 'No chords played in this day.'
+            }
+            break;
+            case 'scales':
+            exe = 2;
+            for (let key = 0; key < interval_text.length; key++) {
+                for (let type = 0; type < 3; type++) {
+                    let pair = day_array[curr_day].getValuePair(type,key, exe)
+                    if(pair[1] == 0) continue;
+                    var perc = parseInt((pair[0]/pair[1]) * 100)
+                    var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                    let correctBarsHTML = '';
+                    for (let i = 0; i < perc10; i++) {
+                        correctBarsHTML += '<a class="correct_bar"></a>';
+                    }
+                    let tp;
+                    switch (type) {
+                        case 0:
+                        tp = 'ascending'
+                        break;
+                        case 1:
+                        tp = 'descending'
+                        break;
+                        case 2:
+                        tp = 'unison'
+                        break;
+                        default:
+                        tp = "bosh"
+                        break;
+                    }
+                    let name = scale_text[key] + ', ' + tp 
+                    out +=  `<div class="exerciseRow">
+                                 <p class="exerciseType">${name}</p>
+                                 <div class="bars">
+                                     <div class="correct_blocks">
+                                         ${correctBarsHTML}
+                                     </div>
+                                 </div>
+                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                             </div>`
+                }
+            }
+            break;
+            default:
+                out = "elefante"
+            break;
+        }
+    }
+    if(out == ''){
+        out = 'No scales played in this day.'
+    }
+    return out  
 }
 
 async function init(){
@@ -155,6 +421,8 @@ async function init(){
     let item
     while(item = localStorage.getItem(str)){
         exe_array.push(new ExerciseContainer(null,i))
+        let pair = exe_array[exe_array.length-1].calculateTotalCorrectResults()
+        if(pair[1] == 0) exe_array.pop()
         i = i+1
         str = "Container-" + i.toString()
     }
