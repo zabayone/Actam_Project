@@ -10,7 +10,7 @@ var curr_day
 
 var curr_cat
 
-var is_first = 1;
+var is_first = 1
 
 async function switchCurrentDay(curr) {
     curr_day = curr;
@@ -79,13 +79,15 @@ async function showCategory(category) {
         }
         calendar.innerHTML = calendar_txt;
     }
-   
+
     sliderElements.forEach(element => {
-        if (is_first){
-            // Remove active class from all elements
-            element.classList.remove('active');
-            // Add active class to the exercise category by default
-            document.getElementById('defaultCategory').classList.add('active');
+
+        if(is_first){
+        // Remove active class from all elements
+        element.classList.remove('active');
+        
+        // Add active class to the exercise category by default
+        document.getElementById('defaultCategory').classList.add('active');
         }
         // Add click handler
         element.addEventListener('click', () => {
@@ -190,7 +192,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -229,7 +231,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -268,7 +270,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -315,7 +317,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -358,7 +360,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -401,7 +403,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -443,7 +445,7 @@ async function init(){
     }
     curr_day = i-1
     showCategory('exercise')
-    is_first = 0;
+    is_first = 0
     console.log(day_array.length)
     console.log(exe_array.length)
 }
