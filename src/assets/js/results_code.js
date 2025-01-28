@@ -10,6 +10,8 @@ var curr_day
 
 var curr_cat
 
+var is_first = 1;
+
 async function switchCurrentDay(curr) {
     curr_day = curr;
     showCategory(curr_cat);
@@ -77,14 +79,14 @@ async function showCategory(category) {
         }
         calendar.innerHTML = calendar_txt;
     }
-
+   
     sliderElements.forEach(element => {
-        // Remove active class from all elements
-        element.classList.remove('active');
-        
-        // Add active class to the exercise category by default
-        document.getElementById('defaultCategory').classList.add('active');
-
+        if (is_first){
+            // Remove active class from all elements
+            element.classList.remove('active');
+            // Add active class to the exercise category by default
+            document.getElementById('defaultCategory').classList.add('active');
+        }
         // Add click handler
         element.addEventListener('click', () => {
             // Remove the 'active' class from all elements
@@ -439,6 +441,7 @@ async function init(){
     }
     curr_day = i-1
     showCategory('exercise')
+    is_first = 0;
     console.log(day_array.length)
     console.log(exe_array.length)
 }
