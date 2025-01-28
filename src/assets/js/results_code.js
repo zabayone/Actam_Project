@@ -79,11 +79,17 @@ async function showCategory(category) {
     }
 
     sliderElements.forEach(element => {
-        element.addEventListener('click', () => {
-            // Remove the 'active' class from all elements
-            sliderElements.forEach(el => el.classList.remove('active'));
+        // Remove active class from all elements
+        element.classList.remove('active');
+        
+        // Add active class to the element matching current category
+        if (element.dataset.category === curr_cat) {
+            element.classList.add('active');
+        }
 
-            // Add the 'active' class to the clicked element
+        // Add click handler
+        element.addEventListener('click', () => {
+            sliderElements.forEach(el => el.classList.remove('active'));
             element.classList.add('active');
         });
     });
