@@ -63,7 +63,7 @@ const translations = {
                 description: "The selected category does not exist."
             }
         },
-        sandPrompt: "personalise your Level", 
+        sandPrompt: "Personalise your Level", 
     },
     it: {
         title: "Progetto Actam",
@@ -128,7 +128,7 @@ const translations = {
                 description: "La categoria selezionata non esiste."
             }
         },
-        sandPrompt: "personaliizza il tuo Livello", 
+        sandPrompt: "Personaliizza il tuo Livello", 
     }
 };
 
@@ -289,9 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 categoryDescription.textContent = 'Practice scale recognition to sharpen your ear for melodies.';
                 break;
             case '3':
-                categoryTitle.textContent = 'Sandbox';
-                categoryHeading.textContent = 'Explore the Sandbox';
-                categoryDescription.textContent = 'Experiment freely with various musical elements.';
+                categoryTitle.textContent = 'Vocal Intervals';
+                categoryHeading.textContent = 'Train Your Vocal Intervals';
+                categoryDescription.textContent = 'Improve your singing skills by training vocal intervals.';
                 break;
             case '4':
                 categoryTitle.textContent = 'Results';
@@ -347,16 +347,25 @@ function checkbox(){
             chordSelector.style.display = 'none';
             scaleSelector.style.display = 'none';
             break;
+
         case '1':
             chordSelector.style.display = 'block';
             intervalSelector.style.display = 'none';
             scaleSelector.style.display = 'none';
             break;
+
         case '2':
             scaleSelector.style.display = 'block';
             chordSelector.style.display = 'none';
             intervalSelector.style.display = 'none';
             break;
+
+        case '3':
+            intervalSelector.style.display = 'block';
+            chordSelector.style.display = 'none';
+            scaleSelector.style.display = 'none';
+            break;
+
         default:
             break;
     }
