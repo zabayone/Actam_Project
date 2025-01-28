@@ -9,8 +9,8 @@ const gameOverModal = document.getElementById('gameOverModal');
 const finalScore = document.getElementById('finalScore');
 const restartButton = document.getElementById('restartButton');
 
-const pipesInterval = 10000; // Faster pipe generation
-const pipeSpeed = 5; // Slower pipe movement for smaller octave
+const pipesInterval = 4000; // Faster pipe generation
+let pipeSpeed = 15; // Slower pipe movement for smaller octave
 
 let audioContext, frequencyInterval;
 let playerY = gameScreen.clientHeight / 2; // Initial position
@@ -135,7 +135,7 @@ function setupBackground() {
     existingNotes.forEach(note => note.remove());
 
     // Add new note sections for single octave
-    frequencyToNote.forEach(([note]) => {
+    noteStrings.slice().reverse().forEach(note => {
         const noteSection = document.createElement('div');
         noteSection.classList.add('noteSection');
         noteSection.textContent = note;
@@ -194,7 +194,7 @@ function updatePlayerPosition(note) {
     if (note<0){note+= 12}
     if(note>12){note+= -12}
 
-    playerY = (sectionHeight * note)/12;
+    playerY = sectionHeight*(12-note)/12;
     console.log(playerY + " / " +note);
 
     player.style.top = `${playerY}px`;
@@ -252,10 +252,10 @@ function gameLoop() {
 
 // Pipes spawner
 function spawnPipes() {
-    let gapSize=gameScreen.clientHeight / frequencyToNote.length*3;
+    let gapSize=gameScreen.clientHeight / noteStrings.length*3;
     const spawnPipe = () => {
-        const gapIndex = Math.floor(Math.random() * frequencyToNote.length);
-        const sectionHeight = gameScreen.clientHeight / frequencyToNote.length;
+        const gapIndex = Math.floor(Math.random() * (noteStrings.length-gapSize*noteStrings.length/gameScreen.clientHeight+1));
+        const sectionHeight = gameScreen.clientHeight / noteStrings.length;
         const gapPosition = sectionHeight * gapIndex;
  
         
@@ -263,6 +263,10 @@ function spawnPipes() {
         const pipeBottomHeight = gameScreen.clientHeight - gapPosition - gapSize;
         if(gapSize>1){
             gapSize=gapSize*0.93;
+            pipeSped=pipeSpeed*1.03;
+        }
+        else{
+            pipeSpeed=pipeSpeed*1.1;
         }
 
         const pipeTop = document.createElement('div');
@@ -286,34 +290,93 @@ function spawnPipes() {
 
 // Move pipes
 function movePipes() {
-    pipes.forEach(pipe => {
-        const left = parseInt(window.getComputedStyle(pipe).left, 10);
-        if (left < -80) {
-            pipe.remove();
-            pipes.shift();
+    // Iterar de dos en dos, empezando desde el final
+    for(let i = pipes.length - 2; i >= 0; i -= 2) {
+        const pipeTop = pipes[i];
+        const pipeBottom = pipes[i + 1];
+        
+        // Verificar que ambas tuberías existen
+        if (!pipeTop || !pipeBottom) continue;
+        
+        const leftTop = parseInt(window.getComputedStyle(pipeTop).left, 10);
+        const leftBottom = parseInt(window.getComputedStyle(pipeBottom).left, 10);
+        
+        if (leftTop < -80) {
+            // Eliminar ambas tuberías juntas
+            score++;
+            pipeTop.remove();
+            pipeBottom.remove();
+            pipes.splice(i, 2); // Eliminar ambos elementos del array
         } else {
-            pipe.style.left = `${left - pipeSpeed}px`;
-        }
-    });
-}
-
-// Check collisions
-function checkCollisions() {
-    const playerBounds = player.getBoundingClientRect();
-    for (let pipe of pipes) {
-        const pipeBounds = pipe.getBoundingClientRect();
-        if (
-            playerBounds.left < pipeBounds.right &&
-            playerBounds.right > pipeBounds.left &&
-            playerBounds.top < pipeBounds.bottom &&
-            playerBounds.bottom > pipeBounds.top
-        ) {
-            stopMicrophoneStream(); 
-            clearInterval(spawnInterval);
-            endGame(); 
+            pipeTop.style.left = `${leftTop - pipeSpeed}px`;
+            pipeBottom.style.left = `${leftBottom - pipeSpeed}px`;
         }
     }
 }
+
+function checkCollisions() {
+    const playerBounds = player.getBoundingClientRect();
+    
+    const adjustedPlayer = {
+        top: playerBounds.top + (playerBounds.height * 0.05),
+        bottom: playerBounds.bottom - (playerBounds.height * 0.7),
+        left: playerBounds.left + (playerBounds.width * 0.05),
+        right: playerBounds.right - (playerBounds.width * 0.05)
+    };
+    showAdjustedHitbox(adjustedPlayer);
+
+    // Asegurarnos de procesar las tuberías en pares
+    for (let i = 0; i < pipes.length - 1; i += 2) {
+        const pipeTop = pipes[i];
+        const pipeBottom = pipes[i + 1];
+        
+        // Verificación de seguridad
+        if (!pipeTop?.parentNode || !pipeBottom?.parentNode) {
+            continue;
+        }
+        
+        try {
+            const topBounds = pipeTop.getBoundingClientRect();
+            const bottomBounds = pipeBottom.getBoundingClientRect();
+
+            if (
+                adjustedPlayer.left < topBounds.right &&
+                adjustedPlayer.right > topBounds.left &&
+                (
+                    adjustedPlayer.top < topBounds.bottom ||
+                    adjustedPlayer.bottom > bottomBounds.top
+                )
+            ) {
+                stopMicrophoneStream(); 
+                clearInterval(spawnInterval);
+                endGame(); 
+                return;
+            }
+        } catch (error) {
+            console.error('Error en la comprobación de colisiones:', error);
+            continue;
+        }
+    }
+}
+
+function showAdjustedHitbox(adjustedPlayer) {
+    const oldHitbox = document.getElementById('debug-hitbox');
+    if (oldHitbox) oldHitbox.remove();
+
+    const hitbox = document.createElement('div');
+    hitbox.id = 'debug-hitbox';
+    hitbox.style.position = 'absolute';
+    hitbox.style.border = '2px solid red';
+    hitbox.style.top = adjustedPlayer.top + 'px';
+    hitbox.style.left = adjustedPlayer.left + 'px';
+    hitbox.style.width = (adjustedPlayer.right - adjustedPlayer.left) + 'px';
+    hitbox.style.height = (adjustedPlayer.bottom - adjustedPlayer.top) + 'px';
+    hitbox.style.pointerEvents = 'none';
+    hitbox.style.zIndex = '9999';
+    document.body.appendChild(hitbox);
+}
+
+
 
 // End game
 function endGame() {
