@@ -8,6 +8,9 @@ let octave = 0
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+let level_counter = document.getElementById("levelCounter");
+let score_counter = document.getElementById("finalScore");
+
 const sampler = new Tone.Sampler({
     urls:{
         C4:  '/assets/Notes/C.wav',
@@ -28,8 +31,7 @@ const sampler = new Tone.Sampler({
 
 
 async function playRandomNote(){ // function that creates the next
-    //if (rep_index < reps){
-    if (true){
+    if (rep_index < reps){
         if (checked) {
             checked = 0
             midi_arr = []
@@ -38,10 +40,12 @@ async function playRandomNote(){ // function that creates the next
             playNoteFromMIDI(midi_arr);
             rep_index = rep_index+1;
             note = root%12
-            //  level_counter.textContent = `${rep_index} / ${reps}`;
+            level_counter.textContent = `${rep_index} / ${reps}`;
         }
     } else {
         //exec at the end
+        showGameOverModal();
+        score_counter.textContent = `Score: ${correct} / ${reps}`;
     }
 }
 
@@ -95,4 +99,26 @@ function octaveUp() {
 
 function octaveDown() {
     octave -= 1;
+}
+
+level_counter.textContent = `${rep_index} / ${reps}`;
+
+// Show Game Over Modal
+function showGameOverModal() {
+    gameOverOverlay.classList.add("active");
+    gameOverModal.classList.add("active");
+}
+
+// Hide Game Over Modal
+function hideGameOverModal() {
+    gameOverOverlay.classList.remove("active");
+    gameOverModal.classList.remove("active");
+}
+
+function restartGame() {
+
+    correct = 0;
+    rep_index = 0;
+    level_counter.textContent = `${rep_index} / ${reps}`;
+    hideGameOverModal();
 }

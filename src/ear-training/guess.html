@@ -42,6 +42,9 @@
         </div>
     </header>
     <main class="main-container">
+        <div class="level-info">
+            <h2 id="levelCounter"></h2>
+        </div>
         <button data-translate="play" class="retroButton" onclick="playRandomNote()">Play</button>
         <ul class="set" id="keyboard">
             <!-- Key control buttons -->
@@ -66,4 +69,21 @@
         </ul>
 
     </main>
+
+    <!-- Start Modal -->
+    <div class="overlay" id="startOverlay"></div>
+    <div class="modal" id="startModal">
+        <h1 data-translate="welcome">Welcome to the Game!</h1>
+        <p data-translate="pressStart">Press "Start" to begin.</p>
+        <button id="startButton" data-translate="startGame">Start Game</button>
+    </div>
+
+    <!-- End Game Modal -->
+    <div class="overlay_over" id="gameOverOverlay"></div>
+    <div class="modal" id="gameOverModal">
+        <h1 data-translate="gameOver">Game Over</h1>
+        <p data-translate="yourScore"> <span id="finalScore">0</span></p>
+        <button id="restartButton" data-translate="restart" onclick="restartGame()">Restart</button>
+    </div>
+
 </body>
