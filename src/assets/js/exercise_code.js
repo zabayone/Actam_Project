@@ -109,14 +109,14 @@ async function playNoteFromMIDI(midi_arr, type){
         });
     } else {
         let now = Tone.now(); // Start scheduling from the current time
-            Tone.loaded().then(()=>{
-                for(note of note_arr){
-                    console.log(note)
-                    sampler.triggerAttackRelease([note], 1, now + i);
-                    i = i+1;
-                }
-            });
-        }
+        Tone.loaded().then(()=>{
+            for(note of note_arr){
+                console.log(note)
+                sampler.triggerAttackRelease([note], 1, now + i);
+                i = i+1;
+            }
+        });
+    }
 }
 
 function getButtons(code){ // function for the Html
@@ -124,9 +124,12 @@ function getButtons(code){ // function for the Html
     switch (cat) {
         case "0":
             text = interval_text[code]
-            break;
+        break;
         case "1":
             text = chord_text[code]
+            break;
+        case "2":
+            text = scale_text[code]
             break;
         default:
             text = "bosh"
@@ -184,6 +187,7 @@ async function next(){ // function that creates the next
             }
             let idx_2 = Math.floor(Math.random() * ones.length)
             chosen_type = ones[idx_2]
+            let curr_arr;
             switch (parseInt(cat)) {
                 case 0:
                     addNotes([root])
@@ -196,7 +200,7 @@ async function next(){ // function that creates the next
                 case 1:
                     addNotes(null)                    
                     console.log("case 1 for cat:")
-                    let curr_arr = chord_codes[curr_val].split(' ');
+                    curr_arr = chord_codes[curr_val].split(' ');
                     midi_arr.push(root)
                     for (const note of curr_arr) {
                         if(note) midi_arr.push(root + parseInt(note))
@@ -204,6 +208,19 @@ async function next(){ // function that creates the next
                     if(chosen_type == 1){
                         midi_arr.reverse()
                     }
+                break;
+                case 2:
+                    addNotes(null)                    
+                    console.log("case 1 for cat:")
+                    curr_arr = scale_codes[curr_val].split(' ');
+                    midi_arr.push(root)
+                    for (const note of curr_arr) {
+                        if(note) midi_arr.push(root + parseInt(note))
+                    }
+                    if(chosen_type == 1){
+                        midi_arr.reverse()
+                    }
+                break;
                 default:
                 break;
             }
