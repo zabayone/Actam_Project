@@ -1,5 +1,74 @@
+//html constants
+const enableMicBtn = document.getElementById("enable-mic");
+const noteElem = document.getElementById("note");
+const hzElem = document.getElementById("hz");
+const detuneElem = document.getElementById("detune");
+const detuneWarning = document.getElementById("detune-warning");
+const microphoneStatus = document.getElementById("microphoneStatus");
 
-// https://github.com/cwilso/PitchDetect/blob/main/js/pitchdetect.js
+
+// Audio configuration constants
+const constraints = {audio: true, video: false};
+const BUFFLEN = 2048;
+const THRESHOLD = 0.2;
+const SAMPLE_RATE = 44100;
+
+// Audio context and analyzer state
+let audioContext = null;
+let analyser = null;
+let mediaStreamSource = null;
+let rafID = null;
+
+// Frequency analysis variables
+let buf = new Float32Array(BUFFLEN);
+let correlation_array = new Array(BUFFLEN);
+let lastCorrelation = 1;
+let lastFrequency = -1;
+let lastNote = -1;
+let foundGoodCorrelation = false;
+
+// Initialize audio stream and context
+async function initAudio() {
+    try {
+        audioContext = new AudioContext();
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        setupAudioNodes(stream);
+    } catch (error) {
+        console.error('Error initializing audio:', error);
+    }
+}
+
+// Setup audio processing nodes
+function setupAudioNodes(stream) {
+    mediaStreamSource = audioContext.createMediaStreamSource(stream);
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = BUFFLEN;
+    mediaStreamSource.connect(analyser);
+    updatePitch();
+}
+
+// Main pitch detection loop
+function updatePitch() {
+    analyser.getFloatTimeDomainData(buf);
+    const frequency = autoCorrelate(buf, SAMPLE_RATE);
+    processPitch(frequency);
+    rafID = requestAnimationFrame(updatePitch);
+}
+
+// Stop audio processing and cleanup
+function stopAudio() {
+    if (rafID) cancelAnimationFrame(rafID);
+    if (mediaStreamSource) mediaStreamSource.disconnect();
+    if (audioContext) audioContext.close();
+}
+
+// Export public functions
+export {
+    initAudio,
+    stopAudio,
+    noteFromPitch
+};
+
 var MIN_SAMPLES = 0;  // will be initialized when AudioContext is created.
 var GOOD_ENOUGH_CORRELATION = 0.9; // this is the "bar" for how close a correlation needs to be
 function autoCorrelate( buf, sampleRate ) {
@@ -186,29 +255,11 @@ function main(){
         microphoneStatus.innerHTML = "Microphone Disabled";
     }
 }
-const constraints = {audio: true, video: false};
-
-let currStream  = null;
-
-let source = null;
-
-let analyser = null;
-
-let buffer = new Float32Array(1024);
-
-let rafID = null;
-
-const MAX_LENGTH = 20;
-let last_values = new Array(MAX_LENGTH);
-let index=0;
-let zeroCounter=0;
-
-const enableMicBtn = document.getElementById("enable-mic");
-const noteElem = document.getElementById("note");
-const hzElem = document.getElementById("hz");
-const detuneElem = document.getElementById("detune");
-const detuneWarning = document.getElementById("detune-warning");
-const microphoneStatus = document.getElementById("microphoneStatus");
-
 
 enableMicBtn.onclick = main;
+
+for (let i = 0; i < MAX_LENGTH; i++) {
+    last_values[i] = 0;
+}
+audioContext = new (window.AudioContext || window.webkitAudioContext)();
+MIN_SAMPLES = 0;
