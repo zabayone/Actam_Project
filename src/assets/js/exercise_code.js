@@ -198,8 +198,7 @@ async function next(){ // function that creates the next
                     midi_arr.push(root + adder)
                 break;
                 case 1:
-                    addNotes(null)                    
-                    console.log("case 1 for cat:")
+                    addNotes(null)
                     curr_arr = chord_codes[curr_val].split(' ');
                     midi_arr.push(root)
                     for (const note of curr_arr) {
@@ -210,13 +209,13 @@ async function next(){ // function that creates the next
                     }
                 break;
                 case 2:
-                    addNotes(null)                    
-                    console.log("case 1 for cat:")
+                    addNotes(null)
                     curr_arr = scale_codes[curr_val].split(' ');
                     midi_arr.push(root)
                     for (const note of curr_arr) {
                         if(note) midi_arr.push(root + parseInt(note))
                     }
+                    midi_arr.push(root + 12)
                     if(chosen_type == 1){
                         midi_arr.reverse()
                     }
