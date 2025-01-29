@@ -277,3 +277,9 @@ coso{background-color: #d51515;}
 #options li:hover {
     background-color: #009f9f; /* Optional: highlight on hover */
 }
+
+.current-user-row {
+    background-color: #e6f3ff; /* Azul claro */
+    font-weight: bold;
+    border: 2px solid #0066cc;
+}

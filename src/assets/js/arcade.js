@@ -18,7 +18,10 @@ let isPlaying = false;
 let pipes = [];
 let score = 0;
 
-
+document.addEventListener('gameEnd', (event) => {
+    console.log("GameEnd recibido!", event.detail);
+    // Aquí podemos acceder a event.detail.score
+});
 
 
 // https://github.com/cwilso/PitchDetect/blob/main/js/pitchdetect.js
@@ -384,6 +387,16 @@ function endGame() {
     clearInterval(frequencyInterval);
     showGameOverModal();
     finalScore.textContent = score;
+
+    console.log("Enviando evento gameEnd...");
+    
+    const gameEndEvent = new CustomEvent('gameEnd', { 
+        detail: { score: score }
+    });
+    document.dispatchEvent(gameEndEvent);
+    
+    // También enviamos test para verificar
+    document.dispatchEvent(new Event('test'));
 }
 
 // Restart game
@@ -441,3 +454,5 @@ let rafID = null;
 const MAX_LENGTH = 20;
 let last_values = new Array(MAX_LENGTH);
 let index=0;
+
+

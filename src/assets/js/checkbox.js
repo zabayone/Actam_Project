@@ -47,9 +47,9 @@ function generateCheckbox(category){
         case 0:
             out += `<div class="selector-column" id="intervalSelector">
                 <div class="checkbox-grid">
-                    <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction" checked><label for="asc">Ascending</label></div>
-                    <div><input type="checkbox" id="desc" name="direction" value="desc" class="direction"><label for="desc">Descending</label></div>
-                    <div><input type="checkbox" id="unison" name="unison" value="unison" class="direction"><label for="unison">Unison</label></div>
+                    <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction" onclick="enableStart()"><label for="asc">Ascending</label></div>
+                    <div><input type="checkbox" id="desc" name="direction" value="desc" class="direction" onclick="enableStart()"><label for="desc">Descending</label></div>
+                    <div><input type="checkbox" id="unison" name="unison" value="unison" class="direction" onclick="enableStart()"><label for="unison">Unison</label></div>
                 </div>
             <button class="collapse-btn" onclick="toggleSection('intervals')">
                 Intervals ▼
@@ -58,7 +58,7 @@ function generateCheckbox(category){
                 <div class="checkbox-grid" id="grid">`
             
             for (let i = 0; i < interval_text.length; i++){
-                out += `<div><input type="checkbox" id="int${i}" value="${i}" class="selected"><label for="int${i}">${interval_text[i]}</label></div>`
+                out += `<div><input type="checkbox" id="int${i}" value="${i}" class="selected" onclick="enableStart()"><label for="int${i}">${interval_text[i]}</label></div>`
             }
             out += `</div>
                         </div>
@@ -67,7 +67,7 @@ function generateCheckbox(category){
         case 1:
             out += `<div class="selector-column" id="chordSelector">
             <div class="checkbox-grid">
-                    <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction" checked><label for="asc">Ascending</label></div>
+                    <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction"><label for="asc">Ascending</label></div>
                     <div><input type="checkbox" id="desc" name="direction" value="desc" class="direction"><label for="desc">Descending</label></div>
                     <div><input type="checkbox" id="unison" name="unison" value="unison" class="direction"><label for="unison">Unison</label></div>
             </div>
@@ -78,7 +78,7 @@ function generateCheckbox(category){
                 <div class="checkbox-grid" id="grid">`
 
             for (let i = 0; i < chord_text.length; i++){
-                out += `<div><input type="checkbox" id="chord${i}" value="${i}" class="selected"><label for="chord${i}">${chord_text[i]}</label></div>`
+                out += `<div><input type="checkbox" id="chord${i}" value="${i}" class="selected" onclick="enableStart()"><label for="chord${i}">${chord_text[i]}</label></div>`
             }
             out += `</div>
                         </div>
@@ -87,7 +87,7 @@ function generateCheckbox(category){
         case 2:
             out += `<div class="selector-column" id="scaleSelector">
             <div class="checkbox-grid">
-                    <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction" checked><label for="asc">Ascending</label></div>
+                    <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction"><label for="asc">Ascending</label></div>
                     <div><input type="checkbox" id="desc" name="direction" value="desc" class="direction"><label for="desc">Descending</label></div>
             </div>
             <button class="collapse-btn" onclick="toggleSection('scales')">
@@ -97,7 +97,7 @@ function generateCheckbox(category){
                 <div class="checkbox-grid" id="grid">`
 
             for (let i = 0; i < scale_text.length; i++){
-                out += `<div><input type="checkbox" id="scale${i}" value="${i}" class="selected"><label for="scale${i}">${scale_text[i]}</label></div>`
+                out += `<div><input type="checkbox" id="scale${i}" value="${i}" class="selected" onclick="enableStart()"><label for="scale${i}">${scale_text[i]}</label></div>`
             }
             out += `</div>
                         </div>
@@ -106,7 +106,7 @@ function generateCheckbox(category){
         case 3:
             out += `<div class="selector-column" id="intervalSelector">
              <div class="checkbox-grid">
-                <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction" checked><label for="asc">Ascending</label></div>
+                <div><input type="checkbox" id="asc" name="direction" value="asc" class="direction"><label for="asc">Ascending</label></div>
                 <div><input type="checkbox" id="desc" name="direction" value="desc" class="direction"><label for="desc">Descending</label></div>
             </div>
             <button class="collapse-btn" onclick="toggleSection('intervals')">
@@ -117,7 +117,7 @@ function generateCheckbox(category){
 
             console.log('error');
             for (let i = 0; i < interval_text.length; i++){
-                out += `<div><input type="checkbox" id="voc${i}" value="${i}" class="selected"><label for="voc${i}">${interval_text[i]}</label></div>`
+                out += `<div><input type="checkbox" id="voc${i}" value="${i}" class="selected" onclick="enableStart()"><label for="voc${i}">${interval_text[i]}</label></div>`
             }
             out += `</div>
                         </div>
@@ -153,6 +153,33 @@ async function start(){
     localStorage.setItem('key', key);
     localStorage.setItem('type', type);
     localStorage.setItem('test', 0);
-    console.log(key, type)
+    console.log(key, type);
     if(!(key == '' | type == '0-0-0')) window.location.href = `/ear-training/level.html`;
 }
+
+function enableStart(){
+    // Enable start button if at least one checkbox from both options is checked
+    var inputElements = document.getElementsByClassName('selected');
+    var checkedValue = ''
+    var checkedValue2 = ''
+    for(var i=0; inputElements[i]; ++i){
+      if(inputElements[i].checked){
+           checkedValue = 'checked'
+      }
+    }
+    var inputElements = document.getElementsByClassName('direction');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            checkedValue2 = 'checked'
+        }
+    }
+    if (checkedValue == 'checked' && checkedValue2 == 'checked'){
+        document.getElementById('startButton').disabled = false;
+    }
+    else{
+        document.getElementById('startButton').disabled = true;
+    }
+}
+
+//start button disabled by default
+document.getElementById('startButton').disabled = true;
