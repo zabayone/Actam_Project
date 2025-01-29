@@ -4,7 +4,7 @@ const levelsConfig = {
         { type: "separator", text: "Thirds" }, 
         { level: 1, params: [[2, 3], [1,1,0], 0] },
         { level: 2, params: [[2, 3], [1,0,0], 0] },
-        { level: 3, params: [[2, 3], [1,0,0], 1] },
+        { level: "ciao", params: [[2, 3], [1,0,0], 1] },
         { type: "separator", text: "Seconds" }, 
         { level: 4, params: [[0, 1], [1,0,0], 0] },
         { level: 5, params: [[0, 1], [1,0,0], 0] },

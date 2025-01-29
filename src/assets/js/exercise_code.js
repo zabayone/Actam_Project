@@ -323,6 +323,8 @@ async function init() {
     let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
 
+    console.log(cat, key, type, test)
+
     level_description.textContent = `Level ${localStorage.getItem("level")}`;
 
     butt_div = document.getElementById("ex_btn_container")

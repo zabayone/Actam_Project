@@ -147,10 +147,12 @@ function customLevel(){
     });
 }
 
-function start(){
+async function start(){
     let key = getCheckbox();
-    let type = getType()
+    let type = await getType()
     localStorage.setItem('key', key);
     localStorage.setItem('type', type);
-    window.location.href = `/ear-training/level.html`;
+    localStorage.setItem('test', 0);
+    console.log(key, type)
+    if(!(key == '' | type == '0-0-0')) window.location.href = `/ear-training/level.html`;
 }
