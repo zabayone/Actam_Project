@@ -139,20 +139,19 @@ function getPitch(){
             noteElem.innerHTML = noteStrings[midiNote%12];
             //hzElem.innerHTML = averageFreq;
             detune = centsOffFromPitch(averageFreq,midiNote);
-            //detuneElem.innerHTML = detune;
- s           // if (detune<0){
-            //     detuneWarning.innerHTML="FLAT";
-            //     detuneWarning.className= "out-tune";
-            // }
-            // else{
-            //     detuneWarning.innerHTML="SHARP";
-            //     detuneWarning.className= "out-tune";
-            // }
-
-            // if(detune < 10 && detune > -10) {
-            //     detuneWarning.innerHTML= "IN-TUNE";
-            //     detuneWarning.className= "in-tune";
-            // }
+            detuneElem.innerHTML = detune;
+            if (detune<0){
+                flat.style.color = "red";
+                sharp.style.color = "white";
+            }
+            else{
+                sharp.style.color = "red";
+                flat.style.color = "white";
+            }
+            if(detune < 15 && detune > -15) {
+                flat.style.color = "lawngreen";
+                sharp.style.color = "lawngreen";
+            }
         }
     }
     else{
@@ -188,9 +187,11 @@ let zeroCounter=0;
 const enableMicBtn = document.getElementById("enable-mic");
 const noteElem = document.getElementById("note");
 const hzElem = document.getElementById("hz");
-const detuneElem = document.getElementById("detune");
-const detuneWarning = document.getElementById("detune-warning");
+const detuneElem = document.getElementById("cents");
+const flat = document.getElementById("flat");
+const sharp = document.getElementById("sharp");
 const microphoneStatus = document.getElementById("microphoneStatus");
+;
 
 
 enableMicBtn.onclick = main;
