@@ -35,7 +35,8 @@ class ExerciseContainer {
             this.array = Array.from({ length: 3 }, () => 
                 Array.from({ length: n }, () => Array(2).fill(0))
             );
-            //localStorage.setItem("max_idx", this.idx)
+            //localStorage.setItem("max_idx"
+            // , this.idx)
             this.localStore()
         } else {
             this.idx = idx
@@ -46,7 +47,7 @@ class ExerciseContainer {
                 Array.from({ length: keys.length }, () => Array(2).fill(0))
             );
             this.localRetreive()
-            this.printArray()
+            //this.printArray()
         }
     }
 

@@ -38,7 +38,7 @@ class DayContainer {
             let str = "Day-"+this.idx.toString()
             this.date = localStorage.getItem(str)
             if(this.date) this.localRetreive()
-            this.printArray()
+            //this.printArray()
 
         }
     }

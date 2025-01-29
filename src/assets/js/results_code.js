@@ -118,7 +118,6 @@ async function getBars(category) {
     let out = ''
     console.log(category)
     if (category == 'exercise') {
-        console.log(curr_exe)
         let keys = exe_array[curr_exe].getKeys()
         let types_arr = exe_array[curr_exe].getTypes()
         let categ = exe_array[curr_exe].getCategory()
