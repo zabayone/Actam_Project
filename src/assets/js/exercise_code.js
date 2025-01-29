@@ -2,6 +2,7 @@
 var cat
 var test
 
+const lvlInfo = ['lvlInterval', 'lvlChord', 'lvlScale', 'lvlEar'];
 // Running state
 var is_keyboard = 1
 var is_test = 0
@@ -20,9 +21,11 @@ var curr_val
 var curr_idx
 
 var pressed_keys = [];  // Array used to store the pressed keys in order to avoid multiple presses if held
-var octave = 0          // Octave shift for the keyboard
+var octave = 0  ;        // Octave shift for the keyboard
 
-let num_stored = 0
+let num_stored = 0;
+
+
 
 // Volume settings
 const volumes = {
@@ -231,6 +234,18 @@ async function next(){ // function that creates the next
             level_counter.textContent = `${rep_index} / ${reps}`;
         }
     } else {
+        if(parseInt(localStorage.getItem('test')) == 1){
+
+
+
+            if(parseInt(localStorage.getItem('level')) == localStorage.getItem(lvlInfo[parseInt(localStorage.getItem('category'))])){
+
+            }
+
+
+
+        }
+
         seeResults()
     }
 }
