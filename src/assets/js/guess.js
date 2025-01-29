@@ -1,70 +1,51 @@
-let checked = 0
+let checked = 1
 let correct = 0
 let reps = 15
+let note = 0
+let rep_index = 0
+
+let octave = 0
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+let level_counter = document.getElementById("levelCounter");
+let score_counter = document.getElementById("finalScore");
+
+const sampler = new Tone.Sampler({
+    urls:{
+        C4:  '/assets/Notes/C.wav',
+        Db4: '/assets/Notes/Db.wav', 
+        D4:  '/assets/Notes/D.wav',
+        Eb4: '/assets/Notes/Eb.wav', 
+        E4:  '/assets/Notes/E.wav',  
+        F4:  '/assets/Notes/F.wav', 
+        Gb4: '/assets/Notes/Gb.wav',  
+        G4:  '/assets/Notes/G.wav', 
+        Ab4: '/assets/Notes/Ab.wav',  
+        A4:  '/assets/Notes/A.wav', 
+        Bb4: '/assets/Notes/Bb.wav',  
+        B4:  '/assets/Notes/B.wav'  
+    },
+    release: 1,
+}).toDestination();
+
 
 async function playRandomNote(){ // function that creates the next
-    //if (rep_index < reps){
-    if (true){
+    if (rep_index < reps){
         if (checked) {
             checked = 0
             midi_arr = []
             root = Math.floor(Math.random() * 32) + 50
             midi_arr.push(root)
-            let ones = []
-            for (let i = 0; i < types.length; i++) {
-                if(parseInt(types[i])){
-                    ones.push(i)
-                }
-                
-            }
-            let idx_2 = Math.floor(Math.random() * ones.length)
-            chosen_type = ones[idx_2]
-            let curr_arr;
-            switch (parseInt(cat)) {
-                case 0:
-                    addNotes([root])
-                    console.log("case 0 for cat:")
-                    midi_arr.push(root)
-                    let adder = parseInt(curr_val) + 1
-                    if(chosen_type == 1) adder = -adder;
-                    midi_arr.push(root + adder)
-                break;
-                case 1:
-                    addNotes(null)                    
-                    console.log("case 1 for cat:")
-                    curr_arr = chord_codes[curr_val].split(' ');
-                    midi_arr.push(root)
-                    for (const note of curr_arr) {
-                        if(note) midi_arr.push(root + parseInt(note))
-                    }
-                    if(chosen_type == 1){
-                        midi_arr.reverse()
-                    }
-                break;
-                case 2:
-                    addNotes(null)                    
-                    console.log("case 1 for cat:")
-                    curr_arr = scale_codes[curr_val].split(' ');
-                    midi_arr.push(root)
-                    for (const note of curr_arr) {
-                        if(note) midi_arr.push(root + parseInt(note))
-                    }
-                    if(chosen_type == 1){
-                        midi_arr.reverse()
-                    }
-                break;
-                default:
-                break;
-            }
-            console.log(midi_arr)
-            
-            console.log("chosen type: " + chosen_type)
-            playNoteFromMIDI(midi_arr, chosen_type);
+            playNoteFromMIDI(midi_arr);
             rep_index = rep_index+1;
+            note = root%12
             level_counter.textContent = `${rep_index} / ${reps}`;
         }
     } else {
         //exec at the end
+        showGameOverModal();
+        score_counter.textContent = `Score: ${correct} / ${reps}`;
     }
 }
 
@@ -79,7 +60,11 @@ async function checkAndPlay(midi_arr){
             sampler.triggerAttackRelease(note_arr, 1.2);
         });
     } else {
-        if((midi_arr[0])%12 == note) correct += 1
+        if((midi_arr[0])%12 == note){
+             console.log("correct");
+             correct += 1
+            } else 
+            console.log("incorrect");
         checked = 1
     }
 }
@@ -93,4 +78,47 @@ async function playNoteFromMIDI(midi_arr){
     Tone.loaded().then(()=>{
         sampler.triggerAttackRelease(note_arr, 1.2);
     });
+}
+
+async function midiToNote(midi){
+    var relative = (midi - 60)
+    var oct_shift = Math.floor(relative/12)
+    while(relative < 0) relative += 12;
+    var idx = relative%12
+    var note = notes[idx] + (4+oct_shift).toString()
+    return note
+}
+
+function adaptOctave(val){
+    return val + 12*octave
+}
+
+function octaveUp() {
+    octave += 1; // Increase octave
+}
+
+function octaveDown() {
+    octave -= 1;
+}
+
+level_counter.textContent = `${rep_index} / ${reps}`;
+
+// Show Game Over Modal
+function showGameOverModal() {
+    gameOverOverlay.classList.add("active");
+    gameOverModal.classList.add("active");
+}
+
+// Hide Game Over Modal
+function hideGameOverModal() {
+    gameOverOverlay.classList.remove("active");
+    gameOverModal.classList.remove("active");
+}
+
+function restartGame() {
+
+    correct = 0;
+    rep_index = 0;
+    level_counter.textContent = `${rep_index} / ${reps}`;
+    hideGameOverModal();
 }

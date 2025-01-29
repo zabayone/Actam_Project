@@ -16,7 +16,7 @@
     <script type="module" src="../assets/js/server.js" defer></script>
     <script src="https://unpkg.com/tone" defer></script>
     <script src="/assets/js/arcade.js" defer></script>
-    <script src="/assets/js/exercise_code.js" defer></script>
+    <script src="/assets/js/guess.js" defer></script>
     <script src="/assets/js/exercise_vars.js" defer></script>
     
 </head>
@@ -42,6 +42,9 @@
         </div>
     </header>
     <main class="main-container">
+        <div class="level-info">
+            <h2 id="levelCounter"></h2>
+        </div>
         <button data-translate="play" class="retroButton" onclick="playRandomNote()">Play</button>
         <ul class="set" id="keyboard">
             <!-- Key control buttons -->
@@ -51,19 +54,36 @@
                 <button data-translate="hide" class="Piano-btn" id="hide" onclick="hideKeyboard()">Hide</button>
             </div>
             
-            <li class="white c" data-note="60" onclick="playNoteFromMIDI([adaptOctave(60)], 3)"></li> <!-- C4 (MIDI 60) -->
-            <li class="black cs" data-note="61" onclick="playNoteFromMIDI([adaptOctave(61)], 3)"></li> <!-- C#4 (MIDI 61) -->
-            <li class="white d" data-note="62" onclick="playNoteFromMIDI([adaptOctave(62)], 3)"></li> <!-- D4 (MIDI 62) -->
-            <li class="black ds" data-note="63" onclick="playNoteFromMIDI([adaptOctave(63)], 3)"></li> <!-- D#4 (MIDI 63) -->
-            <li class="white e" data-note="64" onclick="playNoteFromMIDI([adaptOctave(64)], 3)"></li> <!-- E4 (MIDI 64) -->
-            <li class="white f" data-note="65" onclick="playNoteFromMIDI([adaptOctave(65)], 3)"></li> <!-- F4 (MIDI 65) -->
-            <li class="black fs" data-note="66" onclick="playNoteFromMIDI([adaptOctave(66)], 3)"></li> <!-- F#4 (MIDI 66) -->
-            <li class="white g" data-note="67" onclick="playNoteFromMIDI([adaptOctave(67)], 3)"></li> <!-- G4 (MIDI 67) -->
-            <li class="black gs" data-note="68" onclick="playNoteFromMIDI([adaptOctave(68)], 3)"></li> <!-- G#4 (MIDI 68) -->
-            <li class="white a" data-note="69" onclick="playNoteFromMIDI([adaptOctave(69)], 3)"></li> <!-- A4 (MIDI 69) -->
-            <li class="black as" data-note="70" onclick="playNoteFromMIDI([adaptOctave(70)], 3)"></li> <!-- A#4 (MIDI 70) -->
-            <li class="white b" data-note="71" onclick="playNoteFromMIDI([adaptOctave(71)], 3)"></li> <!-- B4 (MIDI 71) -->
+            <li class="white c" data-note="60" onclick="checkAndPlay([adaptOctave(60)])"></li> <!-- C4 (MIDI 60) -->
+            <li class="black cs" data-note="61" onclick="checkAndPlay([adaptOctave(61)])"></li> <!-- C#4 (MIDI 61) -->
+            <li class="white d" data-note="62" onclick="checkAndPlay([adaptOctave(62)])"></li> <!-- D4 (MIDI 62) -->
+            <li class="black ds" data-note="63" onclick="checkAndPlay([adaptOctave(63)])"></li> <!-- D#4 (MIDI 63) -->
+            <li class="white e" data-note="64" onclick="checkAndPlay([adaptOctave(64)])"></li> <!-- E4 (MIDI 64) -->
+            <li class="white f" data-note="65" onclick="checkAndPlay([adaptOctave(65)])"></li> <!-- F4 (MIDI 65) -->
+            <li class="black fs" data-note="66" onclick="checkAndPlay([adaptOctave(66)])"></li> <!-- F#4 (MIDI 66) -->
+            <li class="white g" data-note="67" onclick="checkAndPlay([adaptOctave(67)])"></li> <!-- G4 (MIDI 67) -->
+            <li class="black gs" data-note="68" onclick="checkAndPlay([adaptOctave(68)])"></li> <!-- G#4 (MIDI 68) -->
+            <li class="white a" data-note="69" onclick="checkAndPlay([adaptOctave(69)])"></li> <!-- A4 (MIDI 69) -->
+            <li class="black as" data-note="70" onclick="checkAndPlay([adaptOctave(70)])"></li> <!-- A#4 (MIDI 70) -->
+            <li class="white b" data-note="71" onclick="checkAndPlay([adaptOctave(71)])"></li> <!-- B4 (MIDI 71) -->
         </ul>
 
     </main>
+
+    <!-- Start Modal -->
+    <div class="overlay" id="startOverlay"></div>
+    <div class="modal" id="startModal">
+        <h1 data-translate="welcome">Welcome to the Game!</h1>
+        <p data-translate="pressStart">Press "Start" to begin.</p>
+        <button id="startButton" data-translate="startGame">Start Game</button>
+    </div>
+
+    <!-- End Game Modal -->
+    <div class="overlay_over" id="gameOverOverlay"></div>
+    <div class="modal" id="gameOverModal">
+        <h1 data-translate="gameOver">Game Over</h1>
+        <p data-translate="yourScore"> <span id="finalScore">0</span></p>
+        <button id="restartButton" data-translate="restart" onclick="restartGame()">Restart</button>
+    </div>
+
 </body>
