@@ -857,7 +857,7 @@ label {
 }
 
 #enable-mic{
-    background-image: url('/assets/img/mic.png');
+    background-image: url('/assets/img/mic_disabled.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-color: none;
@@ -869,6 +869,18 @@ label {
     bottom: 75%;
     left: 70%;
 }
+
+#enable-mic.active{
+    background-image: url('/assets/img/mic.png');
+}
+
+#enable-mic:hover{
+    transform: scale(1.1);
+    -webkit-filter: drop-shadow(1px 5px 5px #585858aa);
+    filter: drop-shadow(1px 5px 5px #555555a1);
+}
+
+
 
 #mictext{
     position: relative;
