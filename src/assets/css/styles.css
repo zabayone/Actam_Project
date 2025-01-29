@@ -913,3 +913,7 @@ label {
 #sharp{
     transform: rotate(180deg);
 }
+
+#microphoneStatus{
+    margin-top: -10px;
+}

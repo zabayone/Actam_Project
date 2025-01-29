@@ -1,3 +1,41 @@
+const constraints = {audio: true, video: false};
+let currStream  = null;
+let source = null;
+let analyser = null;
+let buffer = new Float32Array(1024);
+let rafID = null;
+const MAX_LENGTH = 20;
+const TOTAL_SECS = 150;
+let check_values = new Array(TOTAL_SECS);    
+let last_values = new Array(MAX_LENGTH);
+let index=0;
+let index2=0;
+let zeroCounter=0;
+var values; // array of the indexes of the active exercises 
+var types; // array of the indexes of the active exercises 
+let storage;
+let day;
+let cat;
+let test;
+var midi_arr = [];
+let chosen_type = -1;
+let root = 0;
+var rep_index = 0;
+var reps = 3;
+var checked = 1;
+let isTracking = false;
+let check_avg = 0;    
+
+const enableMicBtn = document.getElementById("enable-mic");
+const noteElem = document.getElementById("note");
+const hzElem = document.getElementById("hz");
+const detuneElem = document.getElementById("cents");
+const flat = document.getElementById("flat");
+const sharp = document.getElementById("sharp");
+const microphoneStatus = document.getElementById("microphoneStatus");
+const level_description = document.getElementById("levelDescription");
+const level_counter = document.getElementById("levelCounter");
+const prompt = document.getElementById("exercisePrompt");
 
 // https://github.com/cwilso/PitchDetect/blob/main/js/pitchdetect.js
 var MIN_SAMPLES = 0;  // will be initialized when AudioContext is created.
@@ -104,8 +142,6 @@ function stopMicrophoneStream(){
     window.cancelAnimationFrame(rafID);
 }
 
-
-
 function startPitchTrack(){
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 2048;
@@ -115,22 +151,47 @@ function startPitchTrack(){
 
 }
 
-function getPitch(){
+async function getPitch(){
     analyser.getFloatTimeDomainData(buffer);
     let frequencyInHz = autoCorrelate(buffer, audioContext.sampleRate);
-    console.log(frequencyInHz);
-
+    //console.log(frequencyInHz);
     if (frequencyInHz!=-1){
         zeroCounter=0;
-        
         last_values[index] = frequencyInHz;
+        check_values[index2] = frequencyInHz;
         //move the index 
         index = (index + 1) % MAX_LENGTH;
-
+        
         let averageFreq = 0;
         for(let i=0;i<MAX_LENGTH;i++){
             averageFreq=averageFreq+frequencyInHz;
         }
+        if (index2 == TOTAL_SECS-1){
+            main();
+            index2 = 0;
+            for await (const val of check_values) {
+                check_avg = check_avg + val;
+            }
+            check_avg = check_avg/TOTAL_SECS;
+            console.log(check_avg);
+            let midiNote = noteFromPitch(check_avg);
+            let rootfreq = await midiToFreq(root)
+
+            if (midiNote == root){
+                let detune = centsOffFromPitch(check_avg, midiNote);
+                if (detune < 15 && detune > -15) {
+                    storage.setCorrect(chosen_type, curr_idx);
+                }
+                else {
+                    storage.setIncorrect(chosen_type, curr_idx);
+                }
+            }
+            else {
+                storage.setIncorrect(chosen_type, curr_idx);
+            }
+
+        }
+        index2 = (index2 + 1)
         averageFreq=averageFreq/MAX_LENGTH;
         //We could make it faster only substracting the las value and adding the new one
 
@@ -158,47 +219,16 @@ function getPitch(){
         zeroCounter++;
         if (zeroCounter%(MAX_LENGTH*10)==0){
             noteElem.innerHTML = "-";
-            hzElem.innerHTML = "-";
             detuneElem.innerHTML = "-";
-            detuneWarning.innerHTML= "-";
         }
     }
 
-    rafID =window.requestAnimationFrame(getPitch);
+    rafID = window.requestAnimationFrame(getPitch);
 }
 
-const constraints = {audio: true, video: false};
-
-let currStream  = null;
-
-let source = null;
-
-let analyser = null;
-
-let buffer = new Float32Array(1024);
-
-let rafID = null;
-
-const MAX_LENGTH = 20;
-let last_values = new Array(MAX_LENGTH);
-let index=0;
-let zeroCounter=0;
-
-const enableMicBtn = document.getElementById("enable-mic");
-const noteElem = document.getElementById("note");
-const hzElem = document.getElementById("hz");
-const detuneElem = document.getElementById("cents");
-const flat = document.getElementById("flat");
-const sharp = document.getElementById("sharp");
-const microphoneStatus = document.getElementById("microphoneStatus");
-;
-
-
-enableMicBtn.onclick = main;
-
 function main(){
-
-    let isTracking = enableMicBtn.getAttribute("data-tracking") === "true";
+    
+    isTracking = enableMicBtn.getAttribute("data-tracking") === "true";
     enableMicBtn.setAttribute("data-tracking", !isTracking);
 
     if(!isTracking===true){
@@ -215,3 +245,130 @@ function main(){
         microphoneStatus.innerHTML = "Microphone Disabled";
     }
 }
+
+function saveAndGoHome(){
+    storage.localStore() 
+    day.addExercise(storage)
+    document.location.href = '/'
+}
+
+async function midiToNote(midi){
+    var relative = (midi - 60)
+    var oct_shift = Math.floor(relative/12)
+    while(relative < 0) relative += 12;
+    var idx = relative%12
+    var note = notes[idx] + (4+oct_shift).toString()
+    return note
+}
+
+async function midiToFreq(midi){
+    return 440 * Math.pow(2, (midi - 69) / 12);
+}
+
+async function playNoteFromMIDI(midi_arr, type){
+    let note_arr = []
+    i = 0;
+    for (midi of midi_arr) {
+        note_arr.push(await midiToNote(midi))
+    }
+    Tone.loaded().then(()=>{
+        sampler.triggerAttackRelease(note_arr, 1.2);
+    });
+}
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const sampler = new Tone.Sampler({
+    urls:{
+        C4:  '/assets/Notes/C.wav',
+        Db4: '/assets/Notes/Db.wav', 
+        D4:  '/assets/Notes/D.wav',
+        Eb4: '/assets/Notes/Eb.wav', 
+        E4:  '/assets/Notes/E.wav',  
+        F4:  '/assets/Notes/F.wav', 
+        Gb4: '/assets/Notes/Gb.wav',  
+        G4:  '/assets/Notes/G.wav', 
+        Ab4: '/assets/Notes/Ab.wav',  
+        A4:  '/assets/Notes/A.wav', 
+        Bb4: '/assets/Notes/Bb.wav',  
+        B4:  '/assets/Notes/B.wav'  
+    },
+    release: 1,
+}).toDestination();
+
+
+async function next(){ // function that creates the next
+    if (rep_index < reps){
+        if (checked) {
+            checked = 0
+            midi_arr = []
+            let idx = Math.floor(Math.random() * values.length)
+            curr_val = values[idx]
+            curr_idx = idx
+            root = Math.floor(Math.random() * 32) + 25
+            let ones = []
+            for (let i = 0; i < types.length; i++) {
+                if(parseInt(types[i])){
+                    ones.push(i)
+                }
+                
+            }
+            let idx_2 = Math.floor(Math.random() * ones.length)
+            chosen_type = ones[idx_2]
+            midi_arr.push(root)
+            playNoteFromMIDI(midi_arr);
+            rep_index = rep_index+1;
+            note = root%12
+            level_counter.textContent = `${rep_index} / ${reps}`;
+            let direction = '';
+            switch (chosen_type) {
+                case 0: 
+                    direction = 'up';
+                break;
+                case 1: 
+                    direction = 'down';
+                break;
+            }
+            let string = `<p>Sing the note a ${interval_text[curr_val]} ${direction} from the played note </p><p>continue singing until the mic gets turned off</p>`;
+            console.log(chosen_type);
+            console.log(string);
+            prompt.innerHTML = string;
+
+        }
+    } else {
+        //exec at the end;
+        score_counter.textContent = `Score: ${correct} / ${reps}`;
+    }
+}
+
+async function init () {
+    cat = localStorage.getItem("category")
+    let key = localStorage.getItem("key")
+    let type = localStorage.getItem("type")
+    test = localStorage.getItem("test")
+
+    console.log(cat, key, type, test)
+
+    level_description.textContent = `Level ${localStorage.getItem("level")}`;
+    values = key.split('-')
+    types = type.split('-')
+    storage = new ExerciseContainer(values.length, null)
+    day = new DayContainer(null)
+
+    if(test == 1) {
+        key_div.style.display = 'contents'
+        key_div.innerHTML = ''
+    }
+    await next()
+    console.log(root)
+}
+
+function playAgain(){
+    playNoteFromMIDI(midi_arr, chosen_type);
+}
+
+init();
+enableMicBtn.onclick = main;
+level_counter.textContent = `${rep_index} / ${reps}`;
+
+

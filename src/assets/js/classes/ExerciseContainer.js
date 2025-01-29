@@ -10,8 +10,8 @@ class ExerciseContainer {
             let str = "Container-" + this.idx.toString()
             let item = localStorage.getItem(str) 
             while(item){
-                console.log(this.idx)
-                console.log(str + " = " + item)
+                //console.log(this.idx)
+                //console.log(str + " = " + item)
                 this.idx++;
                 str = "Container-" + this.idx.toString()
                 item = localStorage.getItem(str) 

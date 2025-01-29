@@ -309,13 +309,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // function for the slider of the results page
-sliderElements.forEach(element => {
-    element.addEventListener('click', () => {
-        // Remove the 'active' class from all elements
-        sliderElements.forEach(el => el.classList.remove('active'));
+// only start if the element exists
+const slider = document.querySelector('.slider');
+if (slider) {
+    const sliderElements = document.querySelectorAll('.slider-element');
 
-        // Add the 'active' class to the clicked element
-        element.classList.add('active');
+    sliderElements.forEach(element => {
+        element.addEventListener('click', () => {
+            // Remove the 'active' class from all elements
+            sliderElements.forEach(el => el.classList.remove('active'));
+
+            // Add the 'active' class to the clicked element
+            element.classList.add('active');
+        });
     });
-});
-
+}
