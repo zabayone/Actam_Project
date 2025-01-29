@@ -1,6 +1,6 @@
 // Importa las funciones necesarias de Firebase
 import { collection, query, orderBy, limit, getDocs, where, doc, getDoc, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js';
-import { db } from '../assets/js/ConnectDB.js';  // Conexión a la base de datos, si ya tienes configurada la conexión.
+import { db } from './ConnectDB.js';  // Conexión a la base de datos, si ya tienes configurada la conexión.
 const currentUser = localStorage.getItem('currentUser');
 
 // Crea una referencia a la colección 'Usernames'
@@ -8,19 +8,52 @@ const leaderboardCollection = collection(db, "Leaderboard");
 
 const numberShown = 5;
 
-document.getElementById('information').innerText=currentUser;
 
+document.addEventListener('gameEnd', (event) => {
+    console.log("GameEnd recibido en leaderboard!", event.detail);
+    // Aquí ya puedes llamar a tus funciones
+    createLeaderboardStructure();
+    updateScore(event.detail.score).then(() => {
+        renderLeaderboard();
+    });
+});
 
+function createLeaderboardStructure() {
+    const container = document.createElement('div');
+    container.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 80%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        z-index: 1000;
+    `;
+    
+    container.innerHTML = `
+        <table id="leaderboard-table" border="1" style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="padding: 10px;">Posición</th>
+                    <th style="padding: 10px;">Usuario</th>
+                    <th style="padding: 10px;">Puntuación</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    `;
+    
+    document.body.appendChild(container);
+}
 // Obtener los N puntajes más altos
 async function getLeaderboardData() {
     const leaderboardQuery = query(leaderboardCollection, orderBy('score', 'desc'));
-    const querySnapshot = await getDocs(leaderboardQuery);
     
+    const querySnapshot = await getDocs(leaderboardQuery);
     const scores = [];
     querySnapshot.forEach((doc) => {
         scores.push({ username: doc.data().username, score: doc.data().score });
     });
-    
     return scores;
     }
     
@@ -49,6 +82,7 @@ async function renderLeaderboard() {
         if (userIndex >= numberShown) {
         const userScore = allScores[userIndex];
         const userRow = document.createElement('tr');
+        userRow.classList.add('current-user-row');
         userRow.innerHTML = `
             <td>${userIndex + 1}</td>
             <td>${currentUser}</td>
@@ -89,14 +123,4 @@ async function updateScore(newScore) {
     }
 }
 
-document.getElementById('update-score-btn').addEventListener('click', () => {
-    const newScoreInput = document.getElementById('new-score');
-    const newScore = parseInt(newScoreInput.value, 10);
 
-    if (isNaN(newScore) || newScore <= 0) {
-        alert('Por favor, introduce una puntuación válida.');
-        return;
-    }
-
-    updateScore(newScore);
-});
