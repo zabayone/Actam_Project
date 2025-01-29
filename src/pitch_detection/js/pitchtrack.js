@@ -137,9 +137,9 @@ function getPitch(){
         if(index===0){
             let midiNote = noteFromPitch(averageFreq); 
             noteElem.innerHTML = noteStrings[midiNote%12];
-            hzElem.innerHTML = averageFreq;
+            //hzElem.innerHTML = averageFreq;
             detune = centsOffFromPitch(averageFreq,midiNote);
-            detuneElem.innerHTML = detune;
+            //detuneElem.innerHTML = detune;
             if (detune<0){
                 detuneWarning.innerHTML="FLAT";
                 detuneWarning.className= "out-tune";
