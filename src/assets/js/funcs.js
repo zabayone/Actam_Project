@@ -51,6 +51,7 @@ const levelsConfig = {
         { level: 37, params: [[0,1,2,3,4,5,6,7,8,9,10,11], [0,1,0], 0] },
         { level: 38, params: [[0,1,2,3,4,5,6,7,8,9,10,11], [0,0,1], 0] },
         { level: 39, params: [[0,1,2,3,4,5,6,7,8,9,10,11], [1,1,1], 1] },
+        { type: "separator", text: "" }, 
 
     ],
     1: 
@@ -145,6 +146,7 @@ const levelsConfig = {
         { level: 73, params: [[19,20], [0,0,1], 0] },
         { level: 74, params: [[19,20], [0,1,1], 0] },
         { level: 75, params: [[19,20], [1,1,1], 1] },
+        { type: "separator", text: "" }, 
     ],
     2: 
     [ // scales
@@ -208,6 +210,7 @@ const levelsConfig = {
         { level: 42, params: [[21,22,23], [0,0,1], 0] },
         { level: 43, params: [[21,22,23], [0,1,1], 0] },
         { level: 44, params: [[21,22,23], [0,1,1], 1] },
+        { type: "separator", text: "" }, 
 
     ],
     3:  [ // Vocal Intervals
@@ -261,6 +264,7 @@ const levelsConfig = {
         { level: 37, params: [[0,1,2,3,4,5,6,7,8,9,10,11], [0,1,0], 0] },
         { level: 38, params: [[0,1,2,3,4,5,6,7,8,9,10,11], [0,0,1], 0] },
         { level: 39, params: [[0,1,2,3,4,5,6,7,8,9,10,11], [1,1,1], 1] },
+        { type: "separator", text: "" }, 
     ]
 };
 
