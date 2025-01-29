@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/piano.css">
+    <link rel="stylesheet" href="/assets/css/pentagram.css">
+    <!-- Firebase and Script -->
+    <script type="module" src="/assets/js/script.js" defer></script>
+    <script type="module" src="/assets/js/server.js" defer></script>
+    <script src="/assets/js/pentagramma.js" defer></script>
+    <script src="/assets/js/funcs.js" defer></script>
+    <script src="/assets/js/classes/ExerciseContainer.js" defer></script>
+    <script src="/assets/js/classes/DayContainer.js" defer></script>
+    <script src="https://unpkg.com/tone" defer></script>
+    <script src="/assets/js/exercise_vars.js" defer></script>
+    <script src="/assets/js/exercise_code.js" defer></script>
+    <script src="/assets/js/arcade.js" defer></script>
+    
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="app-header">
+        <div class="header-left">
+            <button class="btn home-btn" onclick="saveAndGoHome()">
+                <img src="/assets/img/home.png" alt="Home" class="home-img">
+            </button>
+            <button class="btn btn-primary language-btn" onclick="setLanguage('en')">English</button>
+            <button class="btn btn-primary language-btn" onclick="setLanguage('it')">Italiano</button>
+        </div>
+        
+        <div class="header-center">
+            <h1 id="categoryTitle">Training</h1>
+        </div>
+
+        <div class="header-right">
+            <!-- Display the username here -->
+            <p id="information" data-translate="guest"> Guest </p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-container">
+        <div class="level-info">
+            <h2>Level Information</h2>
+            <p id="levelDescription">Loading...</p>
+            <h2 id="levelCounter"></h2>
+        </div>
+        <div class="control_btn_container_vox">
+            <button class="control_btn" onclick="playAgain()">
+                <img src="/assets/img/replay.png" alt="replay" class="control_btn_icon">
+            </button>
+            <button class="control_btn" onclick="playRoot()">
+                <img src="/assets/img/play.png" alt="root" class="control_btn_icon">
+            </button>
+            <button class="control_btn" onclick="next()">
+                <img src="/assets/img/skip.png" alt="next" class="control_btn_icon">
+            </button>
+        </div>
+        <div class="tuner">
+            <div class="notebox" id="note">
+            </div>
+            <div class="centsbox">
+            </div>
+            <div id="enable-mic" data-tracking="false">
+                <!--<p id="mictext">Enable Microphone</p>-->
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+
+
