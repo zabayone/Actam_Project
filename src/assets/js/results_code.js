@@ -409,6 +409,7 @@ async function init(){
         str = "Container-" + i.toString()
     }
     curr_exe = i-1
+    switchCurrentExercise(exe_array.length-1)
     i = 0
     str = "Day-" + i.toString()
     item = localStorage.getItem(str)
@@ -422,10 +423,7 @@ async function init(){
         item = localStorage.getItem(str)
     }
     curr_day = i-1
-    showCategory('exercise')
     is_first = 0
-    console.log(day_array.length)
-    console.log(exe_array.length)
     // let day_str = day_array[day_array.length-1].stringify()
 }
 
