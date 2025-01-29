@@ -815,3 +815,66 @@ label {
     margin-bottom: 2%;
 }
 
+.control_btn_container_vox{
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tuner{
+    background-color: #008080;
+    width: 500px;
+    height: 200px;
+    border-radius: 60px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 65%;
+}
+
+.notebox{
+    background-color: #f7f7f7;
+    width: 250px;
+    height: 150px;
+    border-radius: 40px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5%;
+    box-shadow: inset 0 0 10px 2px #323837;
+}
+
+.centsbox{
+    background-color: #f7f7f7;
+    width: 80px;
+    height: 30px;
+    border-radius: 40px;
+    position: relative;
+    bottom: 3%;
+    left: 71%;
+    box-shadow: inset 0 0 10px 0.5px #323837;
+}
+
+#enable-mic{
+    background-image: url('/assets/img/mic.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: none;
+    box-shadow: none;
+    position: relative;
+    border: none;
+    width: 90px;
+    height: 90px;
+    bottom: 75%;
+    left: 70%;
+}
+
+#mictext{
+    position: relative;
+    top: 100%;
+    right: 14%;
+    width: max-content;
+    color: #000000;
+    font-size: small;
+}
