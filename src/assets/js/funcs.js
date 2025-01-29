@@ -337,8 +337,9 @@ function selectLevel(level,intervals, type, test){
     localStorage.setItem("type", type_string);
     localStorage.setItem("test", test);
     localStorage.setItem("level", level);
-    if(parseInt(cat) == 3) document.location.href = '/vocal-training/level.html'
-    document.location.href = '/ear-training/level.html'
+    if(parseInt(cat) == 3) {
+        document.location.href = '/vocal-training/level.html'
+    } else document.location.href = '/ear-training/level.html'
 }
 
 function selectCategory(arg){
