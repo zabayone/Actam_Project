@@ -843,6 +843,9 @@ label {
     transform: translateY(-50%);
     left: 5%;
     box-shadow: inset 0 0 10px 2px #323837;
+    font-size: 80px;
+    text-align: center;
+    line-height: 150px;
 }
 
 .centsbox{

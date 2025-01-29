@@ -14,14 +14,12 @@
     <!-- Firebase and Script -->
     <script type="module" src="/assets/js/script.js" defer></script>
     <script type="module" src="/assets/js/server.js" defer></script>
-    <script src="/assets/js/pentagramma.js" defer></script>
     <script src="/assets/js/funcs.js" defer></script>
     <script src="/assets/js/classes/ExerciseContainer.js" defer></script>
     <script src="/assets/js/classes/DayContainer.js" defer></script>
     <script src="https://unpkg.com/tone" defer></script>
     <script src="/assets/js/exercise_vars.js" defer></script>
-    <script src="/assets/js/exercise_code.js" defer></script>
-    <script src="/assets/js/arcade.js" defer></script>
+    <script src="/assets/js/vocal_exercise.js" defer></script>
     
 </head>
 <body>
@@ -49,8 +47,9 @@
     <main class="main-container">
         <div class="level-info">
             <h2>Level Information</h2>
-            <p id="levelDescription">Loading...</p>
+            <p id="microphoneStatus">Microphone Status:</p>
             <h2 id="levelCounter"></h2>
+            
         </div>
         <div class="control_btn_container_vox">
             <button class="control_btn" onclick="playAgain()">

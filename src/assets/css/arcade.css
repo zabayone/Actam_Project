@@ -285,3 +285,26 @@ coso{background-color: #d51515;}
     font-weight: bold;
     border: 2px solid #0066cc;
 }
+
+#scoreContainer{
+    display: grid;
+    grid-template-columns: repeat(15, 3%);
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 15%;
+}
+
+.scoreBall{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #b5b5b5;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}

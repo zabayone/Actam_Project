@@ -10,6 +10,9 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 let level_counter = document.getElementById("levelCounter");
 let score_counter = document.getElementById("finalScore");
+let score_Container = document.getElementById("scoreContainer");
+
+
 
 const sampler = new Tone.Sampler({
     urls:{
@@ -61,10 +64,17 @@ async function checkAndPlay(midi_arr){
         });
     } else {
         if((midi_arr[0])%12 == note){
-             console.log("correct");
-             correct += 1
-            } else 
+            console.log("correct");
+            correct += 1
+            //color the corresponding ball green
+            let scoreBall = document.querySelectorAll(".scoreBall")[rep_index - 1];
+            scoreBall.style.backgroundColor = "green";
+        } else {
             console.log("incorrect");
+            //color the corresponding ball red
+            let scoreBall = document.querySelectorAll(".scoreBall")[rep_index - 1];
+            scoreBall.style.backgroundColor = "red";
+        }
         checked = 1
     }
 }
@@ -116,9 +126,27 @@ function hideGameOverModal() {
 }
 
 function restartGame() {
-
     correct = 0;
     rep_index = 0;
     level_counter.textContent = `${rep_index} / ${reps}`;
     hideGameOverModal();
+    clearScoreBalls();
+    GenerateScoreBalls();
 }
+
+function GenerateScoreBalls() {
+    for (let i = 0; i < reps; i++) {
+        let scoreBall = document.createElement("div");
+        scoreBall.classList.add("scoreBall");
+        score_Container.appendChild(scoreBall);
+    }
+}
+
+function clearScoreBalls() {
+    let scoreBalls = document.querySelectorAll(".scoreBall");
+    scoreBalls.forEach((scoreBall) => {
+        scoreBall.remove();
+    });
+}
+
+GenerateScoreBalls();
