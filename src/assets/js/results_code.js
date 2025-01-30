@@ -29,6 +29,8 @@ async function showCategory(category) {
     const sliderElements = document.querySelectorAll('.slider_element');
     const calendar = document.getElementById('calendar')
 
+    let language = localStorage.getItem('language')
+
     var calendar_txt = ''
     if(category == 'exercise') {
         for (let i = 0; i < exe_array.length; i++) {
@@ -82,11 +84,22 @@ async function showCategory(category) {
         intervals: 'Intervals Results',
         chords: 'Chords Results',
         scales: 'Scales Results',
+        vocalIntervals: 'Vocal Intervals Results',
         exercise: 'Last exercise results',
     };
 
-    resultsTitle.textContent = titles[category] || 'Results';
-
+    const titlesIt = {
+        intervals: 'Risultati degli intervalli',
+        chords: 'Risultati degli accordi',
+        scales: 'Risultati delle scale',
+        vocalIntervals: 'Risultati degli intervalli vocali',
+        exercise: 'Ultimo esercizio',
+    }
+    if (language == 'it') {
+        resultsTitle.textContent = titlesIt[category] || 'Risultati';
+    } else {
+        resultsTitle.textContent = titles[category] || 'Results';
+    }
     // Create the correct blocks HTML dynamically based on the correctCount
 
     // Update the content dynamically (this can be replaced with actual data fetching logic)
@@ -94,11 +107,27 @@ async function showCategory(category) {
         intervals: 'Here are the results for intervals for day',
         chords: 'Here are the results for chords for day',
         scales: 'Here are the results for scales for day',
+        vocalIntervals: 'Here are the results for vocal intervals for day',
         exercise: 'Here are the results of the Exercise',
     };
 
+    const contentIt = {
+        intervals: 'Ecco i risultati degli intervalli per il giorno',
+        chords: 'Ecco i risultati degli accordi per il giorno',
+        scales: 'Ecco i risultati delle scale per il giorno',
+        vocalIntervals: 'Ecco i risultati degli intervalli vocali per il giorno',
+        exercise: 'Ecco i risultati dell\'esercizio',
+    };
+    
     // Add the correct blocks and total block HTML to the content
-    let dyn_txt = content[category];
+    let dyn_txt;
+    if (language === 'en'){
+        dyn_txt = content[category];
+    }
+    if (language === 'it'){
+        dyn_txt = contentIt[category];
+    }
+
     if(dyn_txt){
         if (category == 'exercise') {
             dyn_txt += ' ' + parseInt(curr_exe + 1).toString() + '.'
@@ -387,7 +416,7 @@ async function getBars(category) {
             }
             break;
             default:
-                out = "elefante"
+                out = ""
             break;
         }
     }
