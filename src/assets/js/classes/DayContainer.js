@@ -75,7 +75,7 @@ class DayContainer {
         switch(type){
             case 0:
             if (x < 0 || x >= 3 || y < 0 || y >= this.intervals[0].length) {
-                throw new Error("Index out of bounds.");
+                throw new Error("Index out of bounds."+x+" "+y);
             }
             this.intervals[x][y][0] = vals[0];
             this.intervals[x][y][1] = vals[1];
@@ -197,39 +197,42 @@ class DayContainer {
     }
 
     fromString(str){
-        f_div = str.split('/')
-        this.date = f_div[0]
-        s_div = f_div[1].split('_')
+
+        const f_div = str.split('/');
+        
+        this.date = `${f_div[0]}/${f_div[1]}/${f_div[2]}`;
+        let s_div = f_div[3].split('_');
+
         for (let i = 0; i < s_div.length; i++) {
-            let x = Math.floor(i/3)
-            let y = i%3
+            let y = Math.floor(i/3)
+            let x = i%3
             const element = s_div[i];
             let vals = element.split('-')
             let val_n = [parseInt(vals[0]), parseInt(vals[1])]
             this.setValuePair(x,y,0,val_n)           
         }
-        s_div = f_div[2].split('_')
+        s_div = f_div[4].split('_')
         for (let i = 0; i < s_div.length; i++) {
-            let x = Math.floor(i/3)
-            let y = i%3
+            let y = Math.floor(i/3)
+            let x = i%3
             const element = s_div[i];
             let vals = element.split('-')
             let val_n = [parseInt(vals[0]), parseInt(vals[1])]
             this.setValuePair(x,y,1,val_n)           
         }
-        s_div = f_div[3].split('_')
+        s_div = f_div[5].split('_')
         for (let i = 0; i < s_div.length; i++) {
-            let x = Math.floor(i/3)
-            let y = i%3
+            let y = Math.floor(i/3)
+            let x = i%3
             const element = s_div[i];
             let vals = element.split('-')
             let val_n = [parseInt(vals[0]), parseInt(vals[1])]
             this.setValuePair(x,y,2,val_n)           
         }
-        s_div = f_div[4].split('_')
+        s_div = f_div[6].split('_')
         for (let i = 0; i < s_div.length; i++) {
-            let x = Math.floor(i/3)
-            let y = i%3
+            let y = Math.floor(i/3)
+            let x = i%3
             const element = s_div[i];
             let vals = element.split('-')
             let val_n = [parseInt(vals[0]), parseInt(vals[1])]

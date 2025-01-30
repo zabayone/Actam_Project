@@ -8,7 +8,7 @@ var day_array = []
 var curr_exe
 var curr_day
 
-var curr_cat
+var curr_cat='exercise'
 
 var is_first = 1
 
@@ -425,6 +425,10 @@ async function init(){
     curr_day = i-1
     is_first = 0
     // let day_str = day_array[day_array.length-1].stringify()
+
+    
+
+
 }
 
 init()

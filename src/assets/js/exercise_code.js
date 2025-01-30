@@ -234,19 +234,22 @@ async function next(){ // function that creates the next
             level_counter.textContent = `${rep_index} / ${reps}`;
         }
     } else {
-        if(parseInt(localStorage.getItem('test')) == 1){
+        if(parseInt(test) == 1 ){
 
 
-
-            if(parseInt(localStorage.getItem('level')) == localStorage.getItem(lvlInfo[parseInt(localStorage.getItem('category'))])){
+            //Add condition to this to only happen if the the level is succed.
+            let actualLevel =parseInt(localStorage.getItem(lvlInfo[parseInt(cat)]))
+            if(parseInt(localStorage.getItem('level')) == 4*actualLevel){
+                actualLevel=String(actualLevel+1);
+                localStorage.setItem(lvlInfo[parseInt(cat)],actualLevel);
+                console.log("Asking to update the database");
+                const lvlUpdateEvent = new CustomEvent('lvlUpdate', { 
+                    detail: { lvl: actualLevel }
+                });
+                document.dispatchEvent(lvlUpdateEvent);
 
             }
-
-
-
-        }
-
-        seeResults()
+        } else {seeResults()}
     }
 }
 
