@@ -72,7 +72,6 @@ function centsOffFromPitch( frequency, note ) {
 	return Math.floor( 1200 * Math.log( frequency / frequencyFromNoteNumber( note ))/Math.log(2) );
 }
 
-
 function getMicrophoneStream(){
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream){
@@ -92,6 +91,7 @@ function getMicrophoneStream(){
             // I think she forgot to turn the button to false
         });
 }
+
 function stopMicrophoneStream(){
     if(currStream !== null){
         let tracks = currStream.getTracks();
@@ -104,15 +104,12 @@ function stopMicrophoneStream(){
     window.cancelAnimationFrame(rafID);
 }
 
-
-
 function startPitchTrack(){
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 2048;
     source.connect(analyser);
 
     getPitch();
-
 }
 
 function getPitch(){
