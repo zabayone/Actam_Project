@@ -547,7 +547,6 @@ async function init(){
     }
     curr_day = i-1
     is_first = 0
-    // let day_str = day_array[day_array.length-1].stringify()
 }
 
 init()

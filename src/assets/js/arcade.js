@@ -326,7 +326,6 @@ function checkCollisions() {
         left: playerBounds.left + (playerBounds.width * 0.05),
         right: playerBounds.right - (playerBounds.width * 0.05)
     };
-    showAdjustedHitbox(adjustedPlayer);
 
     // Asegurarnos de procesar las tuberías en pares
     for (let i = 0; i < pipes.length - 1; i += 2) {
@@ -401,6 +400,12 @@ function endGame() {
 
 // Restart game
 function restartGame() {
+    // Eliminar la tabla de leaderboard si existe
+    const leaderboard = document.getElementById('leaderboard-container');
+    if (leaderboard) {
+        leaderboard.remove();
+    }
+
     pipes.forEach(pipe => pipe.remove());
     pipes = [];
     playerY = gameScreen.clientHeight / 2;

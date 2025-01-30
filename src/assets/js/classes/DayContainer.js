@@ -1,5 +1,5 @@
 class DayContainer {
-    constructor(index){
+    constructor(index, date){
         this.intervals = Array.from({ length: 3 }, () => 
             Array.from({ length: interval_text.length }, () => Array(2).fill(0))
         );
@@ -15,18 +15,26 @@ class DayContainer {
         if(index === null){
             let found = false
             this.idx = 0
-            var d = new Date()
-            this.date = d.toLocaleDateString()
+            if(date===undefined){
+                var d = new Date()
+                this.date = d.toLocaleDateString()
+            }
+            else{
+                this.date = date;
+            }
+
+
             let str = "Day-"+this.idx.toString()
             let item = localStorage.getItem(str)
             while(item != null){
-                if(item == this.date){
+                if(item === this.date){
                     found = true
                     break;
                 }
                 this.idx = this.idx + 1
                 str = "Day-"+this.idx.toString()
                 item = localStorage.getItem(str)
+                
             }
             if(found) this.localRetreive()
             else {
@@ -199,7 +207,6 @@ class DayContainer {
     fromString(str){
         const f_div = str.split('/');
         this.date = `${f_div[0]}/${f_div[1]}/${f_div[2]}`;
-        
         let s_div = f_div[3].split('_');
 
         for (let i = 0; i < s_div.length; i++) {

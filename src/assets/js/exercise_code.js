@@ -235,7 +235,11 @@ async function next(){ // function that creates the next
         }
     } else {
         if(parseInt(test) == 1 ){
+            let pair = storage.calculateTotalCorrectResults();
 
+            if(pair[0]/pair[1]<0.9){
+                console.log(pair[0]/pair[1]);
+            }
 
             //Add condition to this to only happen if the the level is succed.
             let actualLevel =parseInt(localStorage.getItem(lvlInfo[parseInt(cat)]))
