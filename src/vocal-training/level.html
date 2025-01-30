@@ -47,16 +47,19 @@
     <main class="main-container">
         <div class="level-info">
             <h2>Level Information</h2>
+            <p id="levelDescription">Description</p>
             <p id="microphoneStatus">Microphone Status:</p>
             <h2 id="levelCounter"></h2>
-            
+        </div>
+        <div id="exercisePrompt" class="exercisePrompt">
+            porcodio
         </div>
         <div class="control_btn_container_vox">
             <button class="control_btn" onclick="playAgain()">
                 <img src="/assets/img/replay.png" alt="replay" class="control_btn_icon">
             </button>
-            <button class="control_btn" onclick="playRoot()">
-                <img src="/assets/img/play.png" alt="root" class="control_btn_icon">
+            <button class="control_btn" onclick="playAgain()">
+                <img src="/assets/img/play.png" alt="play" class="control_btn_icon">
             </button>
             <button class="control_btn" onclick="next()">
                 <img src="/assets/img/skip.png" alt="next" class="control_btn_icon">
@@ -69,6 +72,14 @@
             </div>
             <div id="enable-mic" data-tracking="false">
                 <!--<p id="mictext">Enable Microphone</p>-->
+            </div>
+            <div class="indicators">
+                <div class="tuneIndicator" id="flat">
+                    ◀
+                </div>
+                <div class="tuneIndicator" id="sharp">
+                    ◀
+                </div>
             </div>
         </div>
     </main>

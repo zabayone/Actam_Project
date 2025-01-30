@@ -850,12 +850,13 @@ label {
 
 .centsbox{
     background-color: #f7f7f7;
-    width: 80px;
+    width: 50px;
     height: 30px;
     border-radius: 40px;
     position: relative;
     bottom: 3%;
-    left: 71%;
+    left: 74%;
+    line-height: 30px;
     box-shadow: inset 0 0 10px 0.5px #323837;
 }
 
@@ -890,4 +891,29 @@ label {
     width: max-content;
     color: #000000;
     font-size: small;
+}
+
+.indicators{
+    position: relative;
+    color: #e2e2e2;;
+    bottom: 60%;
+    line-height: 18px;
+    left: 66.7%;
+    display: grid;
+    grid-template-columns: 20px 20px;
+    gap: 81px;
+    font-size: 22px;
+}
+
+.tuneIndicator{
+    text-shadow: 2px 2px 3px rgba(84, 84, 84, 0.5);
+    background-clip: text;
+}
+
+#sharp{
+    transform: rotate(180deg);
+}
+
+#microphoneStatus{
+    margin-top: -10px;
 }
