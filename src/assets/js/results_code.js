@@ -120,14 +120,13 @@ async function showCategory(category) {
     };
     
     // Add the correct blocks and total block HTML to the content
-    let dyn_txt;
+    let dyn_txt
     if (language === 'en'){
         dyn_txt = content[category];
     }
     if (language === 'it'){
         dyn_txt = contentIt[category];
     }
-
     if(dyn_txt){
         if (category == 'exercise') {
             dyn_txt += ' ' + parseInt(curr_exe + 1).toString() + '.'
@@ -145,6 +144,7 @@ async function showCategory(category) {
 
 async function getBars(category) {
     let out = ''
+    let language = localStorage.getItem('language');
     console.log(category)
     if (category == 'exercise') {
         let keys = exe_array[curr_exe].getKeys()
@@ -179,19 +179,25 @@ async function getBars(category) {
                         let tp;
                         switch (type) {
                             case 0:
-                            tp = 'ascending'
-                            break;
+                                tp = language === 'it' ? 'ascendente' : 'ascending';
+                                break;
                             case 1:
-                            tp = 'descending'
-                            break;
+                                tp = language === 'it' ? 'discendente' : 'descending';
+                                break;
                             case 2:
-                            tp = 'unison'
-                            break;
+                                tp = language === 'it' ? 'unisono' : 'unison';
+                                break;
                             default:
-                            tp = "bosh"
-                            break;
+                                tp = "bosh";
+                                break;
                         }
-                        let name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        let name;
+                        if (language === 'it'){
+                            name = interval_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else {
+                            name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                         out +=  `<div class="exerciseRow">
                                      <p class="exerciseType">${name}</p>
                                      <div class="bars">
@@ -218,19 +224,25 @@ async function getBars(category) {
                         let tp;
                         switch (type) {
                             case 0:
-                            tp = 'ascending'
-                            break;
+                                tp = language === 'it' ? 'ascendente' : 'ascending';
+                                break;
                             case 1:
-                            tp = 'descending'
-                            break;
+                                tp = language === 'it' ? 'discendente' : 'descending';
+                                break;
                             case 2:
-                            tp = 'unison'
-                            break;
+                                tp = language === 'it' ? 'unisono' : 'unison';
+                                break;
                             default:
-                            tp = "bosh"
-                            break;
+                                tp = "bosh";
+                                break;
                         }
-                        let name = chord_text[parseInt(keys[key_i])] + ', ' + tp 
+                        let name; 
+                        if (language === 'it'){
+                            name = chord_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else{
+                            name = chord_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                         out +=  `<div class="exerciseRow">
                                      <p class="exerciseType">${name}</p>
                                      <div class="bars">
@@ -257,19 +269,25 @@ async function getBars(category) {
                         let tp;
                         switch (type) {
                             case 0:
-                            tp = 'ascending'
-                            break;
+                                tp = language === 'it' ? 'ascendente' : 'ascending';
+                                break;
                             case 1:
-                            tp = 'descending'
-                            break;
+                                tp = language === 'it' ? 'discendente' : 'descending';
+                                break;
                             case 2:
-                            tp = 'unison'
-                            break;
+                                tp = language === 'it' ? 'unisono' : 'unison';
+                                break;
                             default:
-                            tp = "bosh"
-                            break;
+                                tp = "bosh";
+                                break;
                         }
-                        let name = scale_text[parseInt(keys[key_i])] + ', ' + tp 
+                        let name;
+                        if (language === 'it'){
+                            name = scale_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else {
+                            name = scale_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                         out +=  `<div class="exerciseRow">
                                      <p class="exerciseType">${name}</p>
                                      <div class="bars">
@@ -304,17 +322,17 @@ async function getBars(category) {
                     let tp;
                     switch (type) {
                         case 0:
-                        tp = 'ascending'
-                        break;
+                            tp = language === 'it' ? 'ascendente' : 'ascending';
+                            break;
                         case 1:
-                        tp = 'descending'
-                        break;
+                            tp = language === 'it' ? 'discendente' : 'descending';
+                            break;
                         case 2:
-                        tp = 'unison'
-                        break;
+                            tp = language === 'it' ? 'unisono' : 'unison';
+                            break;
                         default:
-                        tp = "bosh"
-                        break;
+                            tp = "bosh";
+                            break;
                     }
                     let name = interval_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
@@ -347,17 +365,17 @@ async function getBars(category) {
                     let tp;
                     switch (type) {
                         case 0:
-                        tp = 'ascending'
-                        break;
+                            tp = language === 'it' ? 'ascendente' : 'ascending';
+                            break;
                         case 1:
-                        tp = 'descending'
-                        break;
+                            tp = language === 'it' ? 'discendente' : 'descending';
+                            break;
                         case 2:
-                        tp = 'unison'
-                        break;
+                            tp = language === 'it' ? 'unisono' : 'unison';
+                            break;
                         default:
-                        tp = "bosh"
-                        break;
+                            tp = "bosh";
+                            break;
                     }
                     let name = chord_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
@@ -389,19 +407,19 @@ async function getBars(category) {
                     }
                     let tp;
                     switch (type) {
-                        case 0:
-                        tp = 'ascending'
-                        break;
-                        case 1:
-                        tp = 'descending'
-                        break;
-                        case 2:
-                        tp = 'unison'
-                        break;
-                        default:
-                        tp = "bosh"
-                        break;
-                    }
+                            case 0:
+                                tp = language === 'it' ? 'ascendente' : 'ascending';
+                                break;
+                            case 1:
+                                tp = language === 'it' ? 'discendente' : 'descending';
+                                break;
+                            case 2:
+                                tp = language === 'it' ? 'unisono' : 'unison';
+                                break;
+                            default:
+                                tp = "bosh";
+                                break;
+                        }
                     let name = scale_text[key] + ', ' + tp 
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>

@@ -13,6 +13,19 @@ var interval_text = ['Minor Second',        //  0
                      'Minor Seventh',       //  9
                      'Major Seventh',       // 10
                      'Octave']              // 11
+
+var interval_text_it = [ 'Seconda Minore',
+                          'Seconda Maggiore',
+                          'Terza Minore',
+                          'Terza Maggiore',
+                          'Quarta Perfetta',
+                          'Tritono',
+                          'Quinta Perfetta',
+                          'Sesta Minore',
+                          'Sesta Maggiore',
+                          'Settima Minore',
+                          'Settima Maggiore',
+                          'Ottava']
 // text for the chord buttons
 var chord_text = ['Minor Triad',            //  0
                   'Major Triad',            //  1
@@ -35,7 +48,30 @@ var chord_text = ['Minor Triad',            //  0
                   'Locrian Triad',          // 18
                   'Minor Sixth',            // 19
                   'Major Sixth'             // 20
-                ]           
+                ]          
+
+var chord_text_it = ['Triade Minore',           //  0
+                    'Triade Maggiore',         //  1
+                    'Triade Diminuita',        //  2
+                    'Triade Aumentata',        //  3
+                    'Settima Minore',          //  4
+                    'Settima Maggiore',        //  5
+                    'Settima di Dominante',    //  6 
+                    'Semidiminuito',           //  7
+                    'Minore Maggiore 7',       //  8
+                    'Minore Maggiore 7 (b5)',  //  9
+                    'Settima Diminuita',       // 10
+                    'Settima Maggiore (#5)',   // 11
+                    'Settima di Dom (#5)',     // 12
+                    'Settima di Dom (♭5)',     // 13
+                    'Triade Sus2',             // 14
+                    'Triade Sus4',             // 15
+                    'Triade Lidia',            // 16
+                    'Triade Frigia',           // 17
+                    'Triade Locria',           // 18
+                    'Sesta Minore',            // 19
+                    'Sesta Maggiore'           // 20
+                    ]
 
 var chord_codes = ['3 7',                   //  0
                    '4 7',                   //  1
@@ -83,7 +119,33 @@ var scale_text = ['Ionian (Major)',         //  0
                   'H-W diminished',         // 21
                   'W-H diminished',         // 22
                   'Exatonal',               // 23
-                ]           
+                ]  
+
+var scale_text_it = [ 'Ionica (Maggiore)',       //  0
+                      'Dorica',                   //  1
+                      'Frigia',                   //  2
+                      'Lidia',                    //  3
+                      'Misolidia',                //  4
+                      'Eolica (Min Naturale)',    //  5
+                      'Locria',                   //  6 
+                      'Minore Armonica',          //  7
+                      'Locria ♮6',                //  8
+                      'Maggiore Aumentata',       //  9
+                      'Dorica #11',               // 10
+                      'Frigia Dominante',         // 11
+                      'Lidia #2',                 // 12
+                      'Super-Locria bb7',         // 13
+                      'Minore Melodica',          // 14
+                      'Dorica ♭2',                // 15
+                      'Lidia Aumentata',          // 16
+                      'Acustica (Lid Dom)',       // 17
+                      'Eolica Dominante',         // 18
+                      'Eolica ♭5',                // 19
+                      'Alterata',                 // 20
+                      'Diminuita S-T',            // 21
+                      'Diminuita T-S',            // 22
+                      'Esatonale',                // 23
+                      ]
 
 var scale_codes = ['2 4 5 7 9 11',                  //  0
                    '2 3 5 7 9 10',                  //  1
