@@ -917,3 +917,10 @@ label {
 #microphoneStatus{
     margin-top: -10px;
 }
+
+
+.return-button{
+    position: absolute;
+    left: 5%;
+    top: 50%;
+}

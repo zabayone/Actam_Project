@@ -103,19 +103,27 @@ async function syncDaysFromFirebase(userData) {
   console.log("Starting sync from Firebase...");
   
   for (const [date, data] of Object.entries(userData)) {
+      // Ignorar campos que no son días
       if (date === 'password' || date === 'levels' || date === 'scores') continue;
       
-      const localData = formatDateForLocal(data);
-      console.log(`Found new day in Firebase: ${formatDateForLocal(date)}`);
+      const localDate = formatDateForLocal(date);
       
-      try {
-          const newDay = new DayContainer(null);
-          newDay.fromString(localData);
-          day_array.push(newDay);
-          newDay.localStore();
-          console.log(`Day ${date} added to local storage`);
-      } catch (error) {
-          console.error(`Error adding day ${date} to local storage:`, error);
+      // Verificar si el día ya existe en el array local
+      if (!day_array.some(day => day.date === localDate)) {
+          console.log(`Found new day in Firebase: ${localDate}`);
+          
+          try {
+              const newDay = new DayContainer(null, localDate);
+              newDay.fromString(formatDateForLocal(data));
+              //newDay.printArray();
+              //day_array.push(newDay);
+              newDay.localStore();
+              console.log(`Day ${localDate} added to local storage`);
+          } catch (error) {
+              console.error(`Error adding day ${localDate} to local storage:`, error);
+          }
+      } else {
+          console.log(`Day ${localDate} already in local storage`);
       }
   }
   
@@ -125,36 +133,34 @@ async function syncDaysFromFirebase(userData) {
 function clearLocalDays() {
   console.log("Starting complete cleanup of day data...");
   
-  // Primero, encontrar el número más alto de día
-  let maxDay = -1;
-  for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith('Day-')) {
-          const dayNum = parseInt(key.split('-')[1]);
-          maxDay = Math.max(maxDay, dayNum);
-      }
-  }
+  // Limpiar entradas Day-X
+  Object.keys(localStorage)
+      .filter(key => key.startsWith('Day-'))
+      .forEach(key => {
+          localStorage.removeItem(key);
+      });
 
-  // Eliminar sistemáticamente todos los datos de cada día
-  for (let day = 0; day <= maxDay; day++) {
-      // Eliminar la entrada principal del día
-      localStorage.removeItem(`Day-${day}`);
-      console.log(`Removed Day-${day}`);
+  // Limpiar datos asociados (int, arr, scal, voc)
+  Object.keys(localStorage)
+      .filter(key => key.includes('/int/') || 
+                    key.includes('/arr/') || 
+                    key.includes('/scal/') || 
+                    key.includes('/voc/'))
+      .forEach(key => {
+          localStorage.removeItem(key);
+      });
 
-      // Eliminar todos los datos asociados
-      for (let x = 0; x < 3; x++) {
-          for (let y = 0; y < 12; y++) { // Asumiendo máximo 12 entradas por tipo
-              localStorage.removeItem(`${day}/int/${x}-${y}`);
-              localStorage.removeItem(`${day}/arr/${x}-${y}`);
-              localStorage.removeItem(`${day}/scal/${x}-${y}`);
-              localStorage.removeItem(`${day}/voc/${x}-${y}`);
-          }
-      }
-      console.log(`Removed all data for day ${day}`);
-  }
+  // Limpiar Container entries
+  Object.keys(localStorage)
+      .filter(key => key.startsWith('Container-'))
+      .forEach(key => {
+          localStorage.removeItem(key);
+      });
 
   // Limpiar el array en memoria
   day_array = [];
+  console.log("Memory array cleared");
+  
   console.log("Complete cleanup finished");
 }
 

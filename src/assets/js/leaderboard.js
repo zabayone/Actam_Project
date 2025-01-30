@@ -1,7 +1,8 @@
 // Importa las funciones necesarias de Firebase
 import { collection, query, orderBy, limit, getDocs, where, doc, getDoc, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js';
 import { db } from './ConnectDB.js';  // Conexión a la base de datos, si ya tienes configurada la conexión.
-const currentUser = localStorage.getItem('currentUser');
+const currentUser = localStorage.getItem('username');
+console.log(currentUser)
 
 // Crea una referencia a la colección 'Usernames'
 const leaderboardCollection = collection(db, "Leaderboard");
@@ -19,15 +20,16 @@ document.addEventListener('gameEnd', (event) => {
 });
 
 function createLeaderboardStructure() {
-    const container = document.createElement('div');
-    container.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 80%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        z-index: 1000;
-    `;
+        const container = document.createElement('div');
+        container.id = 'leaderboard-container'; // Añadir ID
+        container.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            z-index: 1000;
+        `;
     
     container.innerHTML = `
         <table id="leaderboard-table" border="1" style="width: 100%; border-collapse: collapse;">
