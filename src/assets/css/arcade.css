@@ -74,8 +74,10 @@ arcade-body {
     background-color: #008080; /* Teal */
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    width: 115px;
+    border-radius: 20px;
+    margin-inline: 3px;
 }
 
 .modal button:hover {

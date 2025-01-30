@@ -442,6 +442,10 @@ document.addEventListener('click', () => {
     }
 });
 
+function goHome() {
+    document.location.href = '/'
+}
+
 
 
 const constraints = {audio: true, video: false};
@@ -459,5 +463,4 @@ let rafID = null;
 const MAX_LENGTH = 20;
 let last_values = new Array(MAX_LENGTH);
 let index=0;
-
 
