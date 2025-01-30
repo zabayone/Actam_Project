@@ -22,22 +22,12 @@ document.addEventListener('gameEnd', (event) => {
 function createLeaderboardStructure() {
         const container = document.createElement('div');
         container.id = 'leaderboard-container'; // Añadir ID
-        container.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 80%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            z-index: 1000;
-        `;
     
     container.innerHTML = `
-        <table id="leaderboard-table" border="1" style="width: 100%; border-collapse: collapse;">
+        <table id="leaderboard-table" border="1">
             <thead>
                 <tr>
-                    <th style="padding: 10px;">Posición</th>
-                    <th style="padding: 10px;">Usuario</th>
-                    <th style="padding: 10px;">Puntuación</th>
+                    Leaderboard
                 </tr>
             </thead>
             <tbody>
@@ -73,7 +63,7 @@ async function renderLeaderboard() {
         topScores.forEach((entry, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${index + 1}</td>
+            <td> <div class="position">${index + 1}</div> </td>
             <td>${entry.username}</td>
             <td>${entry.score}</td>
         `;

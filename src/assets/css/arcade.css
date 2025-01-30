@@ -62,7 +62,7 @@ arcade-body {
 
 #gameOverModal{
     height: 180px;
-    top: 45%;
+    top: 80%;
 }
 
 .modal.active {
