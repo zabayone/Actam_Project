@@ -377,10 +377,10 @@ async function getBars(category) {
                     }
                     let name;
                         if (language === 'it'){
-                            name = interval_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                            name = interval_text_it[key] + ', ' + tp 
                         }
                         else {
-                            name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                            name = interval_text[key] + ', ' + tp 
                         }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
@@ -426,10 +426,10 @@ async function getBars(category) {
                     }
                     let name; 
                         if (language === 'it'){
-                            name = chord_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                            name = chord_text_it[key] + ', ' + tp 
                         }
                         else{
-                            name = chord_text[parseInt(keys[key_i])] + ', ' + tp 
+                            name = chord_text[key] + ', ' + tp 
                         }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
@@ -475,10 +475,10 @@ async function getBars(category) {
                         }
                         let name;
                         if (language === 'it'){
-                            name = scale_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                            name = scale_text_it[key] + ', ' + tp 
                         }
                         else {
-                            name = scale_text[parseInt(keys[key_i])] + ', ' + tp 
+                            name = scale_text[key] + ', ' + tp 
                         }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
@@ -521,10 +521,10 @@ async function getBars(category) {
                     }
                     let name;
                     if (language === 'it'){
-                        name = interval_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        name = interval_text_it[key] + ', ' + tp 
                     }
                     else {
-                        name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        name = interval_text[key] + ', ' + tp 
                     }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
