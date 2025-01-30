@@ -136,7 +136,6 @@ async function showCategory(category) {
         }
     }
     let bars = await getBars(category)
-    //dimanic content for the bar, the percentage and the type are hardcoded for now, it should be something like ${percentage} and ${type}
     const dynamicContent = `<p>${ dyn_txt || 'No results available.'}</p>` + bars;
 
     resultsContent.innerHTML = dynamicContent;
@@ -166,7 +165,7 @@ async function getBars(category) {
         console.log(types)
         switch (categ) {
             case 0:
-               for (let key_i = 0; key_i < keys.length; key_i++) {
+                for (let key_i = 0; key_i < keys.length; key_i++) {
                     for await (const type of types) {
                         let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
                         if (pair[1] == 0) continue;
@@ -314,16 +313,22 @@ async function getBars(category) {
                         let tp;
                         switch (type) {
                             case 0:
-                            tp = 'ascending'
-                            break;
+                                tp = language === 'it' ? 'ascendente' : 'ascending';
+                                break;
                             case 1:
-                            tp = 'descending'
-                            break;
+                                tp = language === 'it' ? 'discendente' : 'descending';
+                                break;
                             default:
                             tp = "bosh"
                             break;
                         }
-                        let name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        let name;
+                        if (language === 'it'){
+                            name = interval_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else {
+                            name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                         out +=  `<div class="exerciseRow">
                                      <p class="exerciseType">${name}</p>
                                      <div class="bars">
@@ -370,7 +375,13 @@ async function getBars(category) {
                             tp = "bosh";
                             break;
                     }
-                    let name = interval_text[key] + ', ' + tp 
+                    let name;
+                        if (language === 'it'){
+                            name = interval_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else {
+                            name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -413,7 +424,13 @@ async function getBars(category) {
                             tp = "bosh";
                             break;
                     }
-                    let name = chord_text[key] + ', ' + tp 
+                    let name; 
+                        if (language === 'it'){
+                            name = chord_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else{
+                            name = chord_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -456,7 +473,13 @@ async function getBars(category) {
                                 tp = "bosh";
                                 break;
                         }
-                    let name = scale_text[key] + ', ' + tp 
+                        let name;
+                        if (language === 'it'){
+                            name = scale_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                        }
+                        else {
+                            name = scale_text[parseInt(keys[key_i])] + ', ' + tp 
+                        }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
@@ -487,16 +510,22 @@ async function getBars(category) {
                     let tp;
                     switch (type) {
                         case 0:
-                        tp = 'ascending'
-                        break;
+                            tp = language === 'it' ? 'ascendente' : 'ascending';
+                            break;
                         case 1:
-                        tp = 'descending'
-                        break;
+                            tp = language === 'it' ? 'discendente' : 'descending';
+                            break;
                         default:
                         tp = "bosh"
                         break;
                     }
-                    let name = interval_text[key] + ', ' + tp 
+                    let name;
+                    if (language === 'it'){
+                        name = interval_text_it[parseInt(keys[key_i])] + ', ' + tp 
+                    }
+                    else {
+                        name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                    }
                     out +=  `<div class="exerciseRow">
                                  <p class="exerciseType">${name}</p>
                                  <div class="bars">
