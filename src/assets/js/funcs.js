@@ -275,7 +275,7 @@ else{if(cat==1){lvl=localStorage.getItem("lvlChord")}
             rowsHTML += `<div class="level-row" >
                         ${currentRow.map(level => 
                             `<button class="level-btn ${(lvl*4 < (level.level)) ? 'locked' : ''} ${level.params[2] === 1 ? 'test-btn' : ''}" data-level="${level.level}" 
-                            onclick="selectLevel(${level.level},${JSON.stringify(level.params[0])}, ${JSON.stringify(level.params[1])}, ${level.params[2]})">
+                            onclick="selectLevel(${level.level},${JSON.stringify(level.params[0])}, ${JSON.stringify(level.params[1])}, ${level.params[2]})" data-translate="level">
                             Level ${level.level}</button>`
                         ).join('')}
                         </div>`;
@@ -297,7 +297,7 @@ else{if(cat==1){lvl=localStorage.getItem("lvlChord")}
         rowsHTML += `<div class="level-row">
                     ${currentRow.map(level => 
                         `<button class="level-btn" data-level="${level.level}" 
-                        onclick="selectLevel(${JSON.stringify(level.params[0])}, ${level.params[1]}, ${level.params[2]})">
+                        onclick="selectLevel(${JSON.stringify(level.params[0])}, ${level.params[1]}, ${level.params[2]})" data-translate="level">
                         Level ${level.level}</button>`
                     ).join('')}
                     </div>`;

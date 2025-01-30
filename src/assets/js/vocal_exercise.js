@@ -167,14 +167,16 @@ async function getPitch(){
         }
         if (index2 == TOTAL_SECS-1){
             main();
+            checked = 1
             index2 = 0;
             for await (const val of check_values) {
                 check_avg = check_avg + val;
             }
             check_avg = check_avg/TOTAL_SECS;
+            root_pitch = await getPitch(root)
             console.log(check_avg);
+            console.log("root = " + root + " " + root_pitch);
             let midiNote = noteFromPitch(check_avg);
-            let rootfreq = await midiToFreq(root)
 
             if (midiNote == root){
                 let detune = centsOffFromPitch(check_avg, midiNote);
@@ -297,6 +299,7 @@ const sampler = new Tone.Sampler({
 
 
 async function next(){ // function that creates the next
+    console.log("in next")
     if (rep_index < reps){
         if (checked) {
             checked = 0
@@ -304,7 +307,7 @@ async function next(){ // function that creates the next
             let idx = Math.floor(Math.random() * values.length)
             curr_val = values[idx]
             curr_idx = idx
-            root = Math.floor(Math.random() * 32) + 25
+            root = Math.floor(Math.random() * 20) + 48
             let ones = []
             for (let i = 0; i < types.length; i++) {
                 if(parseInt(types[i])){
@@ -335,9 +338,14 @@ async function next(){ // function that creates the next
 
         }
     } else {
-        //exec at the end;
-        score_counter.textContent = `Score: ${correct} / ${reps}`;
+        seeResults();
     }
+}
+
+function seeResults(){
+    storage.localStore()
+    day.addExercise(storage)
+    document.location.href = '/ear-training/results.html'
 }
 
 async function init () {

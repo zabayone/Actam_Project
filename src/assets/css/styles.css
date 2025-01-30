@@ -571,13 +571,14 @@ th {
     top: 15%;
     max-height: 73%;
     overflow:scroll;
+    white-space: nowrap;
 }
 
 .day {
     display: flex;
-    justify-content: space-evenly; /* Space between date and events/details */
+    justify-content: space-between;
     align-items: center;
-    padding: 5px;
+    padding: 8px;
     width: 210px;
     height: 40px;
     border: 1.5px dotted #008080;
@@ -917,7 +918,6 @@ label {
 #microphoneStatus{
     margin-top: -10px;
 }
-
 
 .return-button{
     position: absolute;

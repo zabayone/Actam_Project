@@ -26,7 +26,6 @@ class DayContainer {
 
             let str = "Day-"+this.idx.toString()
             let item = localStorage.getItem(str)
-
             while(item != null){
                 if(item === this.date){
                     found = true
@@ -206,11 +205,8 @@ class DayContainer {
     }
 
     fromString(str){
-
         const f_div = str.split('/');
-        
         this.date = `${f_div[0]}/${f_div[1]}/${f_div[2]}`;
-
         let s_div = f_div[3].split('_');
 
         for (let i = 0; i < s_div.length; i++) {
