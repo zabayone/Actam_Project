@@ -34,7 +34,7 @@ async function showCategory(category) {
         for (let i = 0; i < exe_array.length; i++) {
             var categ = exe_array[i].getCategory()
             var keys = exe_array[i].getKeys()
-            var str1 = 'Exercise ' + parseInt(i+1)
+            var str1 = `<span data-translate="exercise">Exercise</span> ${parseInt(i+1)}` /* i modified it to work with the translation */
             var correct = exe_array[i].calculateTotalCorrectResults()
             var perc = parseInt((correct[0]/correct[1]) * 100)
             var str2 = correct[0].toString() + '/' + correct[1].toString() + ' | ' + perc.toString() + '%'

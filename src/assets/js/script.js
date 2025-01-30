@@ -47,10 +47,10 @@ const translations = {
                 heading: "Train Your Scales",
                 description: "Practice scale recognition to sharpen your ear for melodies."
             },
-            sandbox: {
-                title: "Sandbox",
-                heading: "Explore the Sandbox",
-                description: "Experiment freely with various musical elements."
+            vocal: {
+                title: "Vocal Intervals",
+                heading: "Train Your Vocal Intervals",
+                description: "Improve your singing skills by training vocal intervals."
             },
             results: {
                 title: "Results",
@@ -64,6 +64,19 @@ const translations = {
             }
         },
         sandPrompt: "Personalise your Level", 
+        vocal: "Vocal",
+        exercise: "Exercise",
+        customExercise: "Custom Exercise",
+        selectCategory: "Select a category to see results",
+        intervalsResults: "Intervals Results",
+        chordsResults: "Chords Results",
+        scalesResults: "Scales Results",
+        lastExerciseResults: "Last Exercise Results",
+        vocalResults: "Vocal Results",
+        intervalsDay: "Here are the results for intervals for day",
+        chordsDay: "Here are the results for chords for day",
+        scalesDay: "Here are the results for scales for day",
+        vocalDay: "Here are the results for vocal for day",
     },
     it: {
         title: "Progetto Actam",
@@ -112,10 +125,10 @@ const translations = {
                 heading: "Allena le Tue Scale",
                 description: "Esercitati nel riconoscimento delle scale per affinare il tuo orecchio musicale."
             },
-            sandbox: {
-                title: "Sandbox",
-                heading: "Esplora il Sandbox",
-                description: "Sperimenta liberamente con vari elementi musicali."
+            vocal: {
+                title: "Intervalli Vocali",
+                heading: "Allena i Tuoi Intervalli Vocali",
+                description: "Migliora le tue abilità canore allenando gli intervalli vocali."
             },
             results: {
                 title: "Risultati",
@@ -129,6 +142,19 @@ const translations = {
             }
         },
         sandPrompt: "Personaliizza il tuo Livello", 
+        vocal: "Vocale",
+        exercise: "Esercizio",
+        customExercise: "Esercizio Personalizzato",
+        selectCategory: "Seleziona una categoria per vedere i risultati",
+        intervalsResults: "Risultati degli Intervalli",
+        chordsResults: "Risultati degli Accordi",
+        scalesResults: "Risultati delle Scale",
+        lastExerciseResults: "Risultati dell'ultimo esercizio",
+        vocalResults: "Risultati Vocali",
+        intervalsDay: "Ecco i risultati degli intervalli per il giorno",
+        chordsDay: "Ecco i risultati degli accordi per il giorno",
+        scalesDay: "Ecco i risultati delle scale per il giorno",
+        vocalDay: "Ecco i risultati vocali per il giorno",
     }
 };
 
@@ -137,7 +163,7 @@ const categoryMap = {
     "0": "intervals",
     "1": "chords",
     "2": "scales",
-    "3": "sandbox",
+    "3": "vocal",
     "4": "results"
 };
 
