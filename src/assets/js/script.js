@@ -350,3 +350,15 @@ if (slider) {
         });
     });
 }
+
+function returnToLevels() {
+    button = document.getElementById('returnToLevels');
+    if (localStorage.getItem('category') != null) {
+        button.addEventListener('click', () => {
+            window.location.href = "./map.html";});
+    }
+    else {
+        button.style.display = 'none';}
+}
+
+returnToLevels();
