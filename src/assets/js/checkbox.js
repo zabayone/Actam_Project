@@ -154,7 +154,11 @@ async function start(){
     localStorage.setItem('type', type);
     localStorage.setItem('test', 0);
     console.log(key, type);
-    if(!(key == '' | type == '0-0-0')) window.location.href = `/ear-training/level.html`;
+    if(!(key == '' | type == '0-0-0')){ 
+        if(parseInt(localStorage.getItem('category')) == 3){
+            window.location.href = `/vocal-training/level.html`;
+        } else window.location.href = `/ear-training/level.html`;
+    }
 }
 
 function enableStart(){

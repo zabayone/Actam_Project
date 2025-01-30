@@ -84,15 +84,15 @@ async function showCategory(category) {
         intervals: 'Intervals Results',
         chords: 'Chords Results',
         scales: 'Scales Results',
-        vocalIntervals: 'Vocal Intervals Results',
-        exercise: 'Last exercise results',
+        vocal: 'Vocal Exercises Results',
+        exercise: 'Last exercise results'
     };
 
     const titlesIt = {
         intervals: 'Risultati degli intervalli',
         chords: 'Risultati degli accordi',
         scales: 'Risultati delle scale',
-        vocalIntervals: 'Risultati degli intervalli vocali',
+        vocal: 'Risultati degli intervalli vocali',
         exercise: 'Ultimo esercizio',
     }
     if (language == 'it') {
@@ -107,7 +107,7 @@ async function showCategory(category) {
         intervals: 'Here are the results for intervals for day',
         chords: 'Here are the results for chords for day',
         scales: 'Here are the results for scales for day',
-        vocalIntervals: 'Here are the results for vocal intervals for day',
+        vocal: 'Here are the results for vocal exercises for day',
         exercise: 'Here are the results of the Exercise',
     };
 
@@ -115,7 +115,7 @@ async function showCategory(category) {
         intervals: 'Ecco i risultati degli intervalli per il giorno',
         chords: 'Ecco i risultati degli accordi per il giorno',
         scales: 'Ecco i risultati delle scale per il giorno',
-        vocalIntervals: 'Ecco i risultati degli intervalli vocali per il giorno',
+        vocal: 'Ecco i risultati degli intervalli vocali per il giorno',
         exercise: 'Ecco i risultati dell\'esercizio',
     };
     
@@ -300,6 +300,42 @@ async function getBars(category) {
                     }
                } 
             break;
+            case 3:
+                for (let key_i = 0; key_i < keys.length; key_i++) {
+                    for await (const type of types) {
+                        let pair = exe_array[curr_exe].getValuePair(parseInt(type),parseInt(key_i))
+                        if (pair[1] == 0) continue;
+                        var perc = parseInt((pair[0]/pair[1]) * 100)
+                        var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                        let correctBarsHTML = '';
+                        for (let i = 0; i < perc10; i++) {
+                            correctBarsHTML += '<a class="correct_bar"></a>';
+                        }
+                        let tp;
+                        switch (type) {
+                            case 0:
+                            tp = 'ascending'
+                            break;
+                            case 1:
+                            tp = 'descending'
+                            break;
+                            default:
+                            tp = "bosh"
+                            break;
+                        }
+                        let name = interval_text[parseInt(keys[key_i])] + ', ' + tp 
+                        out +=  `<div class="exerciseRow">
+                                     <p class="exerciseType">${name}</p>
+                                     <div class="bars">
+                                         <div class="correct_blocks">
+                                             ${correctBarsHTML}
+                                         </div>
+                                     </div>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                 </div>`
+                    }
+               } 
+            break;
             default:
             break;
         }
@@ -432,14 +468,54 @@ async function getBars(category) {
                              </div>`
                 }
             }
+            if(out == ''){
+                out = 'No scales played in this day.'
+            }
+            break;
+            case 'vocal':
+            exe = 3;
+            for (let key = 0; key < interval_text.length; key++) {
+                for (let type = 0; type < 3; type++) {
+                    let pair = day_array[curr_day].getValuePair(type,key, exe)
+                    if(pair[1] == 0) continue;
+                    var perc = parseInt((pair[0]/pair[1]) * 100)
+                    var perc10 = parseInt((pair[0]/pair[1]) * 10)
+                    let correctBarsHTML = '';
+                    for (let i = 0; i < perc10; i++) {
+                        correctBarsHTML += '<a class="correct_bar"></a>';
+                    }
+                    let tp;
+                    switch (type) {
+                        case 0:
+                        tp = 'ascending'
+                        break;
+                        case 1:
+                        tp = 'descending'
+                        break;
+                        default:
+                        tp = "bosh"
+                        break;
+                    }
+                    let name = interval_text[key] + ', ' + tp 
+                    out +=  `<div class="exerciseRow">
+                                 <p class="exerciseType">${name}</p>
+                                 <div class="bars">
+                                     <div class="correct_blocks">
+                                         ${correctBarsHTML}
+                                     </div>
+                                 </div>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                             </div>`
+                }
+            }
+            if(out == ''){
+                out = 'No vocal exercises played in this day.'
+            }
             break;
             default:
                 out = ""
             break;
         }
-    }
-    if(out == ''){
-        out = 'No scales played in this day.'
     }
     return out  
 }
@@ -472,10 +548,6 @@ async function init(){
     curr_day = i-1
     is_first = 0
     // let day_str = day_array[day_array.length-1].stringify()
-
-    
-
-
 }
 
 init()
