@@ -1,5 +1,6 @@
 :root {
     --gap: 8.33%;
+    overflow: hidden;
 }
 
 arcade-body {
@@ -12,8 +13,6 @@ arcade-body {
     background-color: black;
     min-height: auto;
     line-height: 1;
-    height: 100vh;
-    overflow: hidden;
 }
 
 #gameContainer {
