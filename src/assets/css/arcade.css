@@ -15,6 +15,11 @@ arcade-body {
     line-height: 1;
 }
 
+#startButton{
+    width: auto;
+    margin-top: 35px;
+}
+
 #gameContainer {
     width: 100vw;
     height: calc(100vh - 60px); /* Adjust for header height */
@@ -64,7 +69,7 @@ arcade-body {
 
 
 #gameOverModal{
-    height: 180px;
+    height: 190px;
     top: 80%;
 }
 
@@ -285,11 +290,6 @@ coso{background-color: #d51515;}
     background-color: #009f9f; /* Optional: highlight on hover */
 }
 
-.current-user-row {
-    background-color: #e6f3ff; /* Azul claro */
-    font-weight: bold;
-    border: 2px solid #0066cc;
-}
 
 #scoreContainer{
     display: grid;

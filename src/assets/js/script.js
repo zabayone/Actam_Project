@@ -207,6 +207,12 @@ function setLanguage(language) {
                 element.textContent = translations[language][key];
             }
         }
+    
+    // if (document.getElementById("levels")!= null)
+    // {
+    //     generateLevelButtons();
+    // }
+
     });
 
     // Update dynamic sections (welcome message, category info, etc.)

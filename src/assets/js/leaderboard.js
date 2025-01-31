@@ -76,7 +76,7 @@ async function renderLeaderboard() {
         const userRow = document.createElement('tr');
         userRow.classList.add('current-user-row');
         userRow.innerHTML = `
-            <td>${userIndex + 1}</td>
+            <td><div class="positionUser">${userIndex + 1}</div></div></td>
             <td>${currentUser}</td>
             <td>${userScore.score}</td>
         `;
