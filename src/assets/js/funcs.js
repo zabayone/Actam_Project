@@ -6,7 +6,7 @@ const levelsConfig = {
         { level: 2, params: [[2, 3], [1,0,0], 0] },
         { level: 3, params: [[2, 3], [0,1,0], 0] },
         { level: 4, params: [[2, 3], [1,1,1], 1] },
-        { type: "separator", text: "Seconds", textit: "Seconde" }, 
+        { type: "separator", text: "Seconds", textIt: "Seconde"}, 
         { level: 5, params: [[0, 1], [0,0,1], 0] },
         { level: 6, params: [[0, 1], [1,0,0], 0] },
         { level: 7, params: [[0, 1], [0,1,0], 0] },

@@ -197,7 +197,7 @@ function setLanguage(language) {
         const key = element.getAttribute('data-translate');
         if (translations[language] && translations[language][key]) {
             if (key === 'level') {
-                for (let i = 1; i <= 9; i++) {
+                for (let i = 1; i<=100; i++) {
                     const levelButton = document.querySelector(`[data-level='${i}']`);
                     if (levelButton) {
                         levelButton.textContent = translations[language].level.replace("{number}", i);
@@ -207,12 +207,6 @@ function setLanguage(language) {
                 element.textContent = translations[language][key];
             }
         }
-    
-    // if (document.getElementById("levels")!= null)
-    // {
-    //     generateLevelButtons();
-    // }
-
     });
 
     // Update dynamic sections (welcome message, category info, etc.)
