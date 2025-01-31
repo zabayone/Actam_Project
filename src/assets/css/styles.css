@@ -1,10 +1,15 @@
 /* General Styling */
 body {
     font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
-    background-color: white;
     margin: 0;
     padding: 0;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ECE9E6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .resultsPage{
@@ -89,9 +94,11 @@ body {
 
 /* Mode Selector Styling */
 .mode-selector h2 {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+    font-size: 30px;
+    margin-bottom: 27px;
     margin-top: 20px;
+    color: #006969;
+    font-weight: 400;
 }
 
 /* Mode Buttons */
@@ -108,7 +115,7 @@ body {
 .mode-btn {
     background-color: #008080; /* Teal */
     color: white;
-    border-radius: 20px;
+    border-radius: 30px;
     padding: 20px 0; /* Increase padding to make buttons larger */
     width: 250px; /* Make buttons wider */
     font-size: 18px; /* Make text larger */
@@ -119,13 +126,14 @@ body {
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent; /* Transparent border to prevent resizing */
     height: 100px;
-    line-height: 50px
+    line-height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .ex-btn {
     background-color: #008080;
     color: white;
-    border-radius: 20px;
+    border-radius: 30px;
     width: 300px;
     font-size: 34px;
     font-weight: bold;
@@ -145,6 +153,19 @@ body {
     border: 2px solid #FFA500; /* Orange border on hover */
 }
 
+.ex-btn:hover{
+    background-color: #006666; /* Darker teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFA500; /* Orange border on hover */
+}
+
+#custom-btn:hover{
+    background-color: #006666; /* Darker teal on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFA500; /* Orange border on hover */
+}
+
 /* Mascotte Styling */
 .frame {
     text-align: center;
@@ -155,6 +176,8 @@ body {
     height: 500px;
     display: block;
     margin: 0 auto;
+    -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
+    filter: drop-shadow(1px 5px 5px #606060b9);
 }
 
 /* Authentication Section */
@@ -206,6 +229,7 @@ body {
     background-color: #006666;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #FFA500;
 }
 
 .stack {
