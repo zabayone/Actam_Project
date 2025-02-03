@@ -85,9 +85,9 @@ level_counter.textContent = `${rep_index} / ${reps}`;
 function resumeAudioContext() {
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
-        console.log("Audio Context Resumed"); // Add this line to log resumption
+        //console.log("Audio Context Resumed"); // Add this line to log resumption
     } else {
-        console.log("Audio Context Already Running"); // Check if it’s running already
+        //console.log("Audio Context Already Running"); // Check if it’s running already
     }
 }
 
@@ -116,7 +116,7 @@ async function playNoteFromMIDI(midi_arr, type){
         let now = Tone.now(); // Start scheduling from the current time
         Tone.loaded().then(()=>{
             for(note of note_arr){
-                console.log(note)
+                //console.log(note)
                 sampler.triggerAttackRelease([note], 1, now + i);
                 i = i+1;
             }
@@ -162,21 +162,17 @@ function showResultModal(passed) {
     const resultMessage = document.getElementById('resultMessage');
     const resultsButton = document.getElementById('resultsButton'); // Único botón
 
-    // Mostrar el mensaje de resultado
     if (passed) {
         resultMessage.textContent = `Congratulations, go for the next section! Score: ${score} / ${reps}`;
     } else {
         resultMessage.textContent = `Better luck next time! Score: ${score} / ${reps}`;
     }
 
-    // Mostrar el modal
     modal.style.display = 'flex';
 
-    // Configurar el botón "Ver resultados"
     resultsButton.onclick = () => {
-        // Guardar los resultados antes de redirigir
-        storeData(); // Asegúrate de que esta función guarde los datos necesarios
-        seeResults(); // Redirigir a la página de resultados
+        storeData();
+        seeResults(); 
     };
 }
 
@@ -219,7 +215,7 @@ async function next(){ // function that creates the next
             switch (parseInt(cat)) {
                 case 0:
                     addNotes([root])
-                    console.log("case 0 for cat:")
+                    //console.log("case 0 for cat:")
                     midi_arr.push(root)
                     let adder = parseInt(curr_val) + 1
                     if(chosen_type == 1) adder = -adder;
@@ -251,9 +247,9 @@ async function next(){ // function that creates the next
                 default:
                 break;
             }
-            console.log(midi_arr)
+            //console.log(midi_arr)
             
-            console.log("chosen type: " + chosen_type)
+            //console.log("chosen type: " + chosen_type)
             playNoteFromMIDI(midi_arr, chosen_type);
             rep_index = rep_index+1;
             level_counter.textContent = `${rep_index} / ${reps}`;
@@ -262,7 +258,7 @@ async function next(){ // function that creates the next
         if(parseInt(test) == 1 ){
             let pair = storage.calculateTotalCorrectResults();
             score = pair[0];
-            console.log(score);
+            //console.log(score);
 
             if(score/pair[1]>=0.9){
                 showResultModal(true);
@@ -271,7 +267,7 @@ async function next(){ // function that creates the next
                 if(parseInt(localStorage.getItem('level')) == 4*actualLevel){
                     actualLevel=String(actualLevel+1);
                     localStorage.setItem(lvlInfo[parseInt(cat)],actualLevel);
-                    console.log("Asking to update the database");
+                    //console.log("Asking to update the database");
                     const lvlUpdateEvent = new CustomEvent('lvlUpdate', { 
                         detail: { lvl: actualLevel }
                     });
@@ -296,13 +292,13 @@ function playAgain(){
 
 function checkButton(val){
     if(checked == 0){
-        console.log("checking")
+        //console.log("checking")
         addNotes(midi_arr)
         checked = 1
         if(val == curr_val){
             storage.setCorrect(chosen_type,curr_idx)
             storage.printArray()
-            console.log("correct")
+            //console.log("correct")
             let butt1 = "check_btn_"+val
             document.getElementById(butt1).style.background = '#08c43a'
         } else {
@@ -312,20 +308,20 @@ function checkButton(val){
             let butt2 = "check_btn_"+curr_val
             document.getElementById(butt1).style.background = '#d91507'
             document.getElementById(butt2).style.background = '#08c43a'
-            console.log("wrongs")
+            //console.log("wrongs")
         }
     } else {
         let midi_buff = []
         switch (parseInt(cat)) {
             case 0:
-                console.log("case 0 for cat:")
+                //console.log("case 0 for cat:")
                 midi_buff.push(root)
                 let adder = parseInt(val) + 1
                 if(chosen_type == 1) adder = -adder;
                 midi_buff.push(root + adder)
             break;
             case 1:                    
-                console.log("case 1 for cat:")
+                //console.log("case 1 for cat:")
                 let curr_arr = chord_codes[val].split(' ');
                 midi_buff.push(root)
                 for (const note of curr_arr) {
@@ -344,6 +340,7 @@ function checkButton(val){
 function seeResults(){
     storage.localStore()
     day.addExercise(storage)
+    localStorage.removeItem("level")
     document.location.href = '/ear-training/results.html'
 }
 
@@ -363,7 +360,7 @@ document.addEventListener('keydown', (event) => {
             note_arr.push(midiNote + 12*octave)
             playNoteFromMIDI(note_arr);
         } else {
-            console.log("No MIDI note found for key:", key);
+            //console.log("No MIDI note found for key:", key);
         }
     }
 });
@@ -390,14 +387,14 @@ async function init() { // initialization function
     let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
 
-    console.log(repetitions)
+    //console.log(repetitions)
 
     if(repetitions != undefined){ 
         reps = parseInt(repetitions)
         localStorage.removeItem('reps')
     }
 
-    console.log(cat, key, type, test)
+    //console.log(cat, key, type, test)
 
     level_description.textContent = `Level ${localStorage.getItem("level")}`;
 

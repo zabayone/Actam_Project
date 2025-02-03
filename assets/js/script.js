@@ -266,8 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const level = button.getAttribute('data-level'); // Get level number
             
             // Debugging logs to verify correct behavior
-            console.log('Redirecting to level:', level);
-            console.log('Category:', category);
+            //console.log('Redirecting to level:', level);
+            //console.log('Category:', category);
 
             // Redirect to the level.html with category and level in the query string
             window.location.href = `level.html?category=${category}&level=${level}`;

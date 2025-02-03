@@ -256,11 +256,10 @@ const levelsConfig = {
 
 
 
-// Función para generar los botones con texto explicativo entre las filas
 
 function generateLevelButtons(levelsConfig) {
     let rowsHTML = '';
-    let currentRow = [];  // Contendrá los botones de la fila actual
+    let currentRow = []; 
     let lvl;
     language = localStorage.getItem("language");
     let cat=parseInt(localStorage.getItem("category"));
@@ -273,7 +272,6 @@ else{if(cat==1){lvl=localStorage.getItem("lvlChord")}
     levelsConfig.forEach(item => {
         
         if (item.type === "separator") {
-        // Si es un separador, generar la fila anterior y añadir un título
         if (currentRow.length > 0) {
             rowsHTML += `<div class="level-row" >
                         ${currentRow.map(level => 
@@ -283,23 +281,17 @@ else{if(cat==1){lvl=localStorage.getItem("lvlChord")}
                         ).join('')}
                         </div>`;
         }
-        
-        // Agregar el texto del separador
         if (language==='it'){
             rowsHTML += `<div class="row-title">${item.textIt}</div>`;
         }
         else {
         rowsHTML += `<div class="row-title">${item.text}</div>`;
         }
-        // Reiniciar la fila actual
         currentRow = [];
         } else {
-        // Si es un nivel, lo añadimos a la fila actual
         currentRow.push(item);
         }
     });
-
-    // Añadir la última fila, si existe
     if (currentRow.length > 0) {
         rowsHTML += `<div class="level-row">
                     ${currentRow.map(level => 
@@ -337,7 +329,7 @@ function selectLevel(level,intervals, type, test){
 
 function selectCategory(arg){
     localStorage.setItem("category", arg);
-    console.log(arg)
+    //console.log(arg)
     document.location.href = '/ear-training/map.html'
 }
 
@@ -368,15 +360,20 @@ function getUsedLocalStorageSpace(){
 
 
  function handleGuessTheNoteClick() {
-    // Guardar una variable en el localStorage
     localStorage.setItem('selectedGuessTheNote', 'true');
     localStorage.setItem('selectedGuitar', 'false');
-    console.log("guess")
+    //console.log("guess")
 }
 
 function handleGuitarClick() {
-    // Guardar una variable en el localStorage
     localStorage.setItem('selectedGuessTheNote', 'false');
     localStorage.setItem('selectedGuitar', 'true');
-    console.log("guitar")
+    //console.log("guitar")
+}
+
+function customLevel(){
+    const button=document.getElementById('custom-btn');
+    button.addEventListener('click',()=>{
+        window.location.href = `sandbox.html`;
+    });
 }

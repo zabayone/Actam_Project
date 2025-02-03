@@ -1041,6 +1041,11 @@ label {
     padding-right: 2%;
 }
 
+.tutorial{
+    position:absolute;
+    left:70%;
+    top: 50%;
+    
 .mascotteSmall{
     transform: scale(0.7);
     margin: -7%;
