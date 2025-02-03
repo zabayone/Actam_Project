@@ -164,9 +164,9 @@ function showResultModal(passed) {
 
     // Mostrar el mensaje de resultado
     if (passed) {
-        resultMessage.textContent = `¡Congratulations, go for the next section! Score: ${score} / ${reps}`;
+        resultMessage.textContent = `Congratulations, go for the next section! Score: ${score} / ${reps}`;
     } else {
-        resultMessage.textContent = `¡Better luck next time! Score: ${score} / ${reps}`;
+        resultMessage.textContent = `Better luck next time! Score: ${score} / ${reps}`;
     }
 
     // Mostrar el modal

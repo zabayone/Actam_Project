@@ -381,7 +381,7 @@ body {
     grid-auto-flow: column; /* Forces elements to go sideways */
 
     
-    top: 40%;
+    top: 44%;
     left: 38.7%;
     transform: translateY(-50%);
     justify-content: start;
