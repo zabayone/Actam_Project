@@ -195,7 +195,7 @@ async function getPitch(){
                 check_avg = check_avg + val;
             }
             check_avg = check_avg/TOTAL_SECS;
-            root_pitch = await getPitch(root)
+            root_pitch = 440*(2^((root-69)/12))
             console.log(check_avg);
             console.log("root = " + root + " " + root_pitch);
             let midiNote = noteFromPitch(check_avg);
