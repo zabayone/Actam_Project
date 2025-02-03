@@ -336,17 +336,25 @@ body {
     background-color: #008080;
     color: white;
     border-radius: 15px;
-    padding: 20px;
     width: 150px;
     font-size: 18px;
+    display: flex; /* Makes text positioning easier */
+    flex-direction: column; /* Stacks text into multiple lines */
+    align-items: center; /* Centers text horizontally */
+    justify-content: center; /* Centers text vertically */
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
-    height: 80px;
-    line-height: 20px;
-    }
+    height: 85px;
+    padding: 5px; /* Adds spacing to prevent text cutoff */
+    line-height: 1.2; /* Allows text to breathe */
+    
+    word-wrap: break-word; /* Ensures text breaks inside the button */
+    overflow-wrap: break-word; /* Prevents overflow issues */
+    white-space: normal; /* Ensures text wraps */
+}
+
 
 
 .exercise_button:hover{
@@ -366,14 +374,28 @@ body {
 .ex_btn_container {
     display: grid;
     position: absolute;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+    grid-template-rows: repeat(1, 1fr); /* Forces exactly two rows */
     grid-gap: 15px;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    align-content: center;
-    max-width: calc(6 * 150px + 11 * 15px); /* Ensure no more than 12 columns */
+    grid-auto-flow: column; /* Forces elements to go sideways */
+
+    
+    top: 40%;
+    left: 38.7%;
+    transform: translateY(-50%);
+    justify-content: start;
+    align-content: start;
+    
+    max-height: calc(85px * 2 + 50px); /* Limits to two rows */
+    max-width: 670px; /* Set the max width for scroll */
+    
+    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow-y: hidden; /* Prevents vertical scrolling */
+    white-space: nowrap; /* Ensures items do not break into new lines */
+    
+    scrollbar-gutter: stable; /* Prevents layout shifts */
+    touch-action: pan-x; /* Allows only horizontal scrolling */
+    padding: 15px;
 }
 
 .level-row {
