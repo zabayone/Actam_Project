@@ -372,3 +372,10 @@ function handleGuitarClick() {
     localStorage.setItem('selectedGuitar', 'true');
     console.log("guitar")
 }
+
+function customLevel(){
+    const button=document.getElementById('custom-btn');
+    button.addEventListener('click',()=>{
+        window.location.href = '/ear-training/sandbox.html';
+    });
+}
