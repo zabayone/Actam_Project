@@ -8,7 +8,8 @@ function showMessage(){
     let cat = localStorage.getItem("category");
     let level = localStorage.getItem("level");
     const container =document.getElementById("tutorial");
-    if(level===null){
+    const custom=localStorage.getItem("custom");
+    if(level===null && custom===null){
         switch (parseInt(cat)) {
             case 0:
             case 1:

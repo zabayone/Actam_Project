@@ -375,6 +375,7 @@ function handleGuitarClick() {
 
 function customLevel(){
     const button=document.getElementById('custom-btn');
+    localStorage.setItem("custom",true);
     button.addEventListener('click',()=>{
         window.location.href = '/ear-training/sandbox.html';
     });

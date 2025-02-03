@@ -341,6 +341,7 @@ function seeResults(){
     storage.localStore()
     day.addExercise(storage)
     localStorage.removeItem("level")
+    localStorage.removeItem("custom")
     document.location.href = '/ear-training/results.html'
 }
 
