@@ -37,6 +37,29 @@ const level_description = document.getElementById("levelDescription");
 const level_counter = document.getElementById("levelCounter");
 const prompt = document.getElementById("exercisePrompt");
 
+function showResultModal(passed) {
+    const modal = document.getElementById('resultModal');
+    const resultMessage = document.getElementById('resultMessage');
+    const resultsButton = document.getElementById('resultsButton'); // Único botón
+
+    // Mostrar el mensaje de resultado
+    if (passed) {
+        resultMessage.textContent = `¡Congratulations, go for the next section! Score: ${score} / ${reps}`;
+    } else {
+        resultMessage.textContent = `¡Better luck next time! Score: ${score} / ${reps}`;
+    }
+
+    // Mostrar el modal
+    modal.style.display = 'flex';
+
+    // Configurar el botón "Ver resultados"
+    resultsButton.onclick = () => {
+        // Guardar los resultados antes de redirigir
+         // Asegúrate de que esta función guarde los datos necesarios
+        seeResults(); // Redirigir a la página de resultados
+    };
+}
+
 // https://github.com/cwilso/PitchDetect/blob/main/js/pitchdetect.js
 var MIN_SAMPLES = 0;  // will be initialized when AudioContext is created.
 var GOOD_ENOUGH_CORRELATION = 0.9; // this is the "bar" for how close a correlation needs to be
@@ -110,23 +133,22 @@ function centsOffFromPitch( frequency, note ) {
 	return Math.floor( 1200 * Math.log( frequency / frequencyFromNoteNumber( note ))/Math.log(2) );
 }
 
-function getMicrophoneStream(){
+function getMicrophoneStream() {
     navigator.mediaDevices.getUserMedia(constraints)
-        .then(function(stream){
+        .then(function (stream) {
             currStream = stream;
             console.log('got microphone stream');
             console.log(stream);
 
             audioContext = new AudioContext();
-
             source = audioContext.createMediaStreamSource(stream);
-            
             startPitchTrack();
         })
-        .catch(function(err){
+        .catch(function (err) {
+            console.error("Error accessing microphone:", err);
             alert("Turning on microphone is blocked");
             enableMicBtn.innerHTML = "Enable Microphone";
-            // I think she forgot to turn the button to false
+            enableMicBtn.setAttribute("data-tracking", "false"); // Asegúrate de resetear el estado
         });
 }
 
@@ -338,7 +360,30 @@ async function next(){ // function that creates the next
 
         }
     } else {
-        seeResults();
+        if(parseInt(test) == 1 ){
+            let pair = storage.calculateTotalCorrectResults();
+            score = pair[0];
+            console.log(score);
+
+            if(score/pair[1]>0.9){
+                showResultModal(true);
+                //Add condition to this to only happen if the the level is succed.
+                let actualLevel =parseInt(localStorage.getItem(lvlInfo[parseInt(cat)]))
+                if(parseInt(localStorage.getItem('level')) == 4*actualLevel){
+                    actualLevel=String(actualLevel+1);
+                    localStorage.setItem(lvlInfo[parseInt(cat)],actualLevel);
+                    console.log("Asking to update the database");
+                    const lvlUpdateEvent = new CustomEvent('lvlUpdate', { 
+                        detail: { lvl: actualLevel }
+                    });
+                    document.dispatchEvent(lvlUpdateEvent);
+                }
+            }
+            else{
+                showResultModal(false);
+            }
+        }else{seeResults();
+        }
     }
 }
 

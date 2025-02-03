@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/piano.css">
     <link rel="stylesheet" href="../assets/css/pentagram.css">
+    <link rel="stylesheet" href="../assets/css/leaderboard.css">
     <!-- Firebase and Script -->
     <script src="https://unpkg.com/tone" defer></script>
-    <script src="/assets/js/arcade.js" defer></script>
+    
     <script src="/assets/js/guess.js" defer></script>
     <script src="/assets/js/exercise_vars.js" defer></script>
     
@@ -87,5 +88,8 @@
         <p data-translate="yourScore"> <span id="finalScore">0</span></p>
         <button id="restartButton" data-translate="restart" onclick="restartGame()">Restart</button>
     </div>
+
+    <script type="module" src="../assets/js/leaderboard.js"></script> 
+    <script src="../assets/js/arcade.js" ></script>
 
 </body>
