@@ -843,7 +843,7 @@ label {
 
 #resultsTitle
 {
-    margin-top: 30px;
+    margin-top: 3rem;
 }
 
 #custom-btn{
@@ -1049,7 +1049,7 @@ label {
 
 .mascotteSmall{
     transform: scale(0.7);
-    margin: -7%;
+    margin: -5%;
     -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
     filter: drop-shadow(1px 5px 5px #606060b9);
 }

@@ -1,7 +1,7 @@
 // Translation dictionary for multiple languages
 const translations = {
     en: {
-        title: "Actam Project",
+        title: "Ear Buddy",
         loginBtn: "Login",
         registerBtn: "Register",
         trainPrompt: "What would you like to train today?",
@@ -81,7 +81,7 @@ const translations = {
         reps:"Repetitions:",
     },
     it: {
-        title: "Progetto Actam",
+        title: "Ear Buddy",
         loginBtn: "Accedi",
         registerBtn: "Registrati",
         trainPrompt: "Cosa vuoi allenare oggi?",
