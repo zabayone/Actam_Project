@@ -382,10 +382,18 @@ function saveAndGoHome(){
 }
 
 async function init() {
+    let repetitions = localStorage.getItem('reps')
     cat = localStorage.getItem("category")
     let key = localStorage.getItem("key")
     let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
+
+    console.log(repetitions)
+
+    if(repetitions != undefined){ 
+        reps = parseInt(repetitions)
+        localStorage.removeItem('reps')
+    }
 
     console.log(cat, key, type, test)
 
