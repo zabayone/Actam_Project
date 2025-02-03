@@ -352,18 +352,20 @@ function storeData(){
 }
 // Event listener pair for keyboard keys
 document.addEventListener('keydown', (event) => {
-    resumeAudioContext(); // Resume audio context when a key is pressed
-    const key = event.key.toLowerCase();
-    
-    if (!pressed_keys.includes(key)) {  // Check if key is not already pressed
-        pressed_keys.push(key);
-        const midiNote = keyToMidi[key] || null;
-        if (midiNote) {
-            let note_arr = []
-            note_arr.push(midiNote + 12*octave)
-            playNoteFromMIDI(note_arr);
-        } else {
-            console.log("No MIDI note found for key:", key);
+    if(!test){
+        resumeAudioContext(); // Resume audio context when a key is pressed
+        const key = event.key.toLowerCase();
+        
+        if (!pressed_keys.includes(key)) {  // Check if key is not already pressed
+            pressed_keys.push(key);
+            const midiNote = keyToMidi[key] || null;
+            if (midiNote) {
+                let note_arr = []
+                note_arr.push(midiNote + 12*octave)
+                playNoteFromMIDI(note_arr);
+            } else {
+                console.log("No MIDI note found for key:", key);
+            }
         }
     }
 });
