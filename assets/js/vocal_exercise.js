@@ -174,7 +174,7 @@ function startPitchTrack() {
 async function getPitch() {
     analyser.getFloatTimeDomainData(buffer);
     let frequencyInHz = autoCorrelate(buffer, audioContext.sampleRate);
-    ////console.log(frequencyInHz);
+    console.log(frequencyInHz);
     if (frequencyInHz!=-1){
         zeroCounter=0;
         last_values[index] = frequencyInHz;
@@ -193,19 +193,20 @@ async function getPitch() {
             index2 = 0;
             let off = 0
             for (let i = 0; i < TOTAL_SECS; i++){
-                if(Math.abs(check_values[i] - check_avg/(i - off)) > (check_avg/(i - off))/2){
+                if((Math.abs(check_values[i] - check_avg/(i - off)) > (check_avg/(i - off))/2) || check_values[i] > 1000){
                     off += 1
                 } else {
-                check_avg = check_avg + check_values[i];
+                    check_avg = check_avg + check_values[i];
+                }
             }
-            check_avg = check_avg/TOTAL_SECS;
-            root_pitch = 440*(2^((root-69)/12))
-            //console.log(check_avg);
-            //console.log("root = " + root + " " + root_pitch);
+            check_avg = check_avg/(TOTAL_SECS - off);
+            root_pitch = 440*(2 ** ((root - 69)/12))
+            console.log("avg = " + check_avg);
+            console.log("root = " + root + " " + root_pitch);
             let midiNote = noteFromPitch(check_avg);
 
                 let detune = centsOffFromPitch(check_avg, midiNote);
-                if (detune < 50 || detune > -50) {
+                if (Math.abs(detune) < -50) {
                     storage.setCorrect(chosen_type, curr_idx);
                     correct.innerHTML = 'Correct answer!'
                     correct.style.color = 'green'
