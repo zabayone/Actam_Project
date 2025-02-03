@@ -159,4 +159,34 @@ function clearScoreBalls() {
     });
 }
 
+const littleGuy=document.getElementById('boton');
+let active=false;
+
+
+function showMessage(){
+    let cat = localStorage.getItem("category");
+    let level = localStorage.getItem("level");
+    const container =document.getElementById("tutorial");
+    container.style.display="block"
+    container.innerHTML = `
+    <p>¡Try to guess the given note!</p>
+    <p>You can use the keyboard to get a reference</p> 
+    <p>Once you hit play a note will sound</p> 
+    <p>The next key you press after play is your guess</p> 
+    <p>After guessing you can freely use the keyboard again until you press play</p> 
+`
+
+}
+
+littleGuy.addEventListener('click', () => {
+    // Remove the 'active' class from all elements
+    if(active){
+        document.getElementById("tutorial").innerHTML='';
+        tutorial.style.display='none';
+    }else{
+        showMessage();
+    }
+    active = !active
+});
+
 GenerateScoreBalls();

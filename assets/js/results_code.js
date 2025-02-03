@@ -578,4 +578,33 @@ async function init(){
     is_first = 0
 }
 
+const littleGuy=document.getElementById('boton');
+let active=false;
+
+
+function showMessage(){
+    let cat = localStorage.getItem("category");
+    let level = localStorage.getItem("level");
+    const container =document.getElementById("tutorial");
+    container.style.display="block"
+    container.innerHTML = `
+    <p>Here are your stats</p>
+    <p>On exercise, you can check every exercise you did on your last sesion</p> 
+    <p>On the other windows, you can check your detailed results for each day</p> 
+    <p>On the right, you can select which day do you want to look at</p> 
+`
+
+}
+
+littleGuy.addEventListener('click', () => {
+    // Remove the 'active' class from all elements
+    if(active){
+        document.getElementById("tutorial").innerHTML='';
+        tutorial.style.display='none';
+    }else{
+        showMessage();
+    }
+    active = !active
+});
+
 init()

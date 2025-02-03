@@ -50,7 +50,7 @@ function showMessage(){
                 container.innerHTML = `
                 <p>You can use the keyboard to help you</p> 
                 <p>The keyboard wont be aviable on exams</p> 
-                <p>The piano can be played with your keybard starting in a = C (Do)</p>
+                <p>The piano can be played with your keybard starting in key A that plays C</p>
                 <p>&#9654 Begins the game and also to repeat the first note</p> 
                 <p>&#8634 Repeats all the played notes</p> 
                 <p>&#11208&#11208 Goes to next one</p> 

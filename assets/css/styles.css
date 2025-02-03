@@ -1072,6 +1072,8 @@ label {
     text-align: center;
 }
 
+
+
 .mascotteLevel{
     position: relative;
     left: 50%;
@@ -1103,16 +1105,22 @@ label {
     transform: translateX(-50%);
 }
 
+.in_results{
+    position: absolute;
+    left:3%;
+    top: 40%;
+}
+
 .tutorial{
     background-color: #008080;
     border-radius: 20px;
     padding: 20px;
     position: absolute;
     top: 20%;
-    left: 77%;
     color: whitesmoke;
     display: none;
     max-width: 300px;
     max-height: 190px;
     overflow-y: scroll;
 }
+
