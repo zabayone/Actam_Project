@@ -20,6 +20,8 @@ let test;
 var midi_arr = [];
 let chosen_type = -1;
 let root = 0;
+let curr_idx
+let curr_val
 var rep_index = 0;
 var reps = 10;
 var checked = 1;
@@ -176,7 +178,7 @@ function startPitchTrack() {
 async function getPitch() {
     analyser.getFloatTimeDomainData(buffer);
     let frequencyInHz = autoCorrelate(buffer, audioContext.sampleRate);
-    //console.log(frequencyInHz);
+    console.log(frequencyInHz);
     if (frequencyInHz != -1) {
         zeroCounter = 0;
         last_values[index] = frequencyInHz;
@@ -188,22 +190,27 @@ async function getPitch() {
         for (let i = 0; i < MAX_LENGTH; i++) {
             averageFreq = averageFreq + frequencyInHz;
         }
+        averageFreq = averageFreq / MAX_LENGTH;
         if (index2 == TOTAL_SECS - 1) {
             main();
             checked = 1
             index2 = 0;
-            for await (const val of check_values) {
-                check_avg = check_avg + val;
+            let off = 0
+            for (let i = 0; i < TOTAL_SECS; i++){
+                if(Math.abs(check_values[i] - check_avg/(i - off)) > (check_avg/(i - off))/2){
+                    off += 1
+                } else {
+                check_avg = check_avg + check_values[i];
             }
-            check_avg = check_avg / TOTAL_SECS;
-            root_pitch = 440 * (2 ^ ((root - 69) / 12))
+            }
+            check_avg = check_avg / (TOTAL_SECS-off);
+            root_pitch = 440*(2 ** ((root - 69) / 12))
             console.log(check_avg);
             console.log("root = " + root + " " + root_pitch);
             let midiNote = noteFromPitch(check_avg);
 
-            if (midiNote == root) {
                 let detune = centsOffFromPitch(check_avg, midiNote);
-                if (detune < 15 && detune > -15) {
+                if (detune < 50 || detune > -50) {
                     storage.setCorrect(chosen_type, curr_idx);
                     correct.innerHTML = 'Correct answer!'
                 }
@@ -211,15 +218,9 @@ async function getPitch() {
                     storage.setIncorrect(chosen_type, curr_idx);
                     correct.innerHTML = 'Wrong answer!'
                 }
-            }
-            else {
-                storage.setIncorrect(chosen_type, curr_idx);
-                correct.innerHTML = 'Wrong answer!'
-            }
 
         }
         index2 = (index2 + 1)
-        averageFreq = averageFreq / MAX_LENGTH;
         //We could make it faster only substracting the las value and adding the new one
 
         if (index === 0) {
@@ -254,7 +255,7 @@ async function getPitch() {
 }
 
 function main() {
-    if(!checked){
+    if(checked){} else {
         isTracking = enableMicBtn.getAttribute("data-tracking") === "true";
         enableMicBtn.setAttribute("data-tracking", !isTracking);
 
@@ -405,7 +406,7 @@ async function init() {
     let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
     let repetitions = localStorage.getItem("reps")
-    correct = document.getElementById("errorContaier")
+    correct = document.getElementById("correctPrompt")
 
     if(repetitions != undefined) {
         reps = parseInt(repetitions)
