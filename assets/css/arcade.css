@@ -89,7 +89,9 @@ arcade-body {
 }
 
 .modal button:hover {
-    background-color: #005f5f;
+    background-color: #FFA500; /* Secondary (Orange) */
+    color: white;
+    border: 2px solid #FFA500;
 }
 
 .overlay {
@@ -297,8 +299,13 @@ coso{background-color: #d51515;}
     text-align: center;
     justify-items: center;
     justify-content: center;
-    position: relative;
+    position: absolute;
     margin-top: 15%;
+    margin-bottom: 15%;
+    top: 20%;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .scoreBall{
