@@ -100,6 +100,8 @@ async function midiToNote(midi){
     return note
 }
 
+// that everything works
+
 async function playNoteFromMIDI(midi_arr, type){
     let note_arr = []
     i = 0;
