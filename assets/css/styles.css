@@ -843,7 +843,7 @@ label {
 
 #resultsTitle
 {
-    margin-top: 5%;
+    margin-top: 30px;
 }
 
 #custom-btn{
@@ -1050,4 +1050,5 @@ label {
 
 .exercisePrompt{
     margin-bottom: 5%;
+    margin-top: 2%;
 }
