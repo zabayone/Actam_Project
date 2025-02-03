@@ -135,17 +135,17 @@ body {
     background-color: #008080;
     color: white;
     border-radius: 30px;
-    width: 305px;
-    font-size: 33px;
+    width: 250px;
+    font-size: 25px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
-    height: 200px;
-    line-height: 187px;
-    }
+    height: 100px;
+    line-height: 85px;
+}
     
 .mode-btn:hover {
     background-color: #006666; /* Darker teal on hover */
@@ -179,6 +179,7 @@ body {
     margin: 0 auto;
     -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
     filter: drop-shadow(1px 5px 5px #606060b9);
+    margin-bottom: -3%;
 }
 
 /* Authentication Section */
@@ -237,7 +238,7 @@ body {
     display: inline-grid;
     text-align: center;
     grid-template-columns: repeat(2,200px);
-    gap: 30px 130px;
+    gap: 15px 65px;
     justify-items: center;
     align-items: center;
     justify-content: center;
@@ -1038,4 +1039,11 @@ label {
     width: 25%;
     padding-left: 5%;
     padding-right: 2%;
+}
+
+.mascotteSmall{
+    transform: scale(0.7);
+    margin: -7%;
+    -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
+    filter: drop-shadow(1px 5px 5px #606060b9);
 }
