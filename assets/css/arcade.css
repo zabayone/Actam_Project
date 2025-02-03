@@ -320,3 +320,8 @@ coso{background-color: #d51515;}
     justify-content: center;
     margin: 10px;
 }
+
+#levelCounter{
+    top: 20px;
+    position: relative;
+}

@@ -31,6 +31,12 @@ document.addEventListener('gameEnd', (event) => {
 });
 
 function createLeaderboardStructure() {
+    const Keyboard = document.getElementById("keyboard");
+
+    if (Keyboard != 'null'){
+        Keyboard.style.display = "none";
+    }
+    
         const container = document.createElement('div');
         container.id = 'leaderboard-container'; // Añadir ID
     
@@ -64,7 +70,7 @@ async function getLeaderboardData() {
     // Mostrar la tabla con las puntuaciones
 async function renderLeaderboard() {
     const leaderboardTableBody = document.querySelector('#leaderboard-table tbody');
-    
+
     try {
         const allScores = await getLeaderboardData(); // Obtener todos los datos una vez
         const topScores = allScores.slice(0, numberShown); // Filtrar las N primeras puntuaciones
