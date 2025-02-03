@@ -77,7 +77,7 @@ const translations = {
         chordsDay: "Here are the results for chords for day",
         scalesDay: "Here are the results for scales for day",
         vocalDay: "Here are the results for vocal for day",
-        returnToLevels: "Return to Levels"
+        returnToLevels: "Return to Levels ↺"
     },
     it: {
         title: "Progetto Actam",
@@ -156,7 +156,7 @@ const translations = {
         chordsDay: "Ecco i risultati degli accordi per il giorno",
         scalesDay: "Ecco i risultati delle scale per il giorno",
         vocalDay: "Ecco i risultati vocali per il giorno",
-        returnToLevels: "Ritorna ai Livelli"
+        returnToLevels: "Ritorna ai Livelli ↺"
     }
 };
 

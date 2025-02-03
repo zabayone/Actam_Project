@@ -519,6 +519,7 @@ th {
     text-align: center;
 }
 
+
 .bars {
     display: flex;
     gap: 10px; /* Space between correct and total block groups */
@@ -748,8 +749,9 @@ label {
 #resultsContent{
     width: auto;
     margin-top: 30%;
-    margin-bottom: 3%; /*to be adapted once the actual function is implemented*/
-
+    margin-bottom: 3%;
+    max-height: 480px;
+    overflow: scroll;
 }
 
 .exerciseRow {
@@ -822,7 +824,7 @@ label {
 }
 
 #custom-btn{
-    position: sticky;
+    position: relative;
     background-color: #008080; /* Teal */
     color: white;
     border-radius: 20px;
@@ -944,13 +946,6 @@ label {
 #microphoneStatus{
     margin-top: -10px;
 }
-
-.return-button{
-    position: absolute;
-    left: 5%;
-    top: 15%;
-}
-
 
 /* Estilos para el modal */
 .modal {
