@@ -48,6 +48,12 @@ async function playRandomNote(){ // function that creates the next
     } else {
         //exec at the end
         showGameOverModal();
+        
+        console.log("Enviando evento gameEnd...");
+        const gameEndEvent = new CustomEvent('gameEnd', { 
+            detail: { score: correct }
+        });
+        document.dispatchEvent(gameEndEvent);
         score_counter.textContent = `Score: ${correct} / ${reps}`;
     }
 }
@@ -129,6 +135,10 @@ function restartGame() {
     correct = 0;
     rep_index = 0;
     level_counter.textContent = `${rep_index} / ${reps}`;
+    const leaderboard = document.getElementById('leaderboard-container');
+    if (leaderboard) {
+        leaderboard.remove();
+    }
     hideGameOverModal();
     clearScoreBalls();
     GenerateScoreBalls();

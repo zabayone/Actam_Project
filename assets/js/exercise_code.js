@@ -9,7 +9,7 @@ var is_test = 0
 var root = 0            // MIDI of the root note
 var values; // array of the indexes of the active exercises 
 var types; // array of the indexes of the active exercises 
-var reps = 3
+var reps = 10
 var rep_index = 0;
 var checked = 1;
 var midi_arr = [];
@@ -24,7 +24,7 @@ var pressed_keys = [];  // Array used to store the pressed keys in order to avoi
 var octave = 0  ;        // Octave shift for the keyboard
 
 let num_stored = 0;
-
+let score=0;
 
 
 // Volume settings
@@ -155,6 +155,29 @@ function adaptOctave(val){
     return val + 12*octave
 }
 
+function showResultModal(passed) {
+    const modal = document.getElementById('resultModal');
+    const resultMessage = document.getElementById('resultMessage');
+    const resultsButton = document.getElementById('resultsButton'); // Único botón
+
+    // Mostrar el mensaje de resultado
+    if (passed) {
+        resultMessage.textContent = `¡Congratulations, go for the next section! Score: ${score} / ${reps}`;
+    } else {
+        resultMessage.textContent = `¡Better luck next time! Score: ${score} / ${reps}`;
+    }
+
+    // Mostrar el modal
+    modal.style.display = 'flex';
+
+    // Configurar el botón "Ver resultados"
+    resultsButton.onclick = () => {
+        // Guardar los resultados antes de redirigir
+        storeData(); // Asegúrate de que esta función guarde los datos necesarios
+        seeResults(); // Redirigir a la página de resultados
+    };
+}
+
 function hideKeyboard(){ // function to hide the keyboard
     is_keyboard = !is_keyboard;
     if(is_keyboard){
@@ -236,22 +259,25 @@ async function next(){ // function that creates the next
     } else {
         if(parseInt(test) == 1 ){
             let pair = storage.calculateTotalCorrectResults();
+            score = pair[0];
+            console.log(score);
 
-            if(pair[0]/pair[1]<0.9){
-                console.log(pair[0]/pair[1]);
+            if(score/pair[1]>0.9){
+                showResultModal(true);
+                //Add condition to this to only happen if the the level is succed.
+                let actualLevel =parseInt(localStorage.getItem(lvlInfo[parseInt(cat)]))
+                if(parseInt(localStorage.getItem('level')) == 4*actualLevel){
+                    actualLevel=String(actualLevel+1);
+                    localStorage.setItem(lvlInfo[parseInt(cat)],actualLevel);
+                    console.log("Asking to update the database");
+                    const lvlUpdateEvent = new CustomEvent('lvlUpdate', { 
+                        detail: { lvl: actualLevel }
+                    });
+                    document.dispatchEvent(lvlUpdateEvent);
+                }
             }
-
-            //Add condition to this to only happen if the the level is succed.
-            let actualLevel =parseInt(localStorage.getItem(lvlInfo[parseInt(cat)]))
-            if(parseInt(localStorage.getItem('level')) == 4*actualLevel){
-                actualLevel=String(actualLevel+1);
-                localStorage.setItem(lvlInfo[parseInt(cat)],actualLevel);
-                console.log("Asking to update the database");
-                const lvlUpdateEvent = new CustomEvent('lvlUpdate', { 
-                    detail: { lvl: actualLevel }
-                });
-                document.dispatchEvent(lvlUpdateEvent);
-
+            else{
+                showResultModal(false);
             }
         } else {seeResults()}
     }

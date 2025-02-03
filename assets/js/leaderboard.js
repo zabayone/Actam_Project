@@ -4,12 +4,23 @@ import { db } from './ConnectDB.js';  // Conexión a la base de datos, si ya tie
 const currentUser = localStorage.getItem('username');
 console.log(currentUser)
 
-// Crea una referencia a la colección 'Usernames'
-const leaderboardCollection = collection(db, "Leaderboard");
+let leaderboardCollection
+
+if (localStorage.getItem('selectedGuessTheNote') === 'true') {
+    console.log("El usuario eligió 'Guess the Note'");
+    leaderboardCollection = collection(db, "GuessNote");
+}
+else if (localStorage.getItem('selectedGuitar') === 'true') {
+    console.log("El usuario eligió 'FlappyGuitar'");
+    leaderboardCollection = collection(db, "Leaderboard");
+}
+//to avoid the program thinking it's not ddeclared. No actual use
+
+//const leaderboardCollection = collection(db, "Leaderboard");
 
 const numberShown = 5;
 
-
+console.log("Listener para 'gameEnd' registrado.");
 document.addEventListener('gameEnd', (event) => {
     console.log("GameEnd recibido en leaderboard!", event.detail);
     // Aquí ya puedes llamar a tus funciones
@@ -45,6 +56,7 @@ async function getLeaderboardData() {
     const scores = [];
     querySnapshot.forEach((doc) => {
         scores.push({ username: doc.data().username, score: doc.data().score });
+        const data = doc.data();
     });
     return scores;
     }

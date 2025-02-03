@@ -365,3 +365,18 @@ function getUsedLocalStorageSpace(){
     return allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
 };
  // Update the description
+
+
+ function handleGuessTheNoteClick() {
+    // Guardar una variable en el localStorage
+    localStorage.setItem('selectedGuessTheNote', 'true');
+    localStorage.setItem('selectedGuitar', 'false');
+    console.log("guess")
+}
+
+function handleGuitarClick() {
+    // Guardar una variable en el localStorage
+    localStorage.setItem('selectedGuessTheNote', 'false');
+    localStorage.setItem('selectedGuitar', 'true');
+    console.log("guitar")
+}
