@@ -49,7 +49,7 @@ async function playRandomNote(){ // function that creates the next
         //exec at the end
         showGameOverModal();
         
-        console.log("Enviando evento gameEnd...");
+        //console.log("Enviando evento gameEnd...");
         const gameEndEvent = new CustomEvent('gameEnd', { 
             detail: { score: correct }
         });
@@ -70,13 +70,13 @@ async function checkAndPlay(midi_arr){
         });
     } else {
         if((midi_arr[0])%12 == note){
-            console.log("correct");
+            //console.log("correct");
             correct += 1
             //color the corresponding ball green
             let scoreBall = document.querySelectorAll(".scoreBall")[rep_index - 1];
             scoreBall.style.backgroundColor = "green";
         } else {
-            console.log("incorrect");
+            //console.log("incorrect");
             //color the corresponding ball red
             let scoreBall = document.querySelectorAll(".scoreBall")[rep_index - 1];
             scoreBall.style.backgroundColor = "red";

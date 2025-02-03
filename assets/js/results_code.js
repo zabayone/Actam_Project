@@ -131,7 +131,7 @@ async function showCategory(category) {
         if (category == 'exercise') {
             dyn_txt += ' ' + parseInt(curr_exe + 1).toString() + '.'
         } else {
-            console.log(curr_day)
+            //console.log(curr_day)
             dyn_txt += ' ' + day_array[curr_day].date + '.'
         }
     }
@@ -144,15 +144,15 @@ async function showCategory(category) {
 async function getBars(category) {
     let out = ''
     let language = localStorage.getItem('language');
-    console.log(category)
+    //console.log(category)
     if (category == 'exercise') {
         let keys = exe_array[curr_exe].getKeys()
         let types_arr = exe_array[curr_exe].getTypes()
         let categ = exe_array[curr_exe].getCategory()
         categ = parseInt(categ)
-        console.log(keys)
-        console.log(types_arr)
-        console.log(categ)
+        //console.log(keys)
+        //console.log(types_arr)
+        //console.log(categ)
         let idx = 0;
         let types = []
         for await (const t of types_arr){
@@ -162,7 +162,7 @@ async function getBars(category) {
             }
             idx += 1
         }
-        console.log(types)
+        //console.log(types)
         switch (categ) {
             case 0:
                 for (let key_i = 0; key_i < keys.length; key_i++) {
@@ -566,7 +566,7 @@ async function init(){
     str = "Day-" + i.toString()
     item = localStorage.getItem(str)
     while(item){
-        //console.log(item)
+        ////console.log(item)
         day_array.push(new DayContainer(i))
         let pair = day_array[day_array.length-1].calculateTotalCorrectResults()
         if(pair[1] == 0) day_array.pop()

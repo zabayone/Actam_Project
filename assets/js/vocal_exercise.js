@@ -49,14 +49,10 @@ function showResultModal(passed) {
         resultMessage.textContent = `¡Better luck next time! Score: ${score} / ${reps}`;
     }
 
-    // Mostrar el modal
     modal.style.display = 'flex';
 
-    // Configurar el botón "Ver resultados"
     resultsButton.onclick = () => {
-        // Guardar los resultados antes de redirigir
-         // Asegúrate de que esta función guarde los datos necesarios
-        seeResults(); // Redirigir a la página de resultados
+        seeResults(); 
     };
 }
 
@@ -111,7 +107,7 @@ function autoCorrelate( buf, sampleRate ) {
 		lastCorrelation = correlation;
 	}
 	if (best_correlation > 0.01) {
-		// console.log("f = " + sampleRate/best_offset + "Hz (rms: " + rms + " confidence: " + best_correlation + ")")
+		// //console.log("f = " + sampleRate/best_offset + "Hz (rms: " + rms + " confidence: " + best_correlation + ")")
 		return sampleRate/best_offset;
 	}
 	return -1;
@@ -137,8 +133,8 @@ function getMicrophoneStream() {
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function (stream) {
             currStream = stream;
-            console.log('got microphone stream');
-            console.log(stream);
+            //console.log('got microphone stream');
+            //console.log(stream);
 
             audioContext = new AudioContext();
             source = audioContext.createMediaStreamSource(stream);
@@ -148,14 +144,14 @@ function getMicrophoneStream() {
             console.error("Error accessing microphone:", err);
             alert("Turning on microphone is blocked");
             enableMicBtn.innerHTML = "Enable Microphone";
-            enableMicBtn.setAttribute("data-tracking", "false"); // Asegúrate de resetear el estado
+            enableMicBtn.setAttribute("data-tracking", "false");
         });
 }
 
 function stopMicrophoneStream(){
     if(currStream !== null){
         let tracks = currStream.getTracks();
-        console.log(tracks);
+        //console.log(tracks);
 
         for(let i=0; i<tracks.length;i++){
             tracks[i].stop();
@@ -175,7 +171,7 @@ function startPitchTrack(){
 async function getPitch(){
     analyser.getFloatTimeDomainData(buffer);
     let frequencyInHz = autoCorrelate(buffer, audioContext.sampleRate);
-    //console.log(frequencyInHz);
+    ////console.log(frequencyInHz);
     if (frequencyInHz!=-1){
         zeroCounter=0;
         last_values[index] = frequencyInHz;
@@ -196,8 +192,8 @@ async function getPitch(){
             }
             check_avg = check_avg/TOTAL_SECS;
             root_pitch = 440*(2^((root-69)/12))
-            console.log(check_avg);
-            console.log("root = " + root + " " + root_pitch);
+            //console.log(check_avg);
+            //console.log("root = " + root + " " + root_pitch);
             let midiNote = noteFromPitch(check_avg);
 
             if (midiNote == root){
@@ -321,7 +317,7 @@ const sampler = new Tone.Sampler({
 
 
 async function next(){ // function that creates the next
-    console.log("in next")
+    //console.log("in next")
     if (rep_index < reps){
         if (checked) {
             checked = 0
@@ -354,8 +350,8 @@ async function next(){ // function that creates the next
                 break;
             }
             let string = `<p>Sing the note a ${interval_text[curr_val]} ${direction} from the played note </p><p>continue singing until the mic gets turned off</p>`;
-            console.log(chosen_type);
-            console.log(string);
+            //console.log(chosen_type);
+            //console.log(string);
             prompt.innerHTML = string;
 
         }
@@ -363,7 +359,7 @@ async function next(){ // function that creates the next
         if(parseInt(test) == 1 ){
             let pair = storage.calculateTotalCorrectResults();
             score = pair[0];
-            console.log(score);
+            //console.log(score);
 
             if(score/pair[1]>0.9){
                 showResultModal(true);
@@ -372,7 +368,7 @@ async function next(){ // function that creates the next
                 if(parseInt(localStorage.getItem('level')) == 4*actualLevel){
                     actualLevel=String(actualLevel+1);
                     localStorage.setItem(lvlInfo[parseInt(cat)],actualLevel);
-                    console.log("Asking to update the database");
+                    //console.log("Asking to update the database");
                     const lvlUpdateEvent = new CustomEvent('lvlUpdate', { 
                         detail: { lvl: actualLevel }
                     });
@@ -399,7 +395,7 @@ async function init () {
     let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
 
-    console.log(cat, key, type, test)
+    //console.log(cat, key, type, test)
 
     level_description.textContent = `Level ${localStorage.getItem("level")}`;
     values = key.split('-')
@@ -412,7 +408,7 @@ async function init () {
         key_div.innerHTML = ''
     }
     await next()
-    console.log(root)
+    //console.log(root)
 }
 
 function playAgain(){

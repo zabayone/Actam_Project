@@ -115,7 +115,7 @@ function generateCheckbox(category){
             <div id="intervals" class="selector-content collapsed">
                 <div class="checkbox-grid" id="grid">`
 
-            console.log('error');
+            //console.log('error');
             for (let i = 0; i < interval_text.length; i++){
                 out += `<div><input type="checkbox" id="voc${i}" value="${i}" class="selected" onclick="enableStart()"><label for="voc${i}">${interval_text[i]}</label></div>`
             }
@@ -140,12 +140,6 @@ function toggleSection(id) {
         btn.textContent.replace('▲', '▼');
 }
 
-function customLevel(){
-    const button=document.getElementById('custom-btn');
-    button.addEventListener('click',()=>{
-        window.location.href = `sandbox.html`;
-    });
-}
 
 async function start(){
     let key = getCheckbox();
@@ -153,7 +147,7 @@ async function start(){
     localStorage.setItem('key', key);
     localStorage.setItem('type', type);
     localStorage.setItem('test', 0);
-    console.log(key, type);
+    //console.log(key, type);
     if(!(key == '' | type == '0-0-0')){ 
         if(parseInt(localStorage.getItem('category')) == 3){
             window.location.href = `/vocal-training/level.html`;
