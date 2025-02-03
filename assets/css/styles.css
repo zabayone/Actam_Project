@@ -1045,7 +1045,8 @@ label {
     position:absolute;
     left:70%;
     top: 50%;
-    
+}
+
 .mascotteSmall{
     transform: scale(0.7);
     margin: -7%;
@@ -1053,7 +1054,65 @@ label {
     filter: drop-shadow(1px 5px 5px #606060b9);
 }
 
+.helpMe{
+    position: absolute;
+    left: 70%;
+    top: 40%;
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+
+.helpMeMap{
+    position: absolute;
+    right: -4%;
+    top: 40%;
+    display: block;
+    justify-content: center;
+    text-align: center;
+}
+
+.mascotteLevel{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) scale(0.7);
+    margin: -7%;
+    -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
+    filter: drop-shadow(1px 5px 5px #606060b9);
+}
+
+.mascotteLevel:hover{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) scale(0.73);
+    margin: -7%;
+    -webkit-filter: drop-shadow(1px 6px 6px #4f4f4fbd);
+    filter: drop-shadow(1px 6px 6px #434343b9);
+}
+
 .exercisePrompt{
     margin-bottom: 5%;
     margin-top: 2%;
+}
+
+.help{
+    margin-top: -10%;
+    margin-left: 2%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tutorial{
+    background-color: #008080;
+    border-radius: 20px;
+    padding: 20px;
+    position: absolute;
+    top: 20%;
+    left: 77%;
+    color: whitesmoke;
+    display: none;
+    max-width: 300px;
+    max-height: 190px;
+    overflow-y: scroll;
 }

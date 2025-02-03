@@ -12,6 +12,7 @@ function showMessage(){
         switch (parseInt(cat)) {
             case 0:
             case 1:
+                container.style.display="block"
                 container.innerHTML = `
                 <p>On each section, first level is unison,</p> 
                 <p>Second level is ascendent</p> 
@@ -23,6 +24,7 @@ function showMessage(){
 
             case 2:
             case 3:
+                container.style.display="block"
                 container.innerHTML = `
                 <p>On each section, first level is ascendent</p> 
                 <p>Second level is descendent</p> 
@@ -32,6 +34,7 @@ function showMessage(){
                 break;
         
             default:
+                container.style.display="block"
                 container.innerHTML = `
                 <p>If this appear we are fucked</p> 
             `
@@ -43,19 +46,21 @@ function showMessage(){
             case 0:
             case 1:
             case 2:
+                container.style.display="block"
                 container.innerHTML = `
                 <p>You can use the keyboard to help you</p> 
                 <p>The keyboard wont be aviable on exams</p> 
                 <p>The piano can be played with your keybard starting in a = C (Do)</p>
-                <p>&#9654 Beguins the game and also to repeat the first note</p> 
+                <p>&#9654 Begins the game and also to repeat the first note</p> 
                 <p>&#8634 Repeats all the played notes</p> 
                 <p>&#11208&#11208 Goes to next one</p> 
             `
                 break;
             case 3:
+                container.style.display="block"
                 container.innerHTML = `
                 <p>You have all the time you want to figure out the note</p>
-                <p>When you are ready, press the microphone, and it will star recording</p>
+                <p>When you are ready, press the microphone and it will star recording</p>
                 <p>It will turn off eventually, try to be on pitch then!</p>
                 <p>&#9654 Repeats the reference note</p> 
                 <p>&#8634 Also repeats the reference note</p> 
@@ -64,6 +69,7 @@ function showMessage(){
             `
                 break;
             default:
+                container.style.display="block"
                 container.innerHTML = `
                 <p>If this appear we are fucked</p> 
             `
@@ -77,7 +83,8 @@ function showMessage(){
 littleGuy.addEventListener('click', () => {
     // Remove the 'active' class from all elements
     if(active){
-        document.getElementById("tutorial").innerHTML=''
+        document.getElementById("tutorial").innerHTML='';
+        tutorial.style.display='none';
     }else{
         showMessage();
     }
