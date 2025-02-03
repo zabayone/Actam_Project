@@ -843,7 +843,7 @@ label {
 
 #resultsTitle
 {
-    margin-top: 3rem;
+    margin-top: 30px;
 }
 
 #custom-btn{
@@ -1049,7 +1049,7 @@ label {
 
 .mascotteSmall{
     transform: scale(0.7);
-    margin: -5%;
+    margin: -7%;
     -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
     filter: drop-shadow(1px 5px 5px #606060b9);
 }
@@ -1105,18 +1105,13 @@ label {
     transform: translateX(-50%);
 }
 
-.in_results{
-    position: absolute;
-    left:3%;
-    top: 40%;
-}
-
 .tutorial{
     background-color: #008080;
     border-radius: 20px;
     padding: 20px;
     position: absolute;
     top: 20%;
+    left: 77%;
     color: whitesmoke;
     display: none;
     max-width: 300px;
@@ -1124,3 +1119,7 @@ label {
     overflow-y: scroll;
 }
 
+.in_results{
+    position: absolute;
+    left: 3%;
+}
