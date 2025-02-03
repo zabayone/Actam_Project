@@ -29,6 +29,12 @@ document.addEventListener('gameEnd', (event) => {
 });
 
 function createLeaderboardStructure() {
+    const Keyboard = document.getElementById("keyboard");
+
+    if (Keyboard != 'null'){
+        Keyboard.style.display = "none";
+    }
+    
         const container = document.createElement('div');
         container.id = 'leaderboard-container'; 
     
@@ -61,7 +67,7 @@ async function getLeaderboardData() {
     
 async function renderLeaderboard() {
     const leaderboardTableBody = document.querySelector('#leaderboard-table tbody');
-    
+
     try {
         const allScores = await getLeaderboardData(); 
         const topScores = allScores.slice(0, numberShown); 

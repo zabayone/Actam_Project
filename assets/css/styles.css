@@ -135,17 +135,17 @@ body {
     background-color: #008080;
     color: white;
     border-radius: 30px;
-    width: 305px;
-    font-size: 33px;
+    width: 250px;
+    font-size: 25px;
     font-weight: bold;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
-    height: 200px;
-    line-height: 187px;
-    }
+    height: 100px;
+    line-height: 85px;
+}
     
 .mode-btn:hover {
     background-color: #006666; /* Darker teal on hover */
@@ -179,6 +179,7 @@ body {
     margin: 0 auto;
     -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
     filter: drop-shadow(1px 5px 5px #606060b9);
+    margin-bottom: -3%;
 }
 
 /* Authentication Section */
@@ -237,7 +238,7 @@ body {
     display: inline-grid;
     text-align: center;
     grid-template-columns: repeat(2,200px);
-    gap: 30px 130px;
+    gap: 15px 65px;
     justify-items: center;
     align-items: center;
     justify-content: center;
@@ -336,17 +337,25 @@ body {
     background-color: #008080;
     color: white;
     border-radius: 15px;
-    padding: 20px;
     width: 150px;
     font-size: 18px;
+    display: flex; /* Makes text positioning easier */
+    flex-direction: column; /* Stacks text into multiple lines */
+    align-items: center; /* Centers text horizontally */
+    justify-content: center; /* Centers text vertically */
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
-    height: 80px;
-    line-height: 20px;
-    }
+    height: 85px;
+    padding: 5px; /* Adds spacing to prevent text cutoff */
+    line-height: 1.2; /* Allows text to breathe */
+    
+    word-wrap: break-word; /* Ensures text breaks inside the button */
+    overflow-wrap: break-word; /* Prevents overflow issues */
+    white-space: normal; /* Ensures text wraps */
+}
+
 
 
 .exercise_button:hover{
@@ -366,14 +375,28 @@ body {
 .ex_btn_container {
     display: grid;
     position: absolute;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+    grid-template-rows: repeat(1, 1fr); /* Forces exactly two rows */
     grid-gap: 15px;
-    top: 42%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    align-content: center;
-    max-width: calc(6 * 150px + 11 * 15px); /* Ensure no more than 12 columns */
+    grid-auto-flow: column; /* Forces elements to go sideways */
+
+    
+    top: 40%;
+    left: 38.7%;
+    transform: translateY(-50%);
+    justify-content: start;
+    align-content: start;
+    
+    max-height: calc(85px * 2 + 50px); /* Limits to two rows */
+    max-width: 670px; /* Set the max width for scroll */
+    
+    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow-y: hidden; /* Prevents vertical scrolling */
+    white-space: nowrap; /* Ensures items do not break into new lines */
+    
+    scrollbar-gutter: stable; /* Prevents layout shifts */
+    touch-action: pan-x; /* Allows only horizontal scrolling */
+    padding: 15px;
 }
 
 .level-row {
@@ -820,7 +843,7 @@ label {
 
 #resultsTitle
 {
-    margin-top: 5%;
+    margin-top: 30px;
 }
 
 #custom-btn{
@@ -1023,4 +1046,14 @@ label {
     left:70%;
     top: 50%;
     
+.mascotteSmall{
+    transform: scale(0.7);
+    margin: -7%;
+    -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
+    filter: drop-shadow(1px 5px 5px #606060b9);
+}
+
+.exercisePrompt{
+    margin-bottom: 5%;
+    margin-top: 2%;
 }

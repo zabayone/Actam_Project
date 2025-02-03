@@ -100,6 +100,8 @@ async function midiToNote(midi){
     return note
 }
 
+// that everything works
+
 async function playNoteFromMIDI(midi_arr, type){
     let note_arr = []
     i = 0;
@@ -378,11 +380,19 @@ function saveAndGoHome(){
     document.location.href = '/'
 }
 
-async function init() {
+async function init() { // initialization function
+    let repetitions = localStorage.getItem('reps')
     cat = localStorage.getItem("category")
     let key = localStorage.getItem("key")
     let type = localStorage.getItem("type")
     test = localStorage.getItem("test")
+
+    //console.log(repetitions)
+
+    if(repetitions != undefined){ 
+        reps = parseInt(repetitions)
+        localStorage.removeItem('reps')
+    }
 
     //console.log(cat, key, type, test)
 

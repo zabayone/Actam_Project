@@ -46,7 +46,8 @@
             </div>
             <div class="repsSelector">
                 <label for="reps" data-translate="reps"> Repetitions: </label>
-                <input type="number" id="reps"></input>
+                <input type="number" id="reps" value="10" min="1"></input>
+                <div id="error"></div>
             </div>  
             <button class="start_btn" id="startButton" onclick="start()">Start</button>
         </div>

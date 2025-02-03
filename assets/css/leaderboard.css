@@ -16,6 +16,24 @@
     line-height: 40px;
 }
 
+#leaderboard-container-gdn{
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1000;
+    background: white;
+    padding: 15px 0px 0px 0px;
+    color: #008080;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    box-shadow:  4px 8px rgba(0, 0, 0, 0.2);
+    line-height: 40px;
+}
+
 
 #leaderboard-table{
     border: none;

@@ -142,16 +142,24 @@ function toggleSection(id) {
 
 
 async function start(){
+    let reps = document.getElementById('reps').value
     let key = getCheckbox();
     let type = await getType()
-    localStorage.setItem('key', key);
-    localStorage.setItem('type', type);
-    localStorage.setItem('test', 0);
-    //console.log(key, type);
-    if(!(key == '' | type == '0-0-0')){ 
-        if(parseInt(localStorage.getItem('category')) == 3){
-            window.location.href = `/vocal-training/level.html`;
-        } else window.location.href = `/ear-training/level.html`;
+    if(parseInt(reps) > 0){
+        localStorage.setItem('reps', reps)
+        localStorage.setItem('key', key);
+        localStorage.setItem('type', type);
+        localStorage.setItem('test', 0);
+        console.log(key, type);
+        if(!(key == '' | type == '0-0-0')){ 
+            if(parseInt(localStorage.getItem('category')) == 3){
+                window.location.href = `/vocal-training/level.html`;
+            } else window.location.href = `/ear-training/level.html`;
+        }
+    } else {
+        let err = document.getElementById('error')
+        err.innerHTML = "Wrong number of repetitions, numbers lower then 1 are not allowed"
+        err.style.color = '#a80c0c'
     }
 }
 
