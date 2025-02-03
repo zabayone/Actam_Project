@@ -54,6 +54,7 @@ function showMessage(){
                 <p>&#9654 Begins the game and also to repeat the first note</p> 
                 <p>&#8634 Repeats all the played notes</p> 
                 <p>&#11208&#11208 Goes to next one</p> 
+                <p>You can also play the different options after trying your guess to compare</p>
             `
                 break;
             case 3:
@@ -65,6 +66,7 @@ function showMessage(){
                 <p>&#9654 Repeats the reference note</p> 
                 <p>&#8634 Also repeats the reference note</p> 
                 <p>&#11208&#11208 Goes to next one</p> 
+                <p>You can also play the different options after trying your guess to compare</p>
 
             `
                 break;

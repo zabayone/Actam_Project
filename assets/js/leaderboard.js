@@ -29,11 +29,6 @@ document.addEventListener('gameEnd', (event) => {
 });
 
 function createLeaderboardStructure() {
-    const Keyboard = document.getElementById("keyboard");
-
-    if (Keyboard != 'null'){
-        Keyboard.style.display = "none";
-    }
     
         const container = document.createElement('div');
         container.id = 'leaderboard-container'; 
