@@ -213,10 +213,14 @@ async function getPitch() {
                 if (detune < 50 || detune > -50) {
                     storage.setCorrect(chosen_type, curr_idx);
                     correct.innerHTML = 'Correct answer!'
+                    correct.style.color = 'green'
+                    correct.style.fontSize = '24px';
                 }
                 else {
                     storage.setIncorrect(chosen_type, curr_idx);
                     correct.innerHTML = 'Wrong answer!'
+                    correct.style.color = 'red'
+                    correct.style.fontSize = '24px';
                 }
 
         }

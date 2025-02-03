@@ -1047,3 +1047,7 @@ label {
     -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
     filter: drop-shadow(1px 5px 5px #606060b9);
 }
+
+.exercisePrompt{
+    margin-bottom: 5%;
+}
