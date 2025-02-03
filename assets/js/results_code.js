@@ -131,7 +131,7 @@ async function showCategory(category) {
         if (category == 'exercise') {
             dyn_txt += ' ' + parseInt(curr_exe + 1).toString() + '.'
         } else {
-            console.log(curr_day)
+            //console.log(curr_day)
             dyn_txt += ' ' + day_array[curr_day].date + '.'
         }
     }
@@ -144,15 +144,15 @@ async function showCategory(category) {
 async function getBars(category) {
     let out = ''
     let language = localStorage.getItem('language');
-    console.log(category)
+    //console.log(category)
     if (category == 'exercise') {
         let keys = exe_array[curr_exe].getKeys()
         let types_arr = exe_array[curr_exe].getTypes()
         let categ = exe_array[curr_exe].getCategory()
         categ = parseInt(categ)
-        console.log(keys)
-        console.log(types_arr)
-        console.log(categ)
+        //console.log(keys)
+        //console.log(types_arr)
+        //console.log(categ)
         let idx = 0;
         let types = []
         for await (const t of types_arr){
@@ -162,7 +162,7 @@ async function getBars(category) {
             }
             idx += 1
         }
-        console.log(types)
+        //console.log(types)
         switch (categ) {
             case 0:
                 for (let key_i = 0; key_i < keys.length; key_i++) {
@@ -204,7 +204,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} (${perc.toString()}%)</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} | (${perc.toString()}%)</p>
                                  </div>`
                     }
                } 
@@ -249,7 +249,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -294,7 +294,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -336,7 +336,7 @@ async function getBars(category) {
                                              ${correctBarsHTML}
                                          </div>
                                      </div>
-                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                     <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                                  </div>`
                     }
                } 
@@ -389,7 +389,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -438,7 +438,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -487,7 +487,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -533,7 +533,7 @@ async function getBars(category) {
                                          ${correctBarsHTML}
                                      </div>
                                  </div>
-                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} ${perc.toString()}%</p>
+                                 <p class="exercisePercentage">${pair[0]}/${pair[1]} | ${perc.toString()}%</p>
                              </div>`
                 }
             }
@@ -566,7 +566,7 @@ async function init(){
     str = "Day-" + i.toString()
     item = localStorage.getItem(str)
     while(item){
-        //console.log(item)
+        ////console.log(item)
         day_array.push(new DayContainer(i))
         let pair = day_array[day_array.length-1].calculateTotalCorrectResults()
         if(pair[1] == 0) day_array.pop()
@@ -577,5 +577,34 @@ async function init(){
     curr_day = i-1
     is_first = 0
 }
+
+const littleGuy=document.getElementById('boton');
+let active=false;
+
+
+function showMessage(){
+    let cat = localStorage.getItem("category");
+    let level = localStorage.getItem("level");
+    const container =document.getElementById("tutorial");
+    container.style.display="block"
+    container.innerHTML = `
+    <p>Here are your stats</p>
+    <p>On exercise, you can check every exercise you did on your last sesion</p> 
+    <p>On the other windows, you can check your detailed results for each day</p> 
+    <p>On the right, you can select which day do you want to look at</p> 
+`
+
+}
+
+littleGuy.addEventListener('click', () => {
+    // Remove the 'active' class from all elements
+    if(active){
+        document.getElementById("tutorial").innerHTML='';
+        tutorial.style.display='none';
+    }else{
+        showMessage();
+    }
+    active = !active
+});
 
 init()

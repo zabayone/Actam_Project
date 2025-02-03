@@ -49,7 +49,7 @@ async function playRandomNote(){ // function that creates the next
         //exec at the end
         showGameOverModal();
         
-        console.log("Enviando evento gameEnd...");
+        //console.log("Enviando evento gameEnd...");
         const gameEndEvent = new CustomEvent('gameEnd', { 
             detail: { score: correct }
         });
@@ -70,13 +70,13 @@ async function checkAndPlay(midi_arr){
         });
     } else {
         if((midi_arr[0])%12 == note){
-            console.log("correct");
+            //console.log("correct");
             correct += 1
             //color the corresponding ball green
             let scoreBall = document.querySelectorAll(".scoreBall")[rep_index - 1];
             scoreBall.style.backgroundColor = "green";
         } else {
-            console.log("incorrect");
+            //console.log("incorrect");
             //color the corresponding ball red
             let scoreBall = document.querySelectorAll(".scoreBall")[rep_index - 1];
             scoreBall.style.backgroundColor = "red";
@@ -158,5 +158,35 @@ function clearScoreBalls() {
         scoreBall.remove();
     });
 }
+
+const littleGuy=document.getElementById('boton');
+let active=false;
+
+
+function showMessage(){
+    let cat = localStorage.getItem("category");
+    let level = localStorage.getItem("level");
+    const container =document.getElementById("tutorial");
+    container.style.display="block"
+    container.innerHTML = `
+    <p>¡Try to guess the given note!</p>
+    <p>You can use the keyboard to get a reference</p> 
+    <p>Once you hit play a note will sound</p> 
+    <p>The next key you press after play is your guess</p> 
+    <p>After guessing you can freely use the keyboard again until you press play</p> 
+`
+
+}
+
+littleGuy.addEventListener('click', () => {
+    // Remove the 'active' class from all elements
+    if(active){
+        document.getElementById("tutorial").innerHTML='';
+        tutorial.style.display='none';
+    }else{
+        showMessage();
+    }
+    active = !active
+});
 
 GenerateScoreBalls();

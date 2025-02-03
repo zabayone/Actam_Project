@@ -18,11 +18,6 @@ let isPlaying = false;
 let pipes = [];
 let score = 0;
 
-document.addEventListener('gameEnd', (event) => {
-    console.log("GameEnd recibido!", event.detail);
-    // Aquí podemos acceder a event.detail.score
-});
-
 
 // https://github.com/cwilso/PitchDetect/blob/main/js/pitchdetect.js
 var MIN_SAMPLES = 0;  // will be initialized when AudioContext is created.
@@ -146,7 +141,7 @@ function setupBackground() {
     });
 }
 
-
+//Beguins to listen to the pitch
 function startPitchTrack(){
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 2048;
@@ -158,6 +153,7 @@ function startPitchTrack(){
 
 }
 
+//Gets the pitch and compute the position
 function getPitch(){
     analyser.getFloatTimeDomainData(buffer);
     let frequencyInHz = autoCorrelate(buffer, audioContext.sampleRate);
@@ -198,17 +194,18 @@ function updatePlayerPosition(note) {
     if(note>12){note+= -12}
 
     playerY = sectionHeight*(12-note)/12;
-    console.log(playerY + " / " +note);
+    //console.log(playerY + " / " +note);
 
     player.style.top = `${playerY}px`;
 }
 
+//Get the info about the mircophone
 function getMicrophoneStream(){
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream){
             currStream = stream;
-            console.log('got microphone stream');
-            console.log(stream);
+            //console.log('got microphone stream');
+            //console.log(stream);
 
             audioContext = new AudioContext();
 
@@ -225,7 +222,7 @@ function getMicrophoneStream(){
 function stopMicrophoneStream(){
     if(currStream !== null){
         let tracks = currStream.getTracks();
-        console.log(tracks);
+        //console.log(tracks);
 
         for(let i=0; i<tracks.length;i++){
             tracks[i].stop();
@@ -293,23 +290,19 @@ function spawnPipes() {
 
 // Move pipes
 function movePipes() {
-    // Iterar de dos en dos, empezando desde el final
     for(let i = pipes.length - 2; i >= 0; i -= 2) {
         const pipeTop = pipes[i];
         const pipeBottom = pipes[i + 1];
-        
-        // Verificar que ambas tuberías existen
         if (!pipeTop || !pipeBottom) continue;
         
         const leftTop = parseInt(window.getComputedStyle(pipeTop).left, 10);
         const leftBottom = parseInt(window.getComputedStyle(pipeBottom).left, 10);
         
         if (leftTop < -80) {
-            // Eliminar ambas tuberías juntas
             score++;
             pipeTop.remove();
             pipeBottom.remove();
-            pipes.splice(i, 2); // Eliminar ambos elementos del array
+            pipes.splice(i, 2);
         } else {
             pipeTop.style.left = `${leftTop - pipeSpeed}px`;
             pipeBottom.style.left = `${leftBottom - pipeSpeed}px`;
@@ -327,12 +320,10 @@ function checkCollisions() {
         right: playerBounds.right - (playerBounds.width * 0.05)
     };
 
-    // Asegurarnos de procesar las tuberías en pares
     for (let i = 0; i < pipes.length - 1; i += 2) {
         const pipeTop = pipes[i];
         const pipeBottom = pipes[i + 1];
         
-        // Verificación de seguridad
         if (!pipeTop?.parentNode || !pipeBottom?.parentNode) {
             continue;
         }
@@ -387,20 +378,18 @@ function endGame() {
     showGameOverModal();
     finalScore.textContent = score;
 
-    console.log("Enviando evento gameEnd...");
+    //console.log("Enviando evento gameEnd...");
     
     const gameEndEvent = new CustomEvent('gameEnd', { 
         detail: { score: score }
     });
     document.dispatchEvent(gameEndEvent);
     
-    // También enviamos test para verificar
     document.dispatchEvent(new Event('test'));
 }
 
 // Restart game
 function restartGame() {
-    // Eliminar la tabla de leaderboard si existe
     const leaderboard = document.getElementById('leaderboard-container');
     if (leaderboard) {
         leaderboard.remove();
@@ -437,7 +426,7 @@ document.addEventListener('click', () => {
     }
     if (audioContext.state === 'suspended') {
         audioContext.resume().then(() => {
-            console.log("AudioContext resumed after user gesture");
+            //console.log("AudioContext resumed after user gesture");
         });
     }
 });

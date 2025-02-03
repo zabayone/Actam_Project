@@ -12,7 +12,7 @@
     <!-- Firebase and Script -->
     <script src="/assets/js/script.js" defer></script>
     <script src="/assets/js/funcs.js" defer></script>
-    <script src="/assets/js/checkbox.js" defer></script>
+    <script src="/assets/js/littleSillyGuy.js" defer></script>
 
 </head>
 <body onload="loadLevels()">
@@ -35,9 +35,15 @@
             <p id="information" data-translate="guest"> Guest </p>
         </div>
     </header>
+    
 
     <!-- Main Content Section -->
     <main class="main-container">
+        <div id="tutorial" class="tutorial"></div>
+        <div class="helpMeMap">
+            <img src="/assets/img/unnamed.png" class="mascotteLevel" id="boton"></img>
+            <p class="help">Click me for help!</p>
+        </div>
         <div class="level-info">
             <h2 id="categoryHeading" data-translate="categoryHeading">Category Information</h2>
             <p id="categoryDescription" data-translate="categoryDescription">Loading...</p>
@@ -50,6 +56,9 @@
             
         </div>       
     </main>
+
+
+
     
 </body>
 </html>

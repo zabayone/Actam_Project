@@ -1,7 +1,7 @@
 // Translation dictionary for multiple languages
 const translations = {
     en: {
-        title: "Actam Project",
+        title: "Ear Buddy",
         loginBtn: "Login",
         registerBtn: "Register",
         trainPrompt: "What would you like to train today?",
@@ -81,7 +81,7 @@ const translations = {
         reps:"Repetitions:",
     },
     it: {
-        title: "Progetto Actam",
+        title: "Ear Buddy",
         loginBtn: "Accedi",
         registerBtn: "Registrati",
         trainPrompt: "Cosa vuoi allenare oggi?",
@@ -266,8 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const level = button.getAttribute('data-level'); // Get level number
             
             // Debugging logs to verify correct behavior
-            console.log('Redirecting to level:', level);
-            console.log('Category:', category);
+            //console.log('Redirecting to level:', level);
+            //console.log('Category:', category);
 
             // Redirect to the level.html with category and level in the query string
             window.location.href = `level.html?category=${category}&level=${level}`;

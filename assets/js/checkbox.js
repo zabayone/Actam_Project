@@ -114,6 +114,8 @@ function generateCheckbox(category){
             </button>
             <div id="intervals" class="selector-content collapsed">
                 <div class="checkbox-grid" id="grid">`
+
+            //console.log('error');
             for (let i = 0; i < interval_text.length; i++){
                 out += `<div><input type="checkbox" id="voc${i}" value="${i}" class="selected" onclick="enableStart()"><label for="voc${i}">${interval_text[i]}</label></div>`
             }
@@ -138,12 +140,6 @@ function toggleSection(id) {
         btn.textContent.replace('▲', '▼');
 }
 
-function customLevel(){
-    const button=document.getElementById('custom-btn');
-    button.addEventListener('click',()=>{
-        window.location.href = `sandbox.html`;
-    });
-}
 
 async function start(){
     let reps = document.getElementById('reps').value

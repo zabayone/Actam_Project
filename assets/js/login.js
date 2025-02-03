@@ -14,13 +14,14 @@ const userData = docSnap.data().levels;*/
 
 
 //Manage local storing
+localStorage.removeItem("level")
 
 let lvlInfo = ['lvlInterval', 'lvlChord', 'lvlScale', 'lvlEar'];
 let minigamesInfo = ['game1Score', 'game2Score', 'game3Score'];
 
-/*console.log(userData[1])
+/*//console.log(userData[1])
 localStorage.setItem(lvlInfo[1],3)
-console.log(localStorage.getItem(lvlInfo[1]))*/
+//console.log(localStorage.getItem(lvlInfo[1]))*/
 
 lvlInfo.forEach(element => {
   if (!localStorage.getItem(element)) {
@@ -56,51 +57,51 @@ async function loadDays() {
 }
 
 async function loadSingleDay(index) {
-  // console.log(`Loading day ${index}`);
+  // //console.log(`Loading day ${index}`);
   return new DayContainer(index);
 }
 
 async function syncDaysToFirebase(userData, docRef) {
-  console.log("Starting Firebase sync...");
-  console.log("day_array length:", day_array.length);
-  console.log("userData keys:", Object.keys(userData));
+  //console.log("Starting Firebase sync...");
+  //console.log("day_array length:", day_array.length);
+  //console.log("userData keys:", Object.keys(userData));
   
   if (!day_array.length) {
-      console.log("Warning: day_array is empty!");
+      //console.log("Warning: day_array is empty!");
       return;
   }
 
   for (const element of day_array) {
-      console.log("\nProcessing day:", {
+      /*console.log("\nProcessing day:", {
           date: element.date,
           hasData: !!element.stringify(),
           existsInUserData: element.date in userData
-      });
+      });*/
 
       const day_date = element.date;
       const firebaseDate = formatDateForFirebase(day_date);
       
       if (!(firebaseDate in userData)) {
           const day_str = element.stringify();
-          console.log(`Attempting to add day ${day_date}`);
+          //console.log(`Attempting to add day ${day_date}`);
           try {
               await updateDoc(docRef, {
                   [firebaseDate]: formatDateForFirebase(day_str)
               });
-              console.log(`Day ${day_date} added to Firebase`);
+              //console.log(`Day ${day_date} added to Firebase`);
           } catch (error) {
               console.error(`Error adding day ${day_date}:`, error);
           }
       } else {
-          console.log(`Day ${day_date} already in Firebase`);
+          //console.log(`Day ${day_date} already in Firebase`);
       }
   }
   
-  console.log("Firebase sync completed");
+  //console.log("Firebase sync completed");
 }
 
 async function syncDaysFromFirebase(userData) {
-  console.log("Starting sync from Firebase...");
+  //console.log("Starting sync from Firebase...");
   
   for (const [date, data] of Object.entries(userData)) {
       // Ignorar campos que no son días
@@ -110,7 +111,7 @@ async function syncDaysFromFirebase(userData) {
       
       // Verificar si el día ya existe en el array local
       if (!day_array.some(day => day.date === localDate)) {
-          console.log(`Found new day in Firebase: ${localDate}`);
+          //console.log(`Found new day in Firebase: ${localDate}`);
           
           try {
               const newDay = new DayContainer(null, localDate);
@@ -118,20 +119,20 @@ async function syncDaysFromFirebase(userData) {
               //newDay.printArray();
               //day_array.push(newDay);
               newDay.localStore();
-              console.log(`Day ${localDate} added to local storage`);
+              //console.log(`Day ${localDate} added to local storage`);
           } catch (error) {
               console.error(`Error adding day ${localDate} to local storage:`, error);
           }
       } else {
-          console.log(`Day ${localDate} already in local storage`);
+          //console.log(`Day ${localDate} already in local storage`);
       }
   }
   
-  console.log("Firebase to local sync completed");
+  //console.log("Firebase to local sync completed");
 }
 
 function clearLocalDays() {
-  console.log("Starting complete cleanup of day data...");
+  //console.log("Starting complete cleanup of day data...");
   
   // Limpiar entradas Day-X
   Object.keys(localStorage)
@@ -159,9 +160,9 @@ function clearLocalDays() {
 
   // Limpiar el array en memoria
   day_array = [];
-  console.log("Memory array cleared");
+  //console.log("Memory array cleared");
   
-  console.log("Complete cleanup finished");
+  //console.log("Complete cleanup finished");
 }
 
 function formatDateForFirebase(date) {
@@ -206,7 +207,7 @@ async function compareData(user){
     await syncDaysFromFirebase(userData);
   }
   else{
-    console.log("El documento no existe.");
+    //console.log("El documento no existe.");
   }
 }
 
@@ -228,7 +229,7 @@ async function updateLocalData(user){
     await syncDaysFromFirebase(userData);
   }
   else{
-    console.log("El documento no existe.");
+    //console.log("El documento no existe.");
   }
 }
 
@@ -256,7 +257,7 @@ async function storeData(user){
     await syncDaysToFirebase(userData,docRef);
   }
   else{
-    console.log("El documento no existe.");
+    //console.log("El documento no existe.");
   }
 }
 
@@ -267,12 +268,12 @@ if (localStorage.getItem('username')) {//If a user is already stored
   const docRef = doc(usernamesCollection, user);  
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {//Exist on database (we update to the best version)
-    console.log(user)
+    //console.log(user)
     await compareData(user)
   }
   else{//Exists locally but not on the database
     localStorage.removeItem('username')
-    console.log('removed')
+    //console.log('removed')
   }
 }
 
@@ -288,12 +289,12 @@ async function checkLogin(user, password) {
       if (docSnap.data().password === password) {
         informationElem.style.display = 'block';
         informationElem.innerText = `Welcome back, ${user}!`;
-        console.log(user);
+        //console.log(user);
         
 
         if (localStorage.getItem('username')) {
           const oldUser=localStorage.getItem('username');
-          console.log(oldUser)
+          //console.log(oldUser)
           await storeData(oldUser);
           await updateLocalData(user)
         }
@@ -363,8 +364,8 @@ document.getElementById('Login').addEventListener('click', function() {
     informationElem.style.display = 'block';
     informationElem.innerText = "Please fill in both fields.";
   } else {
-    //console.log("user:", user);
-    //console.log("Password:", password);
+    ////console.log("user:", user);
+    ////console.log("Password:", password);
     checkLogin(user, password);
   }
 });
@@ -380,8 +381,8 @@ document.getElementById('Register').addEventListener('click', function() {
     informationElem.innerText = "Please fill in both fields.";
   } else {
     informationElem.innerText = 'Good';
-    //console.log("user:", user);
-    //console.log("Password:", password);
+    ////console.log("user:", user);
+    ////console.log("Password:", password);
     checkRegister(user, password);
   }
 });
