@@ -399,7 +399,7 @@ async function getBars(category) {
             break;
             case 'chords':
             exe = 1;
-            for (let key = 0; key < interval_text.length; key++) {
+            for (let key = 0; key < chord_text.length; key++) {
                 for (let type = 0; type < 3; type++) {
                     let pair = day_array[curr_day].getValuePair(type,key, exe)
                     if(pair[1] == 0) continue;
@@ -448,7 +448,7 @@ async function getBars(category) {
             break;
             case 'scales':
             exe = 2;
-            for (let key = 0; key < interval_text.length; key++) {
+            for (let key = 0; key < scale_text.length; key++) {
                 for (let type = 0; type < 3; type++) {
                     let pair = day_array[curr_day].getValuePair(type,key, exe)
                     if(pair[1] == 0) continue;

@@ -262,7 +262,7 @@ async function next(){ // function that creates the next
             score = pair[0];
             console.log(score);
 
-            if(score/pair[1]>0.9){
+            if(score/pair[1]>=0.9){
                 showResultModal(true);
                 //Add condition to this to only happen if the the level is succed.
                 let actualLevel =parseInt(localStorage.getItem(lvlInfo[parseInt(cat)]))
@@ -405,6 +405,7 @@ async function init() {
     butt_div.innerHTML = buttonHtml
 
     if(test == 1) {
+        reps = 25
         key_div.style.display = 'contents'
         key_div.innerHTML = ''
     }
