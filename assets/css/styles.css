@@ -1079,6 +1079,7 @@ label {
     left: 50%;
     transform: translateX(-50%) scale(0.7);
     margin: -7%;
+    margin-left: -48%;
     -webkit-filter: drop-shadow(1px 5px 5px #787878bd);
     filter: drop-shadow(1px 5px 5px #606060b9);
 }
@@ -1088,6 +1089,7 @@ label {
     left: 50%;
     transform: translateX(-50%) scale(0.73);
     margin: -7%;
+    margin-left: -48%;
     -webkit-filter: drop-shadow(1px 6px 6px #4f4f4fbd);
     filter: drop-shadow(1px 6px 6px #434343b9);
 }
